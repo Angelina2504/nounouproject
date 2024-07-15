@@ -1,8 +1,44 @@
-# React + Vite
+## Concept
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The website "Des signes et des mots" is a site to facilite the communication between family and the nanny. 
 
-Currently, two official plugins are available:
+## Features
+ 
+ # In the V1
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ - nanny presentation page.
+ - home page family
+ 
+ # upcoming
+
+ - Calendar page
+
+## Setup & Use
+
+ # Project Initialization
+
+ - In VSCode, install plugins Prettier.
+
+ - Code formatter and ESLint and configure them.
+
+ - Type this command in your terminal if you're running Windows :
+
+   - git config --global core.eol lf,
+   - git config --global core.autocrlf false.
+
+ - Run command npm i and npm run dev.
+
+
+## Available Commands
+
+## FAQ
+
+## Technologies 
+
+- JS.
+- React.
+- Node.
+- Express.
+- MySQL.
+
+## Tools
