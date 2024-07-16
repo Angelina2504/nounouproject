@@ -8,6 +8,7 @@ import Home from "./pages/Home"
 import Family from "./pages/Family";
 import Login from "./pages/Login";
 import Register from "./pages/Registration"
+import Admin from "./pages/Admin"
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/admin",
+          element: <Admin />,
         },
         ]
   },
