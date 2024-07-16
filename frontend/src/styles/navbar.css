@@ -1,0 +1,11 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffff54;
+    height: 100px;
+}
+
+.logo {
+ height: 250px;
+}
