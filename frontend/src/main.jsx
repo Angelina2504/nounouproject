@@ -9,6 +9,7 @@ import Family from "./pages/Family";
 import Login from "./pages/Login";
 import Register from "./pages/Registration"
 import Admin from "./pages/Admin"
+import Profil from "./pages/Profil"
 
 
 const router = createBrowserRouter([
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
         {
           path: "/admin",
           element: <Admin />,
+        },
+        {
+           path: "/profil",
+          element: <Profil />,
         },
         ]
   },
