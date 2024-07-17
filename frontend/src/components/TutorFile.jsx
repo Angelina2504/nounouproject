@@ -1,10 +1,12 @@
+import "../styles/tutorFile.css"
+
 export default function TutorFile() {
     return (
-        <>
+        <section className="tutorFile">
         <h2>Fiche d'information des tuteurs</h2>
        
-       <form action="">
-        
+       <form className="tutorForm" action="">
+
             <label htmlFor="">Nom</label>
             <input type="text" />
 
@@ -15,6 +17,6 @@ export default function TutorFile() {
             <input type="text" />
             
         </form>
-        </>
+        </section>
     )
 }

@@ -1,10 +1,11 @@
+import "../styles/childrenFile.css"
 
 export default function ChildrenFile() {
     return (
-        <>
+        <section className="childrenFile">
         <h2>Fiche enfant</h2>
 
-        <form action="">
+        <form className="childrenForm" action="">
             <label htmlFor="">Nom</label>
             <input type="text" />
 
@@ -15,6 +16,6 @@ export default function ChildrenFile() {
             <input type="text" />
 
         </form>
-        </>
+        </section>
     )
 }
