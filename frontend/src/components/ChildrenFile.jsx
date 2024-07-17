@@ -15,6 +15,8 @@ export default function ChildrenFile() {
             <label htmlFor="">Date de naissance</label>
             <input type="text" />
 
+            <button>Envoyer</button>
+
         </form>
         </section>
     )

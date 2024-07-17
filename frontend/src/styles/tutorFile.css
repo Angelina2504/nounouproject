@@ -20,4 +20,9 @@
     input {
         border-radius: 15px;
     }
+
+    button {
+        margin-top: 10px;
+        border-radius: 15px;
+    }
 }
