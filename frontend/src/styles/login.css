@@ -15,7 +15,8 @@
     border-color: #69353F;
     border-radius: 15px;
     padding: 10px;
-
+    gap: 10px;
+    
     input {
         border-radius: 15px;
     }
