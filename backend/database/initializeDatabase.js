@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const pool = require("./db-connection");
+const pool = require("./db_connection");
 
 const initializeDatabase = async () => {
   try {
