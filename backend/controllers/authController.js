@@ -17,7 +17,7 @@ const login = async (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        res.json({ success: true, user: { id: user.id, email: user.email, firstname: user.firstname, lastname: user.lastname } });
+        res.json({ success: true, user: { id: user.id, email: user.email} });
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
@@ -25,8 +25,8 @@ const login = async (req, res) => {
 };
 
 
-/* const register = async (req, res) => {
-    const { email, password, firstname, lastname } = req.body;
+ const register = async (req, res) => {
+    const { email, password} = req.body;
 
     try {
         const hashedPassword = await argon2.hash(password);
@@ -46,6 +46,6 @@ const login = async (req, res) => {
 
 const checkAuth = (req, res) => {
     res.json({authenticated: true})
-}; */
+}; 
 
-module.exports = {login, /*register, checkAuth*/};
+module.exports = { login, register, checkAuth };
