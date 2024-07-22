@@ -37,7 +37,7 @@ router.post("/", async (req, res) => {
   try {
     const { name, email } = req.body;
     const result = await pool.query(
-      "INSERT INTO users (name, email) VALUES (?, ?)",
+      "INSERT INTO users (email) VALUES (?)",
       [name, email]
     );
     res

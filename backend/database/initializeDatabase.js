@@ -4,7 +4,7 @@ const pool = require("./db_connection");
 
 const initializeDatabase = async () => {
   try {
-    const sqlPath = path.join(__dirname, "datas.sql");
+    const sqlPath = path.join(__dirname, "schema.sql");
     const sql = fs.readFileSync(sqlPath, "utf-8");
 
     const queries = sql

@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 
 
 const routes = require("./routes/routes");
-const authRoutes = require("./routes/authRoutes");
+const authRoutes = require("./routes/authroutes");
 const usersRoutes = require("./routes/usersRoutes");
 
 //Variable qui permet de stocker l'instance express
