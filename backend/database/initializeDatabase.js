@@ -19,6 +19,9 @@ const initializeDatabase = async () => {
     connection.release();
 
     console.log("Database initialized successfully");
+    console.log("================================");
+    console.log("/!\\ TABLES HAS BEEN DROPPED!");
+    console.log("================================");
   } catch (error) {
     console.error("Error initializing database:", error);
   }

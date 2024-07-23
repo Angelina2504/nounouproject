@@ -2,9 +2,9 @@ const pool = require("../database/db_connection")
 
 const findOneByEmail = async (email) => {
 
-const [rows] = await pool.query("SELECT * FROM users WHERE email = ?", [email]);
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
 
-return rows/*.length ? rows[0] : null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
+    return rows[0] || null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
 };
 
 const createUser = async (user) => {

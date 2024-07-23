@@ -11,7 +11,7 @@ const login = async (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        const passwordMatch = await argon2.verify(user.password, password);
+         const passwordMatch = await argon2.verify(user.password, password);
 
         if (!passwordMatch) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });

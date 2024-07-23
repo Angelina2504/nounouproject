@@ -22,7 +22,7 @@ const checkLoginDatas = (req, res, next) => {
   if (!error) {
     next();
   } else {
-    console.error("Valikdation error :", error);
+    console.error("Validation error :", error);
     res.status(400).json(error);
   }
 };
