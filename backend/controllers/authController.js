@@ -36,7 +36,7 @@ const login = async (req, res) => {
             password: hashedPassword,
         });
 
-        res.json({ success: true, userId: String(userId) }); //a voir pour me retourner id en undefined
+        res.status(201).json({ success: true, userId: String(userId) }); //a voir pour me retourner id en undefined
     } catch (error) {
         console.error("Error registering user :", error);
         res.status(500).json({ success: false, message: "Internal server error" });
