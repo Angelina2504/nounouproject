@@ -3,7 +3,7 @@ export default function Family (){
     return (
         <>
         <p>
-            hellooo
+            Family
         </p>
         </>
     );
