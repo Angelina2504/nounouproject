@@ -16,7 +16,7 @@ const checkRegisterDatas = (req, res, next) => {
 const checkLoginDatas = (req, res, next) => {
   const { error } = Joi.object({
     email: Joi.string().email().presence("required"),
-    password: Joi.string().min(6).max(20).presence("required"),
+    password: Joi.string().presence("required"),
   }).validate(req.body, { abortEarly: false });
 
   if (!error) {
