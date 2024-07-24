@@ -20,7 +20,7 @@ export default function Navbar() {
             ) : (
             <>
             <Link to="/login">Se connecter</Link>
-            <Link to="/register">S'inscrire</Link>  
+            <Link to="/register">S&rsquo;inscrire</Link>  
             </>
             )
         
