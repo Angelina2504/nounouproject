@@ -1,0 +1,5 @@
+.allLink {
+    display: flex;
+    justify-content: space-around;
+    background-color: #FFFF54;
+}
