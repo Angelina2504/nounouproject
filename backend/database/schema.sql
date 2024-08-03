@@ -1,4 +1,3 @@
-
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
@@ -31,7 +30,7 @@ CREATE TABLE child (
     birthdate DATE,
     allergy VARCHAR(255),
     users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users(id),
+    FOREIGN KEY (users_id) REFERENCES users (id),
 );
 
 CREATE TABLE emergency_contact (
@@ -49,95 +48,126 @@ CREATE TABLE announcement (
     description TEXT NOT NULL,
     date DATE,
     users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users(id)
+    FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
 CREATE TABLE upload (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
     users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users(id)
+    FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
 CREATE TABLE users_todo (
     user_id INT,
     todo_id INT,
     PRIMARY KEY (user_id, todo_id),
-    FOREIGN KEY (user_id) REFERENCES users(id),
-    FOREIGN KEY (todo_id) REFERENCES todo(id)
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (todo_id) REFERENCES todo (id)
 );
 
 CREATE TABLE tutor_child (
     tutor_id INT,
     child_id INT,
     PRIMARY KEY (child_id, tutor_id),
-    FOREIGN KEY (child_id) REFERENCES child(id) ON DELETE CASCADE,
-    FOREIGN KEY (tutor_id) REFERENCES tutor(id) ON DELETE CASCADE
+    FOREIGN KEY (child_id) REFERENCES child (id) ON DELETE CASCADE,
+    FOREIGN KEY (tutor_id) REFERENCES tutor (id) ON DELETE CASCADE
 );
 
 CREATE TABLE child_emergency_contact (
     child_id INT,
     contact_id INT,
     PRIMARY KEY (child_id, contact_id),
-    FOREIGN KEY (child_id) REFERENCES child(id) ON DELETE CASCADE,
+    FOREIGN KEY (child_id) REFERENCES child (id) ON DELETE CASCADE,
     FOREIGN KEY (contact_id)
+)
+
+INSERT INTO
+    users (email, password)
+VALUES (
+        "tata@tata.com",
+        "$argon2id$v=19$m=65536,t=3,p=4$4d2PFFxtsKgGBej3eniM3A$BJJf55bFVWU9j35+6PwMKotFttddi2UZSXdZupWLSpY"
+    );
+
+INSERT INTO
+    tutor (
+        lastname,
+        firstname,
+        phone_number,
+        address
+    )
+VALUES (
+        "Tu",
+        "Teur",
+        "tu.teur@tuteur.com",
+        "0678361512",
+        "3 rue du tuteur 67000 Strasbourg"
     )
 
-INSERT INTO 
-users (
-    email, password
-)
+INSERT INTO
+    child (
+        lastname,
+        firstname,
+        birthdate,
+        allergy
+    )
 VALUES (
-    "tata@tata.com",
-    "$argon2id$v=19$m=65536,t=3,p=4$4d2PFFxtsKgGBej3eniM3A$BJJf55bFVWU9j35+6PwMKotFttddi2UZSXdZupWLSpY"
-);
+        "Mi",
+        "GNON",
+        "25/04/1992",
+        "poivron"
+    )
 
-INSERT INTO 
-tutor (
-    lastname, firstname, phone_number, address
-)
+INSERT INTO
+    emergency_contact (
+        lastname,
+        firstname,
+        relationship,
+        adress,
+        phone_number
+    )
 VALUES (
-    "Tu", "Teur", "tu.teur@tuteur.com", "0678361512", "3 rue du tuteur 67000 Strasbourg"
-)
+        "Urg",
+        "Ence",
+        "friend",
+        "3 rue sos 67000 strasbourg",
+        "0625234869"
+    )
 
-INSERT INTO child (
-    lastname, firstname, birthdate, allergy
-)
-VALUES(
-    "Mi","GNON", "25/04/1992", "poivron" 
-)
+INSERT INTO
+    todo (
+        title,
+        description,
+        status,
+        date
+    )
+VALUES (
+        "Important",
+        "prendre les affaires de pluies",
+        "pending",
+        "01/08/2024"
+    )
 
-INSERT INTO emergency_contact(
-    lastname, firstname, relationship, adress, phone_number
-)
-VALUES(
-    "Urg", "Ence", "friend", "3 rue sos 67000 strasbourg", "0625234869" 
-)
+INSERT INTO
+    announcement (title, description, date)
+VALUES (
+        "Noël",
+        "gouter avec les parents de 18h à 19h",
+        "15/02/2024"
+    )
 
-INSERT INTO todo(
-    title, description, status, date
-)
-VALUES(
-    "Important", "prendre les affaires de pluies", "pending", "01/08/2024" 
-)
+INSERT INTO
+    upload (title)
+VALUES ("Ordonnance pour Pierre")
 
-INSERT INTO announcement(
-    title, description, date
-)
-VALUES(
-    "Noël", "gouter avec les parents de 18h à 19h", "15/02/2024"
-)
+INSERT INTO
+    tutor_child (tutor_id, child_id)
+VALUES (1, 1)
 
-INSERT INTO upload(
-     title
-)
-VALUES(
-    "Ordonnance pour Pierre"
-)
+INSERT INTO
+    child_emergency_contact (child_id, contact_id)
+VALUES (1, 1)
 
-INSERT INTO child_emergency_contact(
-    child_id, contact_id
-)
-VALUES(
-    1,1
-)
+INSERT INTO
+    users_todo (users_id, todo_id)
+VALUES (1, 1)
