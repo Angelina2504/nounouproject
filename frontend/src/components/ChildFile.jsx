@@ -1,6 +1,6 @@
 import "../styles/childFile.css"
 
-export default function ChildFileFile() {
+export default function ChildFile() {
     return (
         <section className="childFile">
         <h2>Fiche enfant</h2>
