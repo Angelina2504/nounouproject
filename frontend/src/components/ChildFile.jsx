@@ -1,11 +1,11 @@
-import "../styles/childrenFile.css"
+import "../styles/childFile.css"
 
-export default function ChildrenFile() {
+export default function ChildFileFile() {
     return (
-        <section className="childrenFile">
+        <section className="childFile">
         <h2>Fiche enfant</h2>
 
-        <form className="childrenForm" action="">
+        <form className="childForm" action="">
             <label htmlFor="">Nom</label>
             <input type="text" />
 
