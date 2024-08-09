@@ -1,13 +1,18 @@
-const pool = require("../database/db_connection")
+const abstractRepository = require("./abstractRepository");
 
-const findOneByEmail = async (email) => {
+class userRepository extends abstractRepository {
+    constructor() {
+      super({ table: "tutor" });
+    }
+
+async findOneByEmail (email) {
 
     const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
 
     return rows[0] || null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
 };
 
-const createUser = async (user) => {
+async createUser (user) {
     try {
        
         const result = await pool.query(
@@ -21,7 +26,6 @@ const createUser = async (user) => {
         throw error;
     }
 }
- 
+}
 
-
-module.exports = { findOneByEmail, createUser };
+module.exports = userRepository;
