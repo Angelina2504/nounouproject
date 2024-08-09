@@ -22,6 +22,14 @@ CREATE TABLE todo (
     status ENUM('pending', 'completed'),
     date DATE
 );
+CREATE TABLE emergency_contact (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    lastname VARCHAR(255),
+    firstname VARCHAR(255),
+    relationship VARCHAR(255),
+    address VARCHAR(255),
+    phone_number VARCHAR(255)
+);
 
 CREATE TABLE child (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -31,15 +39,6 @@ CREATE TABLE child (
     allergy VARCHAR(255),
     user_id INT,
     FOREIGN KEY (user_id) REFERENCES user (id)
-);
-
-CREATE TABLE emergency_contact (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    lastname VARCHAR(255),
-    firstname VARCHAR(255),
-    relationship VARCHAR(255),
-    address VARCHAR(255),
-    phone_number VARCHAR(255)
 );
 
 CREATE TABLE announcement (

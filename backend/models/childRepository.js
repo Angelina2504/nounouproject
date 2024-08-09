@@ -1,13 +1,13 @@
-const abstractRepository = require("./AbstractRepository");
+const AbstractRepository = require("./AbstractRepository");
 
-class childRepository extends abstractRepository {
+class ChildRepository extends AbstractRepository {
   constructor() {
     super({ table: "child" });
   }
 
   async create(child) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (lastname, firstname, birthdate, allergy, user_id) values (?, ?)`,
+      `insert into ${this.table} (lastname, firstname, birthdate, allergy, user_id) values (?, ?, ?, ?, ?)`,
       [child.lastname, 
        child.firstname,
        child.bithdate,
@@ -36,7 +36,11 @@ class childRepository extends abstractRepository {
   async update(child) {
     const [result] = await this.database.query(
       `update ${this.table} set lastname = ?, firstname = ?, birthdate = ?,  allergy = ?, user_id = ? where id = ?`,
-      [plugs.volt_power, plugs.plug_type_id, plugs.id]
+      [child.lastname,
+       child.firstname,
+       child.birthdate,
+       child.allergy,
+       child.user_id]
     );
 
     return result.affectedRows;
@@ -52,4 +56,4 @@ class childRepository extends abstractRepository {
   }
 }
 
-module.exports = childRepository;
+module.exports = ChildRepository;

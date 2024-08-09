@@ -1,6 +1,6 @@
-const abstractRepository = require("./abstractRepository");
+const AbstractRepository = require("./AbstractRepository");
 
-class tutorRepository extends abstractRepository {
+class TutorRepository extends AbstractRepository {
   constructor() {
     super({ table: "tutor" });
   }
@@ -54,4 +54,4 @@ class tutorRepository extends abstractRepository {
   }
 }
 
-module.exports = tutorRepository;
+module.exports = TutorRepository;

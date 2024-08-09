@@ -1,6 +1,6 @@
-const abstractRepository = require("./abstractRepository");
+const AbstractRepository = require("./AbstractRepository.js");
 
-class userRepository extends abstractRepository {
+class UserRepository extends AbstractRepository {
     constructor() {
       super({ table: "tutor" });
     }
@@ -28,4 +28,4 @@ async createUser (user) {
 }
 }
 
-module.exports = userRepository;
+module.exports = UserRepository;
