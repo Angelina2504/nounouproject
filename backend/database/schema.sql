@@ -29,8 +29,8 @@ CREATE TABLE child (
     firstname VARCHAR(255),
     birthdate DATE,
     allergy VARCHAR(255),
-    users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users (id)
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 CREATE TABLE emergency_contact (
