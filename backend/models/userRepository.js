@@ -2,7 +2,7 @@ const pool = require("../database/db_connection")
 
 const findOneByEmail = async (email) => {
 
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    const [rows] = await pool.query('SELECT * FROM user WHERE email = ?', [email]);
 
     return rows[0] || null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
 };
@@ -11,7 +11,7 @@ const createUser = async (user) => {
     try {
        
         const result = await pool.query(
-            "INSERT INTO users (email, password) VALUES (?, ?)",
+            "INSERT INTO user (email, password) VALUES (?, ?)",
             [user.email, user.password]
         );
         
