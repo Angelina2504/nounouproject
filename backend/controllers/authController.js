@@ -1,5 +1,5 @@
 const argon2 = require("argon2");
-const { findOneByEmail, createUser } = require("../models/user");
+const { findOneByEmail, createUser } = require("../models/userRepository");
 
 const login = async (req, res) => {
     const { email, password } = req.body;

@@ -30,7 +30,7 @@ CREATE TABLE child (
     birthdate DATE,
     allergy VARCHAR(255),
     users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users (id),
+    FOREIGN KEY (users_id) REFERENCES users (id)
 );
 
 CREATE TABLE emergency_contact (
@@ -39,7 +39,7 @@ CREATE TABLE emergency_contact (
     firstname VARCHAR(255),
     relationship VARCHAR(255),
     address VARCHAR(255),
-    phone_number VARCHAR(255),
+    phone_number VARCHAR(255)
 );
 
 CREATE TABLE announcement (
