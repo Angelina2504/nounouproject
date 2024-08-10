@@ -1,13 +1,13 @@
 const express = require("express");
 const { login, register } = require("../controllers/authController");
 const {
-  checkLoginDatas,
-  checkRegisterDatas, 
-} = require("../services/checkDatas");
+  checkLoginData,
+  checkRegisterData, 
+} = require("../services/checkData");
 
 const router = express.Router();
 
-router.post("/login", checkLoginDatas, login);
-router.post("/register", checkRegisterDatas, register);
+router.post("/login", checkLoginData, login);
+router.post("/register", checkRegisterData, register);
 
 module.exports = router;

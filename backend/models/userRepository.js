@@ -11,8 +11,15 @@ const createUser = async (user) => {
     try {
        
         const result = await pool.query(
-            "INSERT INTO user (email, password) VALUES (?, ?)",
-            [user.email, user.password]
+            "INSERT INTO user(firstname, lastname, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)",
+            [
+                user.firstname,
+                user.lastname,
+                user.email,
+                user.password,
+                user.phoneNumber,
+                user.address
+            ]
         );
         
         return result[0].insertId;

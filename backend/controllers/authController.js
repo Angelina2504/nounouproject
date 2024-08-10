@@ -26,20 +26,24 @@ const login = async (req, res) => {
 
 
  const register = async (req, res) => {
-    const { email, password} = req.body;
+    const { email, firstname, lastname, phoneNumber, address, password } = req.body;
 
     try {
         const hashedPassword = await argon2.hash(password);
 
         const userId = await createUser({
+            firstname,
+            lastname,
             email,
             password: hashedPassword,
+            phoneNumber,
+            address
         });
 
         res.status(201).json({ success: true, userId: String(userId) }); //a voir pour me retourner id en undefined
     } catch (error) {
         console.error("Error registering user :", error);
-        res.status(500).json({ success: false, message: "Internal server error" });
+        res.status(500).json({ success: false, message: `Internal server error: ${error.message}` });
     }
 };
 
