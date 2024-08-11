@@ -1,17 +1,18 @@
 const AbstractRepository = require("./AbstractRepository");
 
-class TutorRepository extends AbstractRepository {
+class ChildRepository extends AbstractRepository {
   constructor() {
-    super({ table: "tutor" });
+    super({ table: "child" });
   }
 
-  async create(tutor) {
+  async create(child) {
     const [result] = await this.database.query(
-      `insert into ${this.table} (firstname, lastname, phone_nomber, address) values (?, ?, ?, ?)`,
-      [tutor.firstname,
-        tutor.lastname, 
-        tutor.phone_number,
-        tutor.address]
+      `insert into ${this.table} (lastname, firstname, birthdate, allergy, user_id) values (?, ?, ?, ?, ?)`,
+      [child.lastname, 
+       child.firstname,
+       child.bithdate,
+       child.allergy,
+       child.user_id]
     );
 
     return result.insertId;
@@ -32,13 +33,14 @@ class TutorRepository extends AbstractRepository {
     return rows;
   }
 
-  async update(tutor) {
+  async update(child) {
     const [result] = await this.database.query(
-      `update ${this.table} set firstname = ?, lastname = ?, phone_number = ?, address = ?  where id = ?`,
-      [tutor.firstname,
-        tutor.lastname, 
-        tutor.phone_number,
-        tutor.address]
+      `update ${this.table} set lastname = ?, firstname = ?, birthdate = ?,  allergy = ?, user_id = ? where id = ?`,
+      [child.lastname,
+       child.firstname,
+       child.birthdate,
+       child.allergy,
+       child.user_id]
     );
 
     return result.affectedRows;
@@ -54,4 +56,4 @@ class TutorRepository extends AbstractRepository {
   }
 }
 
-module.exports = TutorRepository;
+module.exports = ChildRepository;

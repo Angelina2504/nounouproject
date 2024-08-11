@@ -39,6 +39,7 @@ CREATE TABLE todo (
                       date DATE
 );
 
+
 CREATE TABLE child (
                        id INT AUTO_INCREMENT PRIMARY KEY,
                        firstname VARCHAR(255),
