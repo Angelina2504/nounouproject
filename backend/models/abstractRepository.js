@@ -1,4 +1,4 @@
-const database = require("../../frontend");
+const pool = require("../database/db_connection")
 
 class AbstractRepository {
   constructor({ table }) {
@@ -11,7 +11,7 @@ class AbstractRepository {
 
     this.table = table;
 
-    this.database = database;
+    this.databasePool = pool;
   }
 }
 
