@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS user;
 
-CREATE TABLE users (
+CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
@@ -53,15 +53,15 @@ CREATE TABLE announcement (
 CREATE TABLE upload (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255),
-    users_id INT,
-    FOREIGN KEY (users_id) REFERENCES users (id)
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 CREATE TABLE users_todo (
     user_id INT,
     todo_id INT,
     PRIMARY KEY (user_id, todo_id),
-    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (user_id) REFERENCES user (id),
     FOREIGN KEY (todo_id) REFERENCES todo (id)
 );
 
