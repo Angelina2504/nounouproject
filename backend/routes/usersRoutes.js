@@ -15,14 +15,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-//route pour un users en particuliers en fonction de son id
+//route pour un users en particulier en fonction de son id
 router.get("./id", async (req, res) => {
   try {
     const user = await pool.query("SELECT * FROM users WHERE id = ?", [
       req.params.id,
     ]);
 
-    if (user.lenght === 0) {
+    if (user.length === 0) {
       res.sendStatus(404).json({ message: "Not found" });
     }
     res.json(user);

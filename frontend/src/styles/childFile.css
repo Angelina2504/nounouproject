@@ -1,11 +1,11 @@
-.childrenFile {
+.childFile {
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px;
 }
 
-.childrenForm{
+.childForm {
     display: flex;
     flex-direction: column;
     align-items: center;
