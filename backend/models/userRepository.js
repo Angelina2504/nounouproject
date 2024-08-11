@@ -27,7 +27,7 @@ async createUser (user) {
             ]
         );
         
-        return result[0].insertId;
+        return result.insertId;
     } catch (error) {
         console.error("Error creating user", error);
         throw error;
