@@ -1,4 +1,4 @@
-const AbstractRepository = require("./AbstractRepository.js");
+const AbstractRepository = require("./AbstractRepository");
 
 class UserRepository extends AbstractRepository {
     constructor() {
@@ -7,7 +7,7 @@ class UserRepository extends AbstractRepository {
 
 async findOneByEmail (email) {
 
-    const [rows] = await pool.query('SELECT * FROM user WHERE email = ?', [email]);
+    const [rows] = await this.databasePool.query(`SELECT * FROM ${this.table} WHERE email = ?`, [email]);
 
     return rows[0] || null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
 };
@@ -15,8 +15,8 @@ async findOneByEmail (email) {
 async createUser (user) {
     try {
        
-        const result = await pool.query(
-            "INSERT INTO user(firstname, lastname, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)",
+        const result = await this.databasePool.query(
+            `INSERT INTO ${this.table} (firstname, lastname, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)`,
             [
                 user.firstname,
                 user.lastname,
