@@ -7,16 +7,27 @@ import "../styles/register.css"
 
 export default function Registration() {
     const [inscription, setInscription] = useState({
+        firstname: "",
+        lastname: "",
         email: "",
-        mp: "",
-        confirmationMp: ""
+        password: "",
+        phoneNumber: "",
+        address: ""
     });
+    const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
     const { login } = useAuth();
 
+    // Fonction pour gérer les changements du champ de confirmation du mot de passe
+    const handlePasswordConfirmationChange = (e) => {
+        setPasswordConfirmation(e.target.value);
+    };
+
+    // Fonction pour gérer les changements des champs du formulaire, excepté le mot de passe de confirmation qui ne doit pas
+    // être transmis à l'appel API, sa validation est faite uniquement côté front
     const handleChange = (e) => {
         const { name, value } = e.target;
         setInscription((prev) => ({
@@ -25,24 +36,25 @@ export default function Registration() {
         }));
     };
 
+    // Fonction pour gérer l'inscription d'un nouvel utilisateur
     const handleRegister = async (e) => {
         e.preventDefault();
         setError("");
 
-         if (inscription.mp !== inscription.confirmationMp) {
-            setError("Les mots de passe ne correspondent pas");
+         if (inscription.password && passwordConfirmation &&
+             inscription.password !== passwordConfirmation) {
+            setError("Les mots de passe ne correspondent pas.");
              return;
         }
 
         try {
-            const response = await axios.post("http://localhost:3333/auth/register", {
-                email: inscription.email,
-                password: inscription.mp
-            });
+            const response = await axios.post(
+                "http://localhost:3333/auth/register",
+                inscription);
 
             if (response.status === 201) {
         
-                await login(inscription.email, inscription.mp);
+                await login(inscription.email, inscription.password);
                 navigate("/family"); 
             } else {
                 setError("Erreur lors de l'inscription : " + response.data.message);
@@ -61,15 +73,26 @@ export default function Registration() {
 
         <form className="formRegister" onSubmit={handleRegister}>
 
-            <label htmlFor="email">email</label>
+            <label htmlFor="firstname">Prénom</label>
+            <input  type="text" name="firstname" value={inscription.firstname} onChange={handleChange} required />
+
+            <label htmlFor="lastname">Nom</label>
+            <input  type="text" name="lastname" value={inscription.lastname} onChange={handleChange} required />
+
+            <label htmlFor="email">Email</label>
             <input  type="email" name="email" value={inscription.email} onChange={handleChange} required />
 
-            <label htmlFor="mp">Mot de passe</label>
-            <input  type="password" name="mp" value={inscription.mp} onChange={handleChange} required />
+            <label htmlFor="password">Mot de passe</label>
+            <input  type="password" name="password" value={inscription.password} onChange={handleChange} required />
 
+            <label htmlFor="passwordConfirmation">Confirmation du mot de passe</label>
+            <input type="password" name="passwordConfirmation" value={passwordConfirmation} onChange={handlePasswordConfirmationChange} required />
 
-            <label htmlFor="confirmationMp">Confirmation du mot de passe</label>
-            <input type="password" name="confirmationMp" value={inscription.confirmationMp} onChange={handleChange} required />
+            <label htmlFor="phoneNumber">Téléphone</label>
+            <input  type="text" name="phoneNumber" value={inscription.phoneNumber} onChange={handleChange} required />
+
+            <label htmlFor="address">Adresse</label>
+            <input  type="text" name="address" value={inscription.address} onChange={handleChange} required />
 
             <button type="submit">S'inscrire</button>
 

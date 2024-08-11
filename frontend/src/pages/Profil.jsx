@@ -1,12 +1,12 @@
 import TutorFile from "../components/TutorFile";
-import ChildrenFile from "../components/ChildrenFile";
+import ChildFile from "../components/ChildFile";
 
 
 export default function Profil () {
     return (          
         <>
             <TutorFile/>;
-            <ChildrenFile/>
+            <ChildFile/>
         </>
     );
  }
