@@ -8,15 +8,16 @@ class TutorRepository extends AbstractRepository {
 
     async create(tutor, childId) {
 
-        // On doit faire 2 inset into à la suite, donc on s'assure que soit les 2 passent, soit aucun des 2 en encapsulant
+        // On doit faire 2 insert into à la suite, donc on s'assure que soit les 2 passent, soit aucun des 2 en encapsulant
         // les query dans une transaction, et en n'oubliant pas de fermer la connexion à la fin
         const connection = await this.databasePool.getConnection();
 
         try {
-            // On ouvre la transaction
+            // On commence la transaction
             await connection.beginTransaction();
 
-            const [result] = await this.databasePool.query(
+            // On insert le nouveau tuteur
+            const [result] = await connection.query(
                 `insert into ${this.table}(firstname, lastname, email, phone_number, address, user_id)
                  values (?, ?, ?, ?, ?, ?)`,
                 [
@@ -29,9 +30,10 @@ class TutorRepository extends AbstractRepository {
                 ]
             );
 
+            // Et si tout s'est bien passé, on insert l'association entre le tuteur et l'enfant
             if (result && result.insertId) {
-                await this.databasePool.query(
-                    `insert into ${this.tableAssociation}(tutor_id, child_id)
+                await connection.query(
+                    `insert into ${this.tableChildAssociation}(tutor_id, child_id)
                      values (?, ?)`,
                     [
                         result.insertId,
@@ -40,9 +42,8 @@ class TutorRepository extends AbstractRepository {
                 );
             }
 
-            // On commit la transaction
+            // On commit la transaction puis on retourne l'id du tuteur créé
             await connection.commit();
-
             return result.insertId;
         } catch (error) {
             // En cas d'erreur on rollback la transaction et on annule les changements
@@ -101,4 +102,4 @@ class TutorRepository extends AbstractRepository {
     }
 }
 
-module.exports = TutorRepository;
+module.exports = new TutorRepository();
