@@ -1,11 +1,12 @@
 const argon2 = require("argon2");
-const { findOneByEmail, createUser } = require("../models/userRepository");
+// const { findOneByEmail, createUser } = require("../models/userRepository");
+const userRepository = require("../models/userRepository");
 
 const login = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = await findOneByEmail(email);
+        const user = await userRepository.findOneByEmail(email);
 
         if (!user) {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
@@ -31,7 +32,7 @@ const login = async (req, res) => {
     try {
         const hashedPassword = await argon2.hash(password);
 
-        const userId = await createUser({
+        const userId = await userRepository.createUser({
             firstname,
             lastname,
             email,
@@ -40,14 +41,14 @@ const login = async (req, res) => {
             address
         });
 
-        res.status(201).json({ success: true, userId: String(userId) }); //a voir pour me retourner id en undefined
+        res.status(201).json({ success: true, userId: String(userId) }); 
     } catch (error) {
         console.error("Error registering user :", error);
         res.status(500).json({ success: false, message: `Internal server error: ${error.message}` });
     }
 };
 
-
+// FIXME est-ce que c'est utile ici ? et si oui, est-ce que c'est bien fait ? A checker
 const checkAuth = (req, res) => {
     res.json({authenticated: true})
 }; 
