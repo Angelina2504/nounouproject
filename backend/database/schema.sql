@@ -139,8 +139,8 @@ VALUES (
 
 INSERT INTO
     child (
-    lastname,
     firstname,
+    lastname,
     birthdate,
     allergy
 )

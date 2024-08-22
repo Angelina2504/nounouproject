@@ -9,7 +9,7 @@ export default function Home (){
     useEffect(() => {
         if (auth) {
             navigate("/family");
-        };
+        }
     }, [auth, navigate]);
 
     return (

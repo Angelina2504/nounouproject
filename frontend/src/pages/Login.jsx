@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../services/httpClient";
 import { useNavigate } from "react-router-dom"; 
 import { useAuth } from "../contexts/AuthContext";
 
@@ -16,7 +16,7 @@ const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-        const response = await axios.post("http://localhost:3333/auth/login",{
+        const response = await axiosInstance.post('/auth/login',{
             email,
             password,
         });

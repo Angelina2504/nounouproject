@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../services/httpClient";
 import { useNavigate } from "react-router-dom"; 
 import { useAuth } from "../contexts/AuthContext"; // Importer le contexte d'authentification
 
@@ -48,8 +48,8 @@ export default function Registration() {
         }
 
         try {
-            const response = await axios.post(
-                "http://localhost:3333/auth/register",
+            const response = await axiosInstance.post(
+                "/auth/register",
                 inscription);
 
             if (response.status === 201) {
@@ -67,7 +67,7 @@ export default function Registration() {
 
     return(
         <section className="register">
-        <h2>S'inscrire</h2>
+        <h2>S&apos;inscrire</h2>
 
         {error && <p className="error">{error}</p>}
 
@@ -94,7 +94,7 @@ export default function Registration() {
             <label htmlFor="address">Adresse</label>
             <input  type="text" name="address" value={inscription.address} onChange={handleChange} required />
 
-            <button type="submit">S'inscrire</button>
+            <button type="submit">S&apos;inscrire</button>
 
         </form>
         </section>
