@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axiosInstance from "../services/httpClient";
 import { useNavigate } from "react-router-dom"; 
-import { useAuth } from "../contexts/AuthContext"; // Importer le contexte d'authentification
+import { useCheckConnected } from "../hooks/useCheckConnected"; // Importer le contexte d'authentification
 
 import "../styles/register.css"
 
@@ -19,7 +19,7 @@ export default function Registration() {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login } = useCheckConnected();
 
     // Fonction pour gérer les changements du champ de confirmation du mot de passe
     const handlePasswordConfirmationChange = (e) => {
@@ -67,7 +67,7 @@ export default function Registration() {
 
     return(
         <section className="register">
-        <h2>S&apos;inscrire</h2>
+        <h2>S&rsquo;inscrire</h2>
 
         {error && <p className="error">{error}</p>}
 
@@ -94,7 +94,7 @@ export default function Registration() {
             <label htmlFor="address">Adresse</label>
             <input  type="text" name="address" value={inscription.address} onChange={handleChange} required />
 
-            <button type="submit">S&apos;inscrire</button>
+            <button type="submit">S&rsquo;inscrire</button>
 
         </form>
         </section>

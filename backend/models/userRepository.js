@@ -15,7 +15,7 @@ class UserRepository extends AbstractRepository {
     async createUser (user) {
         try {
 
-            const result = await this.databasePool.query(
+            const [result] = await this.databasePool.query(
                 `INSERT INTO ${this.table} (firstname, lastname, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)`,
                 [
                     user.firstname,

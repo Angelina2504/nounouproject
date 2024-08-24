@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: `${import.meta.env.VITE_BACKEND_URL}`,
-    withCredentials: true,
+    baseURL: `${import.meta.env.VITE_API_URL}`,
+    withCredentials: true // permet de passer les cookies
 });
 
 export default axiosInstance;
