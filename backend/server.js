@@ -5,7 +5,6 @@ const {initializeDatabase} = require("./database/initializeDatabase");
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
-const cookieParser = require("cookie-parser");
 
 const routes = require("./routes/routes");
 const authRoutes = require("./routes/authRoutes");
@@ -26,7 +25,6 @@ app.use(
 );
 
 app.use(express.json());
-app.use(cookieParser());
 
 // Configuration de la session
 app.use(session(
@@ -42,6 +40,7 @@ app.use(session(
     })
 );
 
+// Configuration des routes de l'api
 app.use("/", routes);
 app.use("/auth", authRoutes);
 app.use("/children", childRoutes);
