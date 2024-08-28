@@ -1,4 +1,4 @@
-const AbstractRepository = require("./AbstractRepository");
+const AbstractRepository = require("./abstractRepository");
 
 class TutorRepository extends AbstractRepository {
     constructor() {
