@@ -7,12 +7,14 @@ class ChildRepository extends AbstractRepository {
 
   async create(child) {
     const [result] = await this.databasePool.query(
-      `insert into ${this.table} (lastname, firstname, birthdate, allergy, user_id) values (?, ?, ?, ?, ?)`,
-      [child.lastname, 
-       child.firstname,
-       child.bithdate,
-       child.allergy,
-       child.user_id]
+      `insert into ${this.table} (firstname, lastname, birthdate, allergy, user_id) values (?, ?, ?, ?, ?)`,
+      [
+          child.firstname,
+          child.lastname,
+          child.birthdate,
+          child.allergy,
+          child.userId
+      ]
     );
 
     return result.insertId;
@@ -28,19 +30,23 @@ class ChildRepository extends AbstractRepository {
   }
 
   async readAll() {
-    const [rows] = await this.databasePool.query(`select * from ${this.table}`);
+    const [rows] = await this.databasePool.query(
+        `select * from ${this.table}`
+    );
 
     return rows;
   }
 
   async update(child) {
     const [result] = await this.databasePool.query(
-      `update ${this.table} set lastname = ?, firstname = ?, birthdate = ?,  allergy = ?, user_id = ? where id = ?`,
-      [child.lastname,
-       child.firstname,
-       child.birthdate,
-       child.allergy,
-       child.user_id]
+      `update ${this.table} set firstname = ?, lastname = ?, birthdate = ?,  allergy = ?, user_id = ? where id = ?`,
+      [
+          child.firstname,
+          child.lastname,
+          child.birthdate,
+          child.allergy,
+          child.userId
+      ]
     );
 
     return result.affectedRows;
@@ -56,4 +62,4 @@ class ChildRepository extends AbstractRepository {
   }
 }
 
-module.exports = ChildRepository;
+module.exports = new ChildRepository();
