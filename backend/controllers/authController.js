@@ -18,11 +18,32 @@ const login = async (req, res) => {
             return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
-        res.json({ success: true, user: { id: user.id, email: user.email} });
+        // Sauvegarde de la session, on stocke l'id et l'email de l'utilisateur car on en aura besoin dans d'autres requêtes
+        req.session.user = {
+            id: user.id,
+            email: user.email
+        };
+
+        // On doit retourner l'id et l'email de l'utilisateur pour le front dans la réponse
+        res.status(200).json({ success: true,
+                               user: { id: user.id, email: user.email}
+        });
     } catch (error) {
         console.error("Error during login:", error);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
+};
+
+const logout = async (req, res) => {
+    // Supperession de la session côté serveur
+    req.session.destroy(err => {
+        if (err) {
+            console.error("Error during logout:", err);
+            return res.status(500).json({ success: false, message: "Logout failed" });
+        }
+        res.clearCookie("connect.sid"); // Nettoyer le cookie de session
+        res.status(200).json({ success: true, message: "Logged out" });
+    });
 };
 
 
@@ -48,9 +69,14 @@ const login = async (req, res) => {
     }
 };
 
-// FIXME est-ce que c'est utile ici ? et si oui, est-ce que c'est bien fait ? A checker
-const checkAuth = (req, res) => {
-    res.json({authenticated: true})
-}; 
+ // Renvoie juste les informations de l'utilisateur connecté
+ const session = async (req, res) => {
+     res.json({ user: req.session.user });
+ };
 
-module.exports = { login, register, checkAuth };
+module.exports = {
+    login,
+    logout,
+    register,
+    session
+};

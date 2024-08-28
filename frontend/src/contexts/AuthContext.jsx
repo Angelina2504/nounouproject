@@ -1,37 +1,63 @@
-import { createContext, useState, useContext, useEffect } from "react";
+import {createContext, useEffect, useState} from 'react';
+import PropTypes from "prop-types";
+import axiosInstance from '../services/httpClient.js';
 
-const AuthContext = createContext(null);
+export const AuthContext = createContext(null);
 
-export const useAuth = () => useContext(AuthContext);
+export function AuthProvider({ children }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
-export function AuthProvider ({children}) {
-    const[auth, setAuth] = useState(null);
+    useEffect(() => {
+        const checkSession = async () => {
+            try {
+                const response = await axiosInstance.get("/auth/session", { withCredentials: true });
+                setUser(response.data.user);
+            } catch (error) {
+                setUser(null);
+            } finally {
+                setLoading(false); // on termne le chargement, erreur ou pas
+            }
+        };
 
-    function login(userData){
-        setAuth(userData);
-    }
+        checkSession();
+    }, []);
 
-    function logout() {
-        setAuth(null);
-    
-    }
+    // Fonction pour se connecter, sauvant l'utilisateur dans le contexte en cas de succès
+    const login = async (email, password) => {
+        try {
+            const response = await axiosInstance.post('/auth/login',
+                { email, password },
+                { withCredentials: true }
+            );
+            setUser(response.data.user);
 
-    useEffect(()=> {
-        const storedAuth = localStorage.getItem("auth");
-        if (storedAuth) {
-            setAuth(JSON.parse(storedAuth)); }
-    }, [])
+        } catch(error) {
+            console.error(error.response ? error.response.data : error.message);
+            throw error;
+        }
+    };
 
-    useEffect(() =>{
-     if (auth)  {
-        localStorage.setItem("auth", JSON.stringify(auth));}
-    else{
-        localStorage.removeItem("auth");
-    }
-    }, [auth]);
+    // Fonction pour se déconnecter, supprimant l'utilisateur du contexte
+    const logout = async () => {
+      try {
+          await axiosInstance.post('/auth/logout', {}, { withCredentials: true });
+          setUser(null);
+      } catch(error) {
+            console.error(error.response ? error.response.data : error.message);
+            throw error;
+        }
+    };
 
-return (
-<AuthContext.Provider value={{auth, login, logout}}>
-   {children} 
-</AuthContext.Provider>
-)}
+    return (
+        <AuthContext.Provider value={{ user, login, logout, loading }}>
+            {children}
+        </AuthContext.Provider>
+    );
+}
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+};
+
+export default AuthProvider;

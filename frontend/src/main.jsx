@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { AuthProvider } from "./contexts/AuthContext";
-
+import AuthProvider from './contexts/AuthContext';
 import App from "./App";
 import Home from "./pages/Home"
 import Family from "./pages/Family";
 import Login from "./pages/Login";
 import Register from "./pages/Registration"
 import Admin from "./pages/Admin"
-import Profil from "./pages/Profil"
+import Profile from "./pages/Profile.jsx"
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -21,10 +21,6 @@ const router = createBrowserRouter([
           element: <Home />,
         },
         {
-          path: "/family",
-          element: <Family />,
-        },
-        {
           path: "/login",
           element: <Login />,
         },
@@ -32,24 +28,35 @@ const router = createBrowserRouter([
           path: "/register",
           element: <Register />,
         },
+        // Routes protégées par authentification
         {
-          path: "/admin",
-          element: <Admin />,
-        },
-        {
-           path: "/profil",
-          element: <Profil />,
-        },
-        ]
+          path: "/",
+          element: <PrivateRoute />,
+          children: [
+            {
+              path: "/admin",
+              element: <Admin />,
+            },
+            {
+              path: "/family",
+              element: <Family />,
+            },
+            {
+              path: "/profile",
+              element: <Profile />,
+            },
+          ]
+        }
+      ]
   },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
-        <React.StrictMode>
-          <AuthProvider>         
-          <RouterProvider router={router} /> 
-          </AuthProvider>
-        </React.StrictMode>
+<React.StrictMode>
+    <AuthProvider>
+        <RouterProvider router={router} />
+    </AuthProvider>
+</React.StrictMode>
 );

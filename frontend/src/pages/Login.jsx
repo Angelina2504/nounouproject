@@ -1,48 +1,65 @@
-import { useState } from "react";
-import axiosInstance from "../services/httpClient";
-import { useNavigate } from "react-router-dom"; 
-import { useAuth } from "../contexts/AuthContext";
+import {useEffect, useState} from 'react';
+import { useNavigate } from "react-router-dom";
+import { useCheckConnected } from "../hooks/useCheckConnected";
 
 import "../styles/login.css";
 
 export default function Login() {
-const [email,setEmail] = useState("");
-const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(null);
 
-const navigate = useNavigate();
-const { login }= useAuth();
+    const navigate = useNavigate();
+    const {user, login } = useCheckConnected();
 
-const handleLogin = async (e) => {
-    e.preventDefault();
+    useEffect(() => {
+        // Si l'utilisateur est déjà authentifié, et qu'il arrive quand même sur cette
+        // page, on le redirige vers /family
+        if (user) {
+            navigate("/family");
+        }
+    }, [user, navigate]);
 
-    try {
-        const response = await axiosInstance.post('/auth/login',{
-            email,
-            password,
-        });
 
-        login(response.data.user);
-        navigate("/family"); 
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        // On réinitialise l'erreur à chaque soumission du formulaire
+        setError(null);
 
-    } catch(error) {
-            console.error(error.response ? error.response.data : error.message);} 
+        try {
+            // Appel à la fonction login du contexte AuthContext
+            await login(email, password);
+
+            // Une fois le login terminé, on redirige l'utilisateur vers la page /family
+            // S'il est correctement loggué, il sera redirigé vers la page /family sinon il ira sur /login
+            navigate("/family");
+
+        } catch (error) {
+            if (error.response && error.response.status === 401) {
+                setError("Identifiants incorrects. Veuillez réessayer.");
+            } else {
+                setError("Une erreur est survenue. Veuillez réessayer plus tard.");
+            }
+        }
     };
 
     return (
         <section className="login">
-        <h2>Se connecter</h2>
+            <h2>Se connecter</h2>
 
-        <form className="formLogin" onSubmit={handleLogin}>
+            {error && <p className="error">{error}</p>}
 
-            <label htmlFor="">Email</label>
-            <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+            <form className="formLogin" onSubmit={handleLogin}>
 
-            <label htmlFor="">Mot de passe</label>
-            <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+                <label htmlFor="">Email</label>
+                <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
 
-            <button type="submit">Se connecter</button>
-        </form>
-        
+                <label htmlFor="">Mot de passe</label>
+                <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+
+                <button type="submit">Se connecter</button>
+            </form>
+
         </section>
     )
 }
