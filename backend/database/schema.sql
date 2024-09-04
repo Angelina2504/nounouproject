@@ -14,6 +14,7 @@ CREATE TABLE user (
                       email VARCHAR(255) NOT NULL UNIQUE,
                       firstname VARCHAR(255),
                       lastname VARCHAR(255),
+                      gender ENUM('F', 'M', 'O'),
                       phone_number VARCHAR(20),
                       address VARCHAR(255),
                       password VARCHAR(255) NOT NULL,
@@ -25,6 +26,7 @@ CREATE TABLE tutor (
                        email VARCHAR(255) NOT NULL UNIQUE,
                        firstname VARCHAR(255),
                        lastname VARCHAR(255),
+                       gender ENUM('F', 'M', 'O'),
                        phone_number VARCHAR(20),
                        address VARCHAR(255),
                        user_id INT,
@@ -45,6 +47,7 @@ CREATE TABLE child (
                        firstname VARCHAR(255),
                        lastname VARCHAR(255),
                        birthdate DATE,
+                       gender ENUM('F', 'M', 'O'),
                        allergy VARCHAR(255),
                        user_id INT,
                        FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE
@@ -86,7 +89,7 @@ CREATE TABLE user_todo (
 CREATE TABLE tutor_child (
                              tutor_id INT,
                              child_id INT,
-                             PRIMARY KEY (child_id, tutor_id),
+                             PRIMARY KEY (tutor_id, child_id),
                              FOREIGN KEY (child_id) REFERENCES child (id) ON DELETE CASCADE,
                              FOREIGN KEY (tutor_id) REFERENCES tutor (id) ON DELETE CASCADE
 );
@@ -97,110 +100,3 @@ CREATE TABLE child_emergency_contact (
                                          PRIMARY KEY (child_id, contact_id),
                                          FOREIGN KEY (child_id) REFERENCES child (id) ON DELETE CASCADE
 );
-
-
-
-
-
-INSERT INTO
-    user (id, email, firstname, lastname, password, is_admin)
-VALUES (
-           1,
-           "admin@admin.com",
-           "ad",
-           "min",
-           "$argon2id$v=19$m=65536,t=3,p=4$pwXPKdt+vY9URRyJqjZXiw$oLFUj+ZqYsfCTwbDxOx8ePBIxZ9VEQFnY4Nuy6WQ63w", -- admin123
-           true
-       );
-
-INSERT INTO
-    user (id, email, password)
-VALUES (
-           2,
-           "tata@tata.com",
-           "$argon2id$v=19$m=65536,t=3,p=4$4d2PFFxtsKgGBej3eniM3A$BJJf55bFVWU9j35+6PwMKotFttddi2UZSXdZupWLSpY"
-       );
-
-INSERT INTO
-    tutor (
-    firstname,
-    lastname,
-    email,
-    phone_number,
-    address
-)
-VALUES (
-           "Tu",
-           "Teur",
-           "tu.teur@tuteur.com",
-           "0678361512",
-           "3 rue du tuteur 67000 Strasbourg"
-       );
-
-INSERT INTO
-    child (
-    firstname,
-    lastname,
-    birthdate,
-    allergy
-)
-VALUES (
-           "Mi",
-           "GNON",
-           "1992-04-20",
-           "poivron"
-       );
-
-INSERT INTO
-    emergency_contact (
-    firstname,
-    lastname,
-    relationship,
-    address,
-    phone_number
-)
-VALUES (
-           "Urg",
-           "Ence",
-           "friend",
-           "3 rue sos 67000 strasbourg",
-           "0625234869"
-       );
-
-INSERT INTO
-    todo (
-    title,
-    description,
-    status,
-    date
-)
-VALUES (
-           "Important",
-           "prendre les affaires de pluies",
-           "pending",
-           "2024-08-01"
-       );
-
-INSERT INTO
-    announcement (title, description, date)
-VALUES (
-           "Noël",
-           "gouter avec les parents de 18h à 19h",
-           "2024-02-15"
-       );
-
-INSERT INTO
-    upload (title)
-VALUES ("Ordonnance pour Pierre");
-
-INSERT INTO
-    tutor_child (tutor_id, child_id)
-VALUES (1, 1);
-
-INSERT INTO
-    child_emergency_contact (child_id, contact_id)
-VALUES (1, 1);
-
-INSERT INTO
-    user_todo (user_id, todo_id)
-VALUES (1, 1);

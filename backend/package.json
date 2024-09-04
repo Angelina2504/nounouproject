@@ -5,7 +5,8 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon --inspect server.js"
+    "dev": "nodemon --inspect server.js",
+    "db:init": "node ./database/initializeDatabase.js"
   },
   "keywords": [],
   "author": "",
