@@ -1,28 +1,51 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
 
 export default function AddTutorForm({ children }) {
-    const [tutor, setTutor] = useState({
+    const [tutorChildForm, setTutorChildForm] = useState({
         firstname: '',
         lastname: '',
         phoneNumber: '',
+        email: '',
         address: '',
-        childId: children.length > 0 ? children[0].id : null,
+        childId: ''
     });
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setTutor((prevTutor) => ({
-            ...prevTutor,
+       const { name, value } = e.target;
+        setTutorChildForm((prevTutorChildForm) => ({
+            ...prevTutorChildForm,
             [name]: value,
         }));
+        
     };
 
-    const handleSubmit = async (e) => {
+
+    const handleSubmit = async (e) => {       
         e.preventDefault();
         try {
-            await axiosInstance.post('/tutors', tutor);
-            setTutor({ firstname: '', lastname: '', phoneNumber: '', address: '', childId: children.length > 0 ? children[0].id : null });
+
+            // Define the payload parsing form data
+            const payload = {
+                tutor: {
+                    firstname: tutorChildForm.firstname,
+                    lastname: tutorChildForm.lastname,
+                    email:tutorChildForm.email,
+                    phoneNumber: tutorChildForm.phoneNumber,
+                    address: tutorChildForm.address
+                },
+                childId: tutorChildForm.childId
+            };
+
+            await axiosInstance.post('/tutors/create', payload);
+        
+            setTutorChildForm(
+                { firstname: '', 
+                  lastname: '',
+                  email:'',
+                  phoneNumber: '',
+                  address: '', 
+                  childId: "" });
         } catch (error) {
             console.error('Erreur lors de l\'ajout du tuteur', error);
         }
@@ -31,21 +54,23 @@ export default function AddTutorForm({ children }) {
     return (
         <form className="add-tutor-form" onSubmit={handleSubmit}>
             <label>Prénom</label>
-            <input type="text" name="firstname" value={tutor.firstname} onChange={handleChange} required />
+            <input type="text" name="firstname" value={tutorChildForm.firstname} onChange={handleChange} required />
 
             <label>Nom</label>
-            <input type="text" name="lastname" value={tutor.lastname} onChange={handleChange} required />
+            <input type="text" name="lastname" value={tutorChildForm.lastname} onChange={handleChange} required />
+
+            <label>Email</label>
+            <input type="text" name="email" value={tutorChildForm.email} onChange={handleChange} required />
 
             <label>Téléphone</label>
-            <input type="text" name="phoneNumber" value={tutor.phoneNumber} onChange={handleChange} required />
+            <input type="text" name="phoneNumber" value={tutorChildForm.phoneNumber} onChange={handleChange} required />
 
             <label>Adresse</label>
-            <input type="text" name="address" value={tutor.address} onChange={handleChange} required />
+            <input type="text" name="address" value={tutorChildForm.address} onChange={handleChange} required />
 
             <label>Enfant</label>
-            {/*<select name="childId" value={tutor.childId} onChange={handleChange} required>*/}
-            <select name="childId" value={undefined} onChange={handleChange} required>
-                <option key={-1} value={null}>Choisissez un enfant</option>
+            <select name="childId" value={tutorChildForm.childId} onChange={handleChange} required>
+                <option key={-1} value={''}>Choisissez un enfant</option>
                 {(children || []).map((child) => (
                     <option key={child.id} value={child.id}>
                         {child.firstname} {child.lastname}
