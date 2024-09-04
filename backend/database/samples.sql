@@ -12,7 +12,7 @@ INSERT INTO user (email, firstname, lastname, gender, phone_number, address, pas
     -- password123
     ('jean.durand@example.com', 'Jean', 'Durand', 'O', '0987654321', '456 Rue Principale, Lyon', '$argon2id$v=19$m=65536,t=3,p=4$zwLzJFXMkdsj4LQCOkCjaA$EDfA6QoxZaZhYT2F0qMs3ARUjGvc5tSomix+oBtB1K8', false),
     -- password456
-    ('claire.martin@example.com', 'Claire', 'Martin', 'F', '1234567890', '789 Avenue de la Liberté, Marseille', '$argon2id$v=19$m=65536,t=3,p=4$WEQVhR2hSrx7PLRkxI+c4g$SmeA/nexk6OD2C7nZfwuouYaxrdfvztvwnSos+2s1BI', false),
+    ('claire.martin@example.com', 'Claire', 'Martin', 'F', '1234567890', '789 Avenue de la Liberté, Marseille', '$argon2id$v=19$m=65536,t=3,p=4$WEQVhR2hSrx7PLRkxI+c4g$SmeA/nexk6OD2C7nZfwuouYaxrdfvztvwnSos+2s1BI', false);
 
 -- Insert tutors
 INSERT INTO tutor (email, firstname, lastname, gender, phone_number, address, user_id) VALUES
