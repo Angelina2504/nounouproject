@@ -45,7 +45,8 @@ export default function AddTutorForm({ children }) {
                   email:'',
                   phoneNumber: '',
                   address: '', 
-                  childId: "" });
+                  childId: "" }
+                );
         } catch (error) {
             console.error('Erreur lors de l\'ajout du tuteur', error);
         }
