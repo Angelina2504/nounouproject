@@ -1,13 +1,18 @@
 import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
+import { useCheckConnected } from "../../hooks/useCheckConnected";
 
 export default function AddTutorForm({ children }) {
+
+    const { user } = useCheckConnected();
+
     const [tutorChildForm, setTutorChildForm] = useState({
         firstname: '',
         lastname: '',
         phoneNumber: '',
         email: '',
         address: '',
+        userId: user?.id || '',
         childId: ''
     });
 
@@ -32,7 +37,8 @@ export default function AddTutorForm({ children }) {
                     lastname: tutorChildForm.lastname,
                     email:tutorChildForm.email,
                     phoneNumber: tutorChildForm.phoneNumber,
-                    address: tutorChildForm.address
+                    address: tutorChildForm.address,
+                    userId: tutorChildForm.userId
                 },
                 childId: tutorChildForm.childId
             };
@@ -44,8 +50,9 @@ export default function AddTutorForm({ children }) {
                   lastname: '',
                   email:'',
                   phoneNumber: '',
-                  address: '', 
-                  childId: "" }
+                  address: '',  
+                  userId: user?.id || '',
+                  childId: '' }
                 );
         } catch (error) {
             console.error('Erreur lors de l\'ajout du tuteur', error);

@@ -1,6 +1,6 @@
 import Logo from "../assets/pictures/logo.png";
 import { Link } from "react-router-dom";
-import { useCheckConnected } from "../hooks/useCheckConnected"
+import { useCheckConnected } from "../hooks/useCheckConnected";
 
 
 import "../styles/navbar.css"
@@ -14,7 +14,7 @@ export default function Navbar() {
 
        { user ? (
             <>
-                <button className="deconexion" onClick={logout} >Se déconnecter</button>
+                <button className="deconnexion" onClick={logout} >Se déconnecter</button>
                 <Link to="/profile">Mon Profil</Link>
                 <Link to="/family">Ma Famille</Link>
             </>
