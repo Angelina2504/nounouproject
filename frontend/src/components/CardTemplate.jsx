@@ -1,6 +1,14 @@
+import {useNavigate} from 'react-router-dom';
+import "../styles/cardTemplate.css";
 
+export default function CardTemplate({ family, handleEdit, handleDelete }) {
 
-export default function CardTemplate({ family, handleEdit, handleDelete, handleViewDetails }) {
+    const navigate = useNavigate();
+
+    const handleViewDetails = (userId) => {
+        navigate(`/admin/families/${userId}`);
+    };
+
     return (
         <div className="card-template">
             <h2>{family.user.firstname} {family.user.lastname}</h2>
@@ -11,9 +19,9 @@ export default function CardTemplate({ family, handleEdit, handleDelete, handleV
                 <p key={child.id}>{child.firstname} {child.lastname}, Né(e) le {child.birthdate}</p>
             ))}
 
-            <button onClick={() => handleEdit(family.id)}>Éditer</button>
-            <button onClick={() => handleDelete(family.id)}>Supprimer</button>
-            <button onClick={() => handleViewDetails(family.id)}>Voir les détails</button>
+            <button onClick={() => handleEdit(family.user.id)}>Éditer</button>
+            <button onClick={() => handleDelete(family.user.id)}>Supprimer</button>
+            <button onClick={() => handleViewDetails(family.user.id)}>Voir les détails</button>
         </div>
     );
 }

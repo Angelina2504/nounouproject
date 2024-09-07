@@ -86,8 +86,9 @@ const register = async (req, res) => {
 };
 
 // Renvoie juste les informations de l'utilisateur connecté
+// TODO : A compléter si on peut pas récupérer directement l'information de rôle
+//  d'admin avec le user.id ? + middleware pour vérifier si l'utilisateur est admin
 /**
- * TODO : A compléter si on peut pas récupérer directement l'information de rôle d'admin avec le user.id ?
  * @param req
  * @param res
  * @returns {Promise<void>}
