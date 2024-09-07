@@ -24,7 +24,9 @@ INSERT INTO tutor (email, firstname, lastname, gender, phone_number, address, us
     ('m.fournier@example.com', 'Michel', 'Fournier', 'M', '9876543213', '44 Rue des Pins, Toulouse', 3),
     ('cam-dub@example.com', 'Camille', 'Dubois', 'O', '9876543214', '55 Rue des Peupliers, Nice', 4),
     ('blanc-elodie-pro@example.com', 'Elodie', 'Blanc', 'F', '9876543215', '66 Rue des Bouleaux, Montpellier', 4),
-    ('tata@example.com', 'Talula', 'Tormento', 'F', '9548763421', '11 Chemin des Arbres Bleus, Nantes', 5);
+    ('tata@example.com', 'Talula', 'Tormento', 'F', '9548763421', '11 Chemin des Arbres Bleus, Nantes', 5),
+    ('tata2@example.com', 'Theresa', 'Tormento', 'F', '9548763421', '11 Chemin des Arbres Bleus, Nantes', 5),
+    ('tata3@example.com', 'Thiffany', 'Tormento', 'F', '9548763421', '11 Chemin des Arbres Bleus, Nantes', 5);
 
 -- Insert children
 INSERT INTO child (firstname, lastname, birthdate, gender, allergy, user_id) VALUES
@@ -68,18 +70,30 @@ INSERT INTO user_todo (user_id, todo_id) VALUES
     (3, 2),
     (4, 3);
 
--- Insert tutor-child relationships
+-- Insert tutor-child relationships (tutors sont rattachés aux enfants de leurs user_id)
 INSERT INTO tutor_child (tutor_id, child_id) VALUES
-    (1, 1), (1, 2),
-    (2, 3),
-    (3, 4),
-    (4, 5),
-    (5, 6),
-    (6, 7), (6, 8);
+    -- Sophie Lefevre et Pierre Moreau (tutors pour les enfants de Toto, user_id 2)
+    (1, 1),  -- Sophie Lefevre -> Lucas
+    (2, 1),  -- Pierre Moreau -> Lucas
 
--- Insert child-emergency contact relationships
+    -- Isabelle Roux et Michel Fournier (tutors pour les enfants de Jean Durand, user_id 3)
+    (3, 2),  -- Isabelle Roux -> Emma
+
+    -- Camille Dubois et Elodie Blanc (tutors pour les enfants de Claire Martin, user_id 4)
+    (5, 3),  -- Camille Dubois -> Chloé
+    (6, 4),  -- Elodie Blanc -> Alex
+
+    -- Talula Tormento (tutor pour les enfants de Bernard, user_id 5)
+    (7, 5),  -- Talula -> Malo
+    (7, 6),  -- Talula -> Léo
+    (7, 7),  -- Talula -> Théo
+    (7, 8),  -- Talula -> Inès
+    (8, 7),  -- Theresa -> Théo
+    (9, 8);  -- Thiffany -> Inès
+
+-- Insert child-emergency contact relationships (assignation des contacts d'urgence)
 INSERT INTO child_emergency_contact (child_id, contact_id) VALUES
-    (1, 1),
-    (2, 2),
-    (3, 3),
-    (4, 4);
+    (1, 1),  -- Lucas -> Luc Muller (Oncle)
+    (2, 2),  -- Emma -> Julie Petit (Tante)
+    (3, 3),  -- Chloé -> René Gauthier (Grand-parent)
+    (4, 4);  -- Alex -> Paul Chevalier (Voisin)
