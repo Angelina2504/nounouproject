@@ -16,22 +16,22 @@ export default function Admin() {
     const checkUserIsAdmin = useCallback(async () => {
       try {
           const response = await axiosInstance.get("/auth/is-admin", { withCredentials: true });
-          // If user is not admin, or no user authenticated, redirect to login
-          if (!response.data || !response.data.isAdmin) {
-              navigate('/family');
-          } else {
-              navigate('/admin/families');
-          }
+          // If user is not admin, or no user authenticated, we will redirect to login
+          return !(!response.data || !response.data.isAdmin);
       } catch (error) {
           console.error('Erreur lors de la vérification des droits administrateurs', error);
       }
-    }, [navigate]);
+    }, [/*navigate*/]);
 
     // Fetch families when the component is mounted if the user is an admin
     useEffect(() => {
         if (loading) return; // Attendre que la session utilisateur soit chargée
 
-        checkUserIsAdmin();
+        // check if user is admin, if not, redirect to family page, else, go to admin/families
+        checkUserIsAdmin()
+            .then((isAdmin) => {
+                navigate(isAdmin ? '/admin/families' : '/family');
+            });
 
     }, [user, loading, navigate, checkUserIsAdmin]);
 
