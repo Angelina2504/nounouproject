@@ -5,8 +5,10 @@ The website "Des signes et des mots" is a site to facilite the communication bet
 ============================================================================
 ## TODO
 - real server address for API calls instead of localhost:3333
-- protect pages by checking if user is logged in (is authenticated or not)
-- checkAuth function in AuthContext.js to check if user is authenticated and protect pages/routes
+- ~~protect pages by checking if user is logged in (is authenticated or not)~~
+~~- checkAuth function in AuthContext.js to check if user is authenticated and protect pages/routes~~
+- rename 'allergy' to 'allergies' in the database and everyhwere else
+- Use PropTypes for all components to enforce type checking
 ============================================================================
 
 

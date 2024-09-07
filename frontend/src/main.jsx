@@ -7,7 +7,7 @@ import Home from "./pages/Home"
 import Family from "./pages/Family";
 import Login from "./pages/Login";
 import Register from "./pages/Registration"
-import Admin from "./pages/Admin"
+import Admin from "./pages/admin/Admin.jsx"
 import Profile from "./pages/Profile.jsx"
 import PrivateRoute from './components/PrivateRoute.jsx';
 
