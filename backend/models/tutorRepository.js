@@ -66,9 +66,10 @@ class TutorRepository extends AbstractRepository {
         return rows[0];
     }
 
-    async readAll() {
+    async readAllForUser(userId) {
         const [rows] = await this.databasePool.query(
-            `select * from ${this.table}`
+            `select * from ${this.table} where user_id = ?`,
+            [userId]
         );
 
         return rows;

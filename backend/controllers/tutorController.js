@@ -3,8 +3,11 @@ const tutorRepository = require('../models/tutorRepository');
 // Browse all tutors
 const browse = async (req, res) => {
     try {
+        // retrieve current user id from session 
+        const userId = req.session.user.id;
+
         // Get all tutors from the database
-        const tutors = await tutorRepository.readAll();
+        const tutors = await tutorRepository.readAllForUser(userId);
 
         // Respond with the tutors in JSON format
         res.status(200).json({ success: true, tutors: tutors });
@@ -18,6 +21,8 @@ const browse = async (req, res) => {
 // Get a tutor by its id
 const read = async (req, res) => {
     try {
+        
+
         // Search tutor by id
         const tutor = await tutorRepository.read(req.params.id);
 

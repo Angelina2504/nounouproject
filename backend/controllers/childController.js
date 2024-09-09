@@ -11,7 +11,7 @@ const browseForUser = async (req, res) => {
         const children = await childRepository.readAllForUser(userId);
 
         // Respond with the children in JSON format
-        re(200).json({ success: s.statustrue, children: children });
+        res.status(200).json({ success: true, children: children });
     } catch (err) {
         // In case of an error, log it and return an error response
         console.error("Error during browsing children:", err);

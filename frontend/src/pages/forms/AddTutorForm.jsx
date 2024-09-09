@@ -12,7 +12,6 @@ export default function AddTutorForm({ children }) {
         phoneNumber: '',
         email: '',
         address: '',
-        userId: user?.id || '',
         childId: ''
     });
 
@@ -37,8 +36,7 @@ export default function AddTutorForm({ children }) {
                     lastname: tutorChildForm.lastname,
                     email:tutorChildForm.email,
                     phoneNumber: tutorChildForm.phoneNumber,
-                    address: tutorChildForm.address,
-                    userId: tutorChildForm.userId
+                    address: tutorChildForm.address
                 },
                 childId: tutorChildForm.childId
             };
@@ -50,8 +48,7 @@ export default function AddTutorForm({ children }) {
                   lastname: '',
                   email:'',
                   phoneNumber: '',
-                  address: '',  
-                  userId: user?.id || '',
+                  address: '',
                   childId: '' }
                 );
         } catch (error) {
