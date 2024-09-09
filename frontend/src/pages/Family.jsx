@@ -3,6 +3,7 @@ import AddChildForm from './forms/AddChildForm';
 import AddTutorForm from './forms/AddTutorForm';
 import TutorList from '../components/TutorList';
 import ChildrenList from '../components/ChildrenList';
+import UpdateChildForm from './forms/UpdateChildForm';
 import axiosInstance from "../services/httpClient";
 
 export default function Family() {
@@ -19,9 +20,7 @@ export default function Family() {
             console.error('Erreur lors de la récupération des enfants', error);
         }
     };
-
     
-
     // Fonction pour ajouter un enfant
     const handleAddChild = (newChild) => {
         setChildren((prevChildren) => [...prevChildren, newChild]);

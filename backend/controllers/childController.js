@@ -7,7 +7,7 @@ const browseForUser = async (req, res) => {
         // retrieve current user id from session 
         const userId = req.session.user.id;
 
-        // Get all childrenfor authenticated user from the database
+        // Get all children for authenticated user from the database
         const children = await childRepository.readAllForUser(userId);
 
         // Respond with the children in JSON format
