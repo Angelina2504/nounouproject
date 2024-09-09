@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import axiosInstance from '../services/httpClient';
-import CardTemplate from './CardTemplate';
+import axiosInstance from '../../services/httpClient.js';
+import CardTemplate from './CardTemplate.jsx';
 
-export default function FamiliesCards() {
+export default function AdminFamiliesCards() {
     const [families, setFamilies] = useState([]);
 
     const fetchFamilies = async () => {

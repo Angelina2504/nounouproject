@@ -58,7 +58,7 @@ const add = async (req, res) => {
     // Extract the tutor data from the request body
     const childId = req.body.childId;
     const tutor = req.body.tutor;
-    
+
     try {
         // Insert the tutor into the database
         const insertId = await tutorRepository.create(tutor, childId);

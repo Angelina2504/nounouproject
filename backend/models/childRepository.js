@@ -6,7 +6,7 @@ class ChildRepository extends AbstractRepository {
   }
 
   async create(child) {
-   
+
     const [result] = await this.databasePool.query(
         `insert into ${this.table} (firstname, lastname, birthdate, allergy) values (?, ?, ?, ?)`,
         [
@@ -16,7 +16,7 @@ class ChildRepository extends AbstractRepository {
             child.allergy
             /*child.userId */
         ]
-      ); 
+      );
 
       return result.insertId;
     }
@@ -41,13 +41,15 @@ class ChildRepository extends AbstractRepository {
 
   async update(child) {
     const [result] = await this.databasePool.query(
-      `update ${this.table} set firstname = ?, lastname = ?, birthdate = ?,  allergy = ?, user_id = ? where id = ?`,
+      `update ${this.table} set firstname = ?, lastname = ?, birthdate = ?,  allergy = ?, gender = ?, user_id = ? where id = ?`,
       [
           child.firstname,
           child.lastname,
           child.birthdate,
           child.allergy,
-          child.userId
+          child.gender,
+          child.userId,
+          child.id
       ]
     );
 

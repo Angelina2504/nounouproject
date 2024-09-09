@@ -103,6 +103,7 @@ class UserRepository extends AbstractRepository {
                 u.email AS user_email,
                 u.phone_number AS user_phone_number,
                 u.address AS user_address,
+                u.gender AS user_gender,
             
                 c.id AS child_id,
                 c.firstname AS child_firstname,
@@ -152,6 +153,7 @@ class UserRepository extends AbstractRepository {
                     email: row.user_email,
                     phoneNumber: row.user_phone_number,
                     address: row.user_address,
+                    gender: row.user_gender
                 };
                 // Set the flag to true to avoid handling the user informations again
                 userDetailsAlreadyHandled = true;
@@ -171,7 +173,7 @@ class UserRepository extends AbstractRepository {
                         birthdate: row.child_birthdate,
                         gender: row.child_gender,
                         allergy: row.child_allergy,
-                        tutors: []
+                        tutorsDetails: []
                     };
 
                     // Add the tutor to the currentChild if present
@@ -185,7 +187,7 @@ class UserRepository extends AbstractRepository {
                             address: row.tutor_address,
                             gender: row.tutor_gender
                         };
-                        currentChild.tutors.push(tutorDetails);
+                        currentChild.tutorsDetails.push(tutorDetails);
                     }
 
                     // ADd currentChild to already handled children to avoid duplicates on next iterations
@@ -207,7 +209,7 @@ class UserRepository extends AbstractRepository {
                         // Find the child in the childrenDetails in familyDetails and add the tutor to its tutors array
                         familyDetails.childrenDetails
                             .find(c => c.id === row.child_id)
-                            .tutors.push(tutorDetails);
+                            .tutorsDetails.push(tutorDetails);
                     }
                 }
             }
@@ -257,6 +259,25 @@ class UserRepository extends AbstractRepository {
         );
 
         return rows[0];
+    }
+
+    async update(user) {
+        const [result] = await this.databasePool.query(
+            `update ${this.table} 
+             set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?
+             where id = ?`,
+            [
+                user.firstname,
+                user.lastname,
+                user.email,
+                user.phoneNumber,
+                user.address,
+                user.gender,
+                user.id
+            ]
+        );
+
+        return result.affectedRows;
     }
 }
 

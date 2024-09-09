@@ -10,9 +10,10 @@ import Register from "./pages/Registration"
 import Admin from "./pages/admin/Admin.jsx"
 import Profile from "./pages/Profile.jsx"
 import PrivateRoute from './components/PrivateRoute.jsx';
-import FamilyDetails from './components/FamilyDetails.jsx';
-import FamiliesCards from './components/FamiliesCards.jsx';
+import AdminFamilyDetails from './components/admin/AdminFamilyDetails.jsx';
+import AdminFamiliesCards from './components/admin/AdminFamiliesCards.jsx';
 
+import "./styles/main.css";
 
 const router = createBrowserRouter([
   {
@@ -41,11 +42,11 @@ const router = createBrowserRouter([
               children: [
                 {
                   path: "families",
-                  element: <FamiliesCards /> // Affichage par défaut de toutes les familles (CardTemplates)
+                  element: <AdminFamiliesCards /> // Affichage par défaut de toutes les familles (CardTemplates)
                 },
                 {
                   path: "families/:userId",
-                  element: <FamilyDetails /> // Affiche les détails d'une famille
+                  element: <AdminFamilyDetails /> // Affiche les détails d'une famille
                 }
               ]
             },

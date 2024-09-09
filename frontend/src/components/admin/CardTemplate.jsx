@@ -1,7 +1,7 @@
 import {useNavigate} from 'react-router-dom';
-import "../styles/cardTemplate.css";
+import "../../styles/cardTemplate.css";
 
-export default function CardTemplate({ family, handleEdit, handleDelete }) {
+export default function CardTemplate({ family }) {
 
     const navigate = useNavigate();
 
@@ -16,11 +16,9 @@ export default function CardTemplate({ family, handleEdit, handleDelete }) {
 
             <h3>Enfant(s) :</h3>
             {family.children.map(child => (
-                <p key={child.id}>{child.firstname} {child.lastname}, Né(e) le {child.birthdate}</p>
+                <p key={child.id}>{child.firstname} {child.lastname}, Né(e) le {new Date(child.birthdate).toLocaleDateString()}</p>
             ))}
 
-            <button onClick={() => handleEdit(family.user.id)}>Éditer</button>
-            <button onClick={() => handleDelete(family.user.id)}>Supprimer</button>
             <button onClick={() => handleViewDetails(family.user.id)}>Voir les détails</button>
         </div>
     );
