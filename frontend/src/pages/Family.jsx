@@ -10,6 +10,7 @@ export default function Family() {
 
     const [children, setChildren] = useState([]);
     const [tutors, setTutors] = useState([]);
+    const [selectedChild, setSelectedChild] = useState(null);
 
     // // Fonction pour récupérer la liste des enfants
     const fetchChildren = async () => {
@@ -36,6 +37,25 @@ export default function Family() {
         }
     };
 
+    const handleEdit = (id) => {
+        const child = children.find(c => c.id === id);
+        setSelectedChild(child);
+    };
+
+    const handleSave = async () => {
+        await fetchChildren(); // Recharger la liste des enfants après la sauvegarde
+        setSelectedChild(null); // Fermer le formulaire d'édition
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            await axiosInstance.delete(`/children/delete/${id}`);
+            setChildren((prevChildren) => prevChildren.filter(child => child.id !== id));
+        } catch (error) {
+            console.error('Erreur lors de la suppression de l\'enfant', error);
+        }
+    };
+
    useEffect(() => {
         fetchChildren();
         fetchTutors();
@@ -58,13 +78,22 @@ export default function Family() {
 
             <section className="children-list-section">
                 <h2>Liste des Enfants</h2>
-                <ChildrenList children={children} />
+                <ChildrenList children={children} onEdit={handleEdit} onDelete={handleDelete} />
             </section>
 
             <section className="tutor-list-section">
                 <h2>Liste des Tuteurs</h2>
                 <TutorList tutors={tutors} />
             </section>
+
+            
+            {selectedChild && (
+                <section className="edit-child-section">
+                    <h2>Éditer un Enfant</h2>
+                    <UpdateChildForm child={selectedChild} onSave={handleSave} />
+                </section>
+            )}
+        
         </div>
     );
 }
