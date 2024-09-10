@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
 import { useCheckConnected } from "../../hooks/useCheckConnected";
 
-export default function AddTutorForm({ children }) {
+export default function AddTutorForm({ childrenList }) {
 
     const { user } = useCheckConnected();
 
@@ -76,7 +76,7 @@ export default function AddTutorForm({ children }) {
             <label>Enfant</label>
             <select name="childId" value={tutorChildForm.childId} onChange={handleChange} required>
                 <option key={-1} value={''}>Choisissez un enfant</option>
-                {(children || []).map((child) => (
+                {(childrenList || []).map((child) => (
                     <option key={child.id} value={child.id}>
                         {child.firstname} {child.lastname}
                     </option>

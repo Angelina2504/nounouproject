@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
 
-export default function UpdateChildForm (child, onSave) {
+export default function UpdateChildForm ({child, onSave}) {
 
     const [childForm, setChildForm] = useState(child);
 
@@ -12,7 +12,18 @@ export default function UpdateChildForm (child, onSave) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axiosInstance.put(`/children/edit/${child.id}`, childForm);
+
+            const payload = {
+                id: child.id,
+                gender: childForm.gender,
+                firstname: childForm.firstname,
+                lastname: childForm.lastname,
+                birthdate: childForm.birthdate,
+                allergy: childForm.allergy
+                // userId est géré par le controleur qui récupère l'id du user de la session
+            };
+
+            await axiosInstance.put(`/children/edit/${child.id}`, payload);
             onSave(); // Appel de la fonction de rappel après la sauvegarde
         } catch (error) {
             console.error('Erreur lors de l\'édition de l\'enfant', error)
@@ -29,6 +40,14 @@ export default function UpdateChildForm (child, onSave) {
 
     return (
         <form className="edit-child-form" onSubmit={handleSubmit}>
+
+            <label>Genre</label>        
+            <select name="gender" value={childForm.gender} onChange={handleChange}>
+                <option value="M">Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+            </select>
+
             <label>Prénom</label>
             <input type="text" name="firstname" value={childForm.firstname} onChange={handleChange} required/>
 

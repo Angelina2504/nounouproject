@@ -30,8 +30,7 @@ export default function Navbar() {
 
        { user ? (
             <>
-                <button className="deconnexion" onClick={logout} >Se déconnecter</button>
-                {isAdmin ? (
+               {isAdmin ? (
                     <Link to="/admin">Administration</Link>) : ''}
                 <button className="deconnexion" onClick={logout} >Se déconnecter</button>
                 <Link to="/profile">Mon Profil</Link>

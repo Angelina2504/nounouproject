@@ -44,7 +44,10 @@ const edit = async (req, res) => {
     // Extract the child data from the request body
     const child = req.body;
 
+    child.userId = req.session.user.id;
+
     try {
+        
         // Update the child in the database
         await childRepository.update(child);
 

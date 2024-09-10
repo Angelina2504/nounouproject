@@ -68,17 +68,17 @@ export default function Family() {
 
             <section className="add-child-section">
                 <h2>Ajouter un Enfant</h2>
-                <AddChildForm onAddChild={handleAddChild} />
+                <AddChildForm onAddChild={handleAddChild} onSave={handleSave}/>
             </section>
 
             <section className="add-tutor-section">
                 <h2>Ajouter un Second Tuteur</h2>
-                <AddTutorForm children={children}></AddTutorForm>
+                <AddTutorForm childrenList={children}></AddTutorForm>
             </section>
 
             <section className="children-list-section">
                 <h2>Liste des Enfants</h2>
-                <ChildrenList children={children} onEdit={handleEdit} onDelete={handleDelete} />
+                <ChildrenList childrenList={children} onEdit={handleEdit} onDelete={handleDelete} />
             </section>
 
             <section className="tutor-list-section">
