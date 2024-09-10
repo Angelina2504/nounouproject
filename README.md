@@ -5,10 +5,8 @@ The website "Des signes et des mots" is a site to facilite the communication bet
 ============================================================================
 ## TODO
 - real server address for API calls instead of localhost:3333
-- ~~protect pages by checking if user is logged in (is authenticated or not)~~
-~~- checkAuth function in AuthContext.js to check if user is authenticated and protect pages/routes~~
 - rename 'allergy' to 'allergies' in the database and everyhwere else
-- Add gender to user creation (registration) + for tutors & children creation too
+- Add gender to ~~user creation (registration)~✅ + for tutors & children creation too
 - Use PropTypes for all components to enforce type checking
 - ADMIN: Add possibilty to reset password for users, sending an email to redefine one
 ============================================================================

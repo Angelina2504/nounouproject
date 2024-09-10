@@ -1,28 +1,85 @@
 .register {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 30px;
+    border: 2px solid #5e3370; /* Violet foncé */
+    border-radius: 10px;
+    padding: 30px;
+    background-color: #c8a2c8; /* Violet très clair */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 50px auto;
+    width: 90%; /* Ajustement responsive */
 }
 
-.formRegister {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #c8a2c8;
-    border-width: 1.75px;
-    border-style: solid;
-    border-color: #69353F;
-    border-radius: 15px;
+.register h1 {
+    font-size: 2em;
+    color: #5e3370; /* Violet foncé */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register label {
+    font-size: 1.1em;
+    color: #5e3370;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.register input,
+.register select  {
+    width: 100%;
     padding: 10px;
-    gap: 10px;
+    font-size: 1em;
+    background-color: #f9f4ff; /* Conserver la cohérence avec le fond */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: border 0.2s ease-in-out;
+    box-sizing: border-box; /* Pour inclure le padding et la bordure dans la largeur */
+    max-width: 400px; /* Limite maximale de largeur */
+}
 
-    input {
-        border-radius: 15px;
-    }
+.register input:focus,
+.register select:focus {
+    border-color: #5e3370; /* Violet foncé */
+    outline: none;
+}
 
-    button {
-        margin-top: 10px;
-        border-radius: 15px;
-    }
+.register button {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffff54; /* Jaune vif */
+    border: 2px solid #5e3370; /* Violet foncé */
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #5e3370; /* Texte violet foncé */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    max-width: 400px; /* Limite maximale de largeur */
+    margin: 20px auto; /* Centre le bouton */
+}
+
+.register button:hover {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54; /* Texte jaune */
+}
+
+.register a {
+    color: #5e3370; /* Violet foncé */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register a:hover {
+    text-decoration: underline;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+    text-align: justify;
+    font-size: 0.9em;
+    background-color: #FFFF54; /* Violet très clair */
+    border: 2px solid #5e3370;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    font-weight: bold;
 }

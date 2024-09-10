@@ -6,7 +6,8 @@ h1 {
     margin: 0;
 }
 
-input:not([type="submit"]) {
+input:not([type="submit"]),
+select {
     border-radius: 10px;
     border: 1px solid #5e3370;
     margin-bottom: 10px;

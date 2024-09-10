@@ -60,13 +60,6 @@
     color: #ffff54; /* Texte jaune */
 }
 
-.login-container p {
-    text-align: center;
-    font-size: 0.9em;
-    color: #333;
-    margin-top: 20px;
-}
-
 .login-container a {
     color: #5e3370; /* Violet foncé */
     text-decoration: none;
@@ -80,4 +73,13 @@
 .error {
     color: red;
     margin-top: 10px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.forgotten-password {
+    text-align: center;
+    font-size: 0.9em;
+    color: #5e3370;
+    margin-top: 20px;
 }

@@ -64,7 +64,7 @@ const logout = async (req, res) => {
  * @returns {Promise<void>}
  */
 const register = async (req, res) => {
-    const { email, firstname, lastname, phoneNumber, address, password } = req.body;
+    const { email, firstname, lastname, phoneNumber, address, gender, password } = req.body;
 
     try {
         const hashedPassword = await argon2.hash(password);
@@ -75,7 +75,8 @@ const register = async (req, res) => {
             email,
             password: hashedPassword,
             phoneNumber,
-            address
+            address,
+            gender
         });
 
         res.status(201).json({ success: true, userId: String(userId) });

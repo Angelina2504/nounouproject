@@ -70,7 +70,7 @@ export default function Login() {
                 <button type="submit">Se connecter</button>
             </form>
 
-            <p>
+            <p className="forgotten-password">
                 Mot de passe oublié ? <a href="/forgot-password">Réinitialiser</a>
             </p>
         </section>
