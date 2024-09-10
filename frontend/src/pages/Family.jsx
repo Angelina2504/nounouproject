@@ -4,6 +4,7 @@ import AddTutorForm from './forms/AddTutorForm';
 import TutorList from '../components/TutorList';
 import ChildrenList from '../components/ChildrenList';
 import UpdateChildForm from './forms/UpdateChildForm';
+import UpdateTutorForm from './forms/UpdateTutorForm';
 import axiosInstance from "../services/httpClient";
 
 export default function Family() {
@@ -11,6 +12,7 @@ export default function Family() {
     const [children, setChildren] = useState([]);
     const [tutors, setTutors] = useState([]);
     const [selectedChild, setSelectedChild] = useState(null);
+    const [selectedTutors, setSelectedTutors] = useState(null);
 
     // // Fonction pour récupérer la liste des enfants
     const fetchChildren = async () => {
@@ -44,7 +46,7 @@ export default function Family() {
 
     const handleSave = async () => {
         await fetchChildren(); // Recharger la liste des enfants après la sauvegarde
-        setSelectedChild(null); // Fermer le formulaire d'édition
+        setSelectedTutor(null); // Fermer le formulaire d'édition
     };
 
     const handleDelete = async (id) => {
@@ -54,6 +56,31 @@ export default function Family() {
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'enfant', error);
         }
+    };
+
+    const handleTutorDelete = async (id) => {
+        try {
+            await axiosInstance.delete(`/tutors/delete/${id}`);
+            setTutors((prevTutor) => prevTutor.filter(tutors => tutors.id !== id));
+        } catch (error) {
+            console.error('Erreur lors de la suppression du tuteur', error);
+        }
+    };
+
+    const handleTutorEdit = async (id) => {
+        try  {
+            await axiosInstance.delete(`/tutors/edit/${id}`);
+            const tutor = tutor.find(t => t.id === id);
+        setSelectedTutor(tutor);
+           
+        }catch (error){
+            console.error('Erreur lors de la suppression du tuteur', error);
+        }
+    }
+
+    const handleTutorSave = async () => {
+        await fetchTutors(); // Recharger la liste des enfants après la sauvegarde
+        setSelectedChild(null); // Fermer le formulaire d'édition
     };
 
    useEffect(() => {
@@ -83,7 +110,7 @@ export default function Family() {
 
             <section className="tutor-list-section">
                 <h2>Liste des Tuteurs</h2>
-                <TutorList tutors={tutors} />
+                <TutorList tutors={tutors} onEdit={handleTutorEdit} onDelete={handleTutorDelete}/>
             </section>
 
             
@@ -91,6 +118,13 @@ export default function Family() {
                 <section className="edit-child-section">
                     <h2>Éditer un Enfant</h2>
                     <UpdateChildForm child={selectedChild} onSave={handleSave} />
+                </section>
+            )}
+
+            {selectedTutors && (
+                <section className="edit-child-section">
+                    <h2>Éditer un Enfant</h2>
+                    <UpdateTutorForm tutor={selectedTutors} onSave={handleTutorSave} />
                 </section>
             )}
         

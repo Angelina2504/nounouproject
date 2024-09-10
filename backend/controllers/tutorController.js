@@ -44,6 +44,8 @@ const edit = async (req, res) => {
     // Extract the tutor data from the request body
     const tutor = req.body;
 
+    tutor.userid = req.session.user.id;
+
     try {
         // Update the tutor in the database
         await tutorRepository.update(tutor);
@@ -62,11 +64,13 @@ const add = async (req, res) => {
     // Extract the tutor data from the request body
     const childId = req.body.childId;
     const tutor = req.body.tutor;
-    try {
-        tutor.userId = req.session.user.id;
 
+    tutor.userId = req.session.user.id; 
+
+    try {
+        
         // Insert the tutor into the database
-        const insertId = await tutorRepository.create(tutor, childId);
+        const insertId =  await tutorRepository.create(tutor, childId);
 
         // Respond with HTTP 201 (Created) and the ID of the newly inserted tutor
         res.status(201).json({ success: true, tutorId: insertId });

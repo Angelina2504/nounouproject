@@ -32,6 +32,7 @@ export default function AddTutorForm({ childrenList }) {
             // Define the payload parsing form data
             const payload = {
                 tutor: {
+                    gender: tutorChildForm.firstname,
                     firstname: tutorChildForm.firstname,
                     lastname: tutorChildForm.lastname,
                     email:tutorChildForm.email,
@@ -44,7 +45,8 @@ export default function AddTutorForm({ childrenList }) {
             await axiosInstance.post('/tutors/create', payload);
         
             setTutorChildForm(
-                { firstname: '', 
+                { gender: '',
+                  firstname: '', 
                   lastname: '',
                   email:'',
                   phoneNumber: '',
@@ -58,6 +60,14 @@ export default function AddTutorForm({ childrenList }) {
 
     return (
         <form className="add-tutor-form" onSubmit={handleSubmit}>
+
+            <label>Genre</label>        
+            <select name="gender" value={tutorChildForm.gender} onChange={handleChange}>
+                <option value="M">Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+            </select>
+
             <label>Prénom</label>
             <input type="text" name="firstname" value={tutorChildForm.firstname} onChange={handleChange} required />
 
