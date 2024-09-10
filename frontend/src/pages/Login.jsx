@@ -44,26 +44,7 @@ export default function Login() {
     };
 
     return (
-        // <section className="login">
-        //     <h2>Se connecter</h2>
-        //
-        //     {error && <p className="error">{error}</p>}
-        //
-        //     <form className="formLogin" onSubmit={handleLogin}>
-        //
-        //         <label htmlFor="">Email</label>
-        //         <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)}
-        //                required/>
-        //
-        //         <label htmlFor="">Mot de passe</label>
-        //         <input type="password" placeholder="password" value={password}
-        //                onChange={e => setPassword(e.target.value)} required/>
-        //
-        //         <button type="submit">Se connecter</button>
-        //     </form>
-        //
-        // </section>
-        <section className="login-container">
+       <section className="login-container">
             <h1>Se connecter</h1>
 
             {error && <p className="error">{error}</p>}
@@ -93,32 +74,5 @@ export default function Login() {
                 Mot de passe oublié ? <a href="/forgot-password">Réinitialiser</a>
             </p>
         </section>
-    //
-    // <div className="login-container">
-    //     <h1>Connexion</h1>
-    //     <form onSubmit={handleLogin}>
-    //         <label htmlFor="email">Email</label>
-    //         <input
-    //             type="email"
-    //             id="email"
-    //             value={email}
-    //             onChange={(e) => setEmail(e.target.value)}
-    //             placeholder="Entrez votre email"
-    //             required
-    //         />
-    //
-    //         <label htmlFor="password">Mot de passe</label>
-    //         <input
-    //             type="password"
-    //             id="password"
-    //             value={password}
-    //             onChange={(e) => setPassword(e.target.value)}
-    //             placeholder="Entrez votre mot de passe"
-    //             required
-    //         />
-    //
-    //         <button type="submit">Se connecter</button>
-    //     </form>
-
     );
 }
