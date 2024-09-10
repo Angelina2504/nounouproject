@@ -78,7 +78,7 @@ class TutorRepository extends AbstractRepository {
     async update(tutor) {
         const [result] = await this.databasePool.query(
             `update ${this.table} 
-             set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, user_id = ?
+             set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?, user_id = ?
              where id = ?`,
             [
                 tutor.firstname,
@@ -86,7 +86,9 @@ class TutorRepository extends AbstractRepository {
                 tutor.email,
                 tutor.phoneNumber,
                 tutor.address,
-                tutor.userId
+                tutor.gender,
+                tutor.userId,
+                tutor.id
             ]
         );
 

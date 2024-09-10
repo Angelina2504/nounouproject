@@ -21,7 +21,6 @@ const browse = async (req, res) => {
 // Get a tutor by its id
 const read = async (req, res) => {
     try {
-        
 
         // Search tutor by id
         const tutor = await tutorRepository.read(req.params.id);
@@ -63,7 +62,6 @@ const add = async (req, res) => {
     // Extract the tutor data from the request body
     const childId = req.body.childId;
     const tutor = req.body.tutor;
-   
     try {
         tutor.userId = req.session.user.id;
 
