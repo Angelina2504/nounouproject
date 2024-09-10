@@ -1,0 +1,70 @@
+.family-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Cartes responsive */
+    gap: 24px; /* Espacement entre les cartes */
+    justify-items: center; /* Centre les cartes horizontalement */
+    margin: 0 auto; /* Centrer la grille dans la page */
+    padding: 20px; /* Ajouter un padding autour de la grille */
+    max-width: 1200px; /* Limite la largeur totale de la grille */
+}
+
+/* Styles pour les cartes */
+.card-template {
+    border: 1px solid #69353f;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #c8a2c8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* La carte occupe 100% de la largeur dans sa colonne */
+    max-width: 300px; /* Largeur maximale de la carte */
+    min-width: 250px; /* Largeur minimale de la carte */
+    box-sizing: border-box; /* Assurer que le padding est inclus dans la largeur */
+    transition: transform 0.3s ease; /* Ajoute un effet de zoom au hover */
+}
+
+.card-template:hover {
+    transform: scale(1.05); /* Légèrement agrandir la carte au survol */
+}
+
+.card-template h2 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    word-wrap: break-word; /* Assure le retour à la ligne si le texte est trop long */
+}
+
+.card-template p {
+    margin: 6px 0;
+    font-size: 1em; /* Adapter la taille du texte */
+    word-wrap: break-word; /* Assurer que les textes longs ne débordent pas */
+}
+
+.card-template button {
+    margin-top: 10px;
+    margin-right: 10px;
+    background-color: #ffff54;
+    border-radius: 20px;
+    font-size: 0.9em; /* Adapter la taille des boutons */
+    color: #5e3370; /* Violet foncé */
+    border: 2px solid #5e3370;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-template button:hover {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54;
+}
+
+/* Pour les petits écrans (mobiles) */
+@media screen and (max-width: 600px) {
+    .family-cards {
+        grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
+        gap: 16px;
+    }
+
+    .card-template {
+        max-width: 100%; /* Occuper toute la largeur de l'écran */
+    }
+}

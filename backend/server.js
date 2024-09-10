@@ -4,6 +4,7 @@ const session = require("express-session");
 const cors = require("cors");
 
 const routes = require("./routes/routes");
+const adminRoutes = require("./routes/adminRoutes");
 const authRoutes = require("./routes/authRoutes");
 const childRoutes = require("./routes/childRoutes");
 const userRoutes = require("./routes/userRoutes");
@@ -39,6 +40,7 @@ app.use(session(
 
 // Configuration des routes de l'api
 app.use("/", routes);
+app.use("/admin", adminRoutes);
 app.use("/auth", authRoutes);
 app.use("/children", childRoutes);
 app.use("/users", userRoutes);
