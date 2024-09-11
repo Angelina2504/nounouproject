@@ -29,18 +29,19 @@ export default function Navbar() {
        <Link to="/"> <img className="logo" src={Logo} alt="Logo : le message des signes et des mots est entouré de jouets" /></Link>
 
        { user ? (
-            <>
+
+           <>
                {isAdmin ? (
-                    <Link to="/admin">Administration</Link>) : ''}
-                <button className="deconnexion" onClick={logout} >Se déconnecter</button>
-                <Link to="/profile">Mon Profil</Link>
-                <Link to="/family">Ma Famille</Link>
-            </>
-            ) : (
-            <>
-                <Link to="/login">Se connecter</Link>
+                   <Link className="navbar-button" to="/admin">Administration</Link>) : ''}
+               <Link className="navbar-button" to="/profile">Mon Profil</Link>
+               <Link className="navbar-button" to="/family">Ma Famille</Link>
+               <button className="deconnexion" onClick={logout}>Se déconnecter</button>
+           </>
+       ) : (
+           <>
+               <Link className="navbar-button" to="/login">Se connecter</Link>
                     &nbsp;&nbsp;
-                <Link to="/register">S&rsquo;inscrire</Link>
+                <Link className="navbar-button" to="/register">S&rsquo;inscrire</Link>
             </>
             )
 

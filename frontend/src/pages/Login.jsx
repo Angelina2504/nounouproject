@@ -44,22 +44,35 @@ export default function Login() {
     };
 
     return (
-        <section className="login">
-            <h2>Se connecter</h2>
+       <section className="login-container">
+            <h1>Se connecter</h1>
 
             {error && <p className="error">{error}</p>}
 
             <form className="formLogin" onSubmit={handleLogin}>
 
-                <label htmlFor="">Email</label>
-                <input type="email" placeholder="email" value={email} onChange={e => setEmail(e.target.value)} required/>
+                <label htmlFor="email">Email</label>
+                <input type="email"
+                       placeholder="Entrez votre email"
+                       value={email}
+                       onChange={e => setEmail(e.target.value)}
+                       required
+                />
 
-                <label htmlFor="">Mot de passe</label>
-                <input type="password" placeholder="password" value={password} onChange={e => setPassword(e.target.value)} required/>
+                <label htmlFor="password">Mot de passe</label>
+                <input type="password"
+                       placeholder="Entrez votre mot de passe"
+                       value={password}
+                       onChange={e => setPassword(e.target.value)}
+                       required
+                />
 
                 <button type="submit">Se connecter</button>
             </form>
 
+            <p className="forgotten-password">
+                Mot de passe oublié ? <a href="/forgot-password">Réinitialiser</a>
+            </p>
         </section>
-    )
+    );
 }

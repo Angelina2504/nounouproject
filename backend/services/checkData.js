@@ -7,7 +7,8 @@ const checkRegisterData = (req, res, next) => {
     email: Joi.string().email().presence("required"),
     password: Joi.string().min(6).max(20).presence("required"),
     phoneNumber: Joi.string().min(10).max(10).presence("required"),
-    address: Joi.string().min(2).max(250).presence("required")
+    address: Joi.string().min(2).max(250).presence("required"),
+    gender: Joi.string().valid("M", "F", "O").presence("required"),
   }).validate(req.body, { abortEarly: false });
 
   if (!error) {

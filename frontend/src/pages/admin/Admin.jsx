@@ -2,12 +2,13 @@ import "../../styles/admin.css";
 import {useCheckConnected} from '../../hooks/useCheckConnected.jsx';
 import {useCallback, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient.js';
-import {Outlet, useNavigate} from 'react-router-dom';
+import {Outlet, useLocation, useNavigate} from 'react-router-dom';
 
 export default function Admin() {
 
     const { user, loading } = useCheckConnected(); // Récupérer l'utilisateur connecté depuis le contexte
     const navigate = useNavigate();
+    const location = useLocation()
 
     /**
      * Check if the user is an admin, and redirect to the appropriate page.
@@ -30,10 +31,14 @@ export default function Admin() {
         // check if user is admin, if not, redirect to family page, else, go to admin/families
         checkUserIsAdmin()
             .then((isAdmin) => {
-                navigate(isAdmin ? '/admin/families' : '/family');
+                if (isAdmin && location.pathname === "/admin") {
+                    navigate('/admin/families');
+                } else if (!isAdmin) {
+                    navigate('/family');
+                }
             });
 
-    }, [user, loading, navigate, checkUserIsAdmin]);
+    }, [user, loading, navigate, checkUserIsAdmin, location]);
 
     if (loading) return <p>Chargement...</p>;
 

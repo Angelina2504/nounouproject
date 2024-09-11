@@ -8,7 +8,17 @@ class UserRepository extends AbstractRepository {
     // ------------------------------
     // ----------- Admin ------------
     // ------------------------------
-    async getFamilies() {
+    async getFamilies(search = '') {
+        // If there is a search term, we need to build the search condition
+        const searchTerms = search ? `%${search}%` : '';
+        const searchCondition = searchTerms ?
+            'AND (u.firstname LIKE ? ' +   // Search in user firstname
+                'OR u.lastname LIKE ? ' +  // or in user lastname
+                'OR u.email LIKE ?' +      // or in user email
+                'OR c.firstname LIKE ?' +  // or in child firstname
+                'OR c.lastname LIKE ? ' +  // or in child lastname
+            ')' : '';
+
         // Query to get all users, and their attached children, except for admins,
         // ordered by user id, child id. Tutors will be added later in Family Details.
         const [rows] = await this.databasePool.query(
@@ -29,8 +39,17 @@ class UserRepository extends AbstractRepository {
              FROM user u
                  LEFT JOIN child c ON u.id = c.user_id
              WHERE u.is_admin = FALSE
+                # Add the search condition if there is a search term
+                ${searchCondition}
              ORDER BY u.id, c.id;`
-        );
+            // Parameters of the query, if there is a search term, we need to add it 5 times
+        , searchCondition ? [
+                searchTerms, // Search in user firstname, first '?' in the query
+                searchTerms, // Search in user lastname, second '?' in the query
+                searchTerms, // Search in user email, third '?' in the query
+                searchTerms, // Search in child firstname, fourth '?' in the query
+                searchTerms  // Search in child lastname, fifth '?' in the query
+            ] : []); // else, no parameters
 
         // Group results by user, then children and tutors
         const families = [];
@@ -96,7 +115,7 @@ class UserRepository extends AbstractRepository {
 
         // Big query to get all information about the family (children and tutors) for a given user
         const [rows] = await this.databasePool.query(
-            `SELECT 
+            `SELECT
                 u.id AS user_id,
                 u.firstname AS user_firstname,
                 u.lastname AS user_lastname,
@@ -104,14 +123,14 @@ class UserRepository extends AbstractRepository {
                 u.phone_number AS user_phone_number,
                 u.address AS user_address,
                 u.gender AS user_gender,
-            
+
                 c.id AS child_id,
                 c.firstname AS child_firstname,
                 c.lastname AS child_lastname,
                 c.birthdate AS child_birthdate,
                 c.gender AS child_gender,
                 c.allergy AS child_allergy,
-                
+
                 t.id AS tutor_id,
                 t.firstname AS tutor_firstname,
                 t.lastname AS tutor_lastname,
@@ -119,7 +138,7 @@ class UserRepository extends AbstractRepository {
                 t.phone_number AS tutor_phone_number,
                 t.address AS tutor_address,
                 t.gender AS tutor_gender
-            
+
             FROM user u
             LEFT JOIN child c ON u.id = c.user_id
             LEFT JOIN tutor_child tc ON c.id = tc.child_id
@@ -233,14 +252,15 @@ class UserRepository extends AbstractRepository {
         try {
 
             const [result] = await this.databasePool.query(
-                `INSERT INTO ${this.table} (firstname, lastname, email, password, phone_number, address) VALUES (?, ?, ?, ?, ?, ?)`,
+                `INSERT INTO ${this.table} (firstname, lastname, email, password, phone_number, address, gender) VALUES (?, ?, ?, ?, ?, ?, ?)`,
                 [
                     user.firstname,
                     user.lastname,
                     user.email,
                     user.password,
                     user.phoneNumber,
-                    user.address
+                    user.address,
+                    user.gender
                 ]
             );
 
@@ -253,7 +273,7 @@ class UserRepository extends AbstractRepository {
 
     async read(id) {
         const [rows] = await this.databasePool.query(
-            `select * from ${this.table} 
+            `select * from ${this.table}
              where id = ?`,
             [id]
         );
@@ -263,7 +283,7 @@ class UserRepository extends AbstractRepository {
 
     async update(user) {
         const [result] = await this.databasePool.query(
-            `update ${this.table} 
+            `update ${this.table}
              set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?
              where id = ?`,
             [
