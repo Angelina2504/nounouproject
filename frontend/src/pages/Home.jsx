@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
+import { useCheckConnected } from "../hooks/useCheckConnected";
 
 export default function Home (){
     const navigate = useNavigate();
-    const { auth } = useAuth();
+    const { user } = useCheckConnected();
 
     useEffect(() => {
-        if (auth) {
+        if (user) {
             navigate("/family");
-        };
-    }, [auth, navigate]);
+        }
+    }, [user, navigate]);
 
     return (
         <>

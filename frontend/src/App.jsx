@@ -4,6 +4,7 @@ import Footer from "./components/Footer";
 import '../src/App.css'
 
 function App() {
+
     return (
     <>
         <Navbar/>

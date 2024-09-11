@@ -1,0 +1,84 @@
+.admin-page h1 {
+    font-size: 2em;
+    color: #5e3370;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.no-result-text {
+    font-size: 1.2em;
+    color: #5e3370;
+    text-align: center;
+    margin: 20px 0;
+}
+/* Styles pour le bandeau de recherche */
+.family-search-header {
+    background-color: #c8a2c8; /* Violet clair */
+    border-bottom: 3px solid #5e3370; /* Bordure inférieure violet foncé */
+    padding: 20px 0;
+    text-align: center;
+}
+
+.family-search-container {
+    display: inline-block;
+    padding: 10px;
+    background-color: #f9f4ff; /* Violet très clair */
+    border: 2px solid #5e3370;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.family-search-container label {
+    display: block;
+    font-size: 1.3em;
+    color: #5e3370; /* Violet foncé */
+    margin-bottom: 10px;
+}
+
+.family-search-container input {
+    width: 60%;
+    max-width: 400px;
+    min-width: 200px;
+    padding: 10px;
+    font-size: 1em;
+    border: 2px solid #5e3370; /* Bordure violet foncé */
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.family-search-hint {
+    font-style: italic;
+    font-size: 0.9em; /* Réduit légèrement la taille du texte */
+    color: #5e3370; /* Violet foncé pour rester dans la charte graphique */
+    display: block; /* Assure que le texte prenne toute la largeur sous le label */
+    margin: 8px 0;
+    /*margin-bottom: 8px; !* Ajoute un peu d'espace entre le texte et l'input *!*/
+}
+
+.family-search-container input:focus {
+    border-color: #ffff54; /* Bordure jaune vif au focus */
+}
+
+.family-search-container button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #ffff54; /* Jaune vif */
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.family-search-container button:hover {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54;
+}
+
+@media screen and (max-width: 600px) {
+    .family-search-container input {
+        width: 80%;
+    }
+}

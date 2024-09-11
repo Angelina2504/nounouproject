@@ -1,0 +1,167 @@
+.family-details-container {
+    border: 2px solid #c8a2c8; /* Violet */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f4ff; /* Violet très clair */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.family-details-container h1 {
+    font-size: 2em;
+    color: #5e3370; /* Violet foncé */
+}
+
+.back-button,
+.edit-button {
+    background-color: #ffff54; /* Jaune vif */
+    color: #5e3370; /* Violet foncé */
+    border: 2px solid #5e3370;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.back-button {
+    padding: 10px 20px;
+}
+
+.edit-button {
+    padding: 5px 10px;
+}
+
+.back-button:hover,
+.edit-button:hover {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54;
+}
+
+/* Ajoute un conteneur flex pour les prénoms et noms */
+.name-fields {
+    display: flex;
+    gap: 10px; /* Espacement entre prénom et nom */
+}
+
+.name-fields input {
+    flex: 1; /* Les inputs partagent l'espace de manière égale */
+    max-width: 230px; /* Limite la largeur à 200px */
+    min-width: 150px; /* Définit une largeur minimale pour éviter qu'ils soient trop petits */
+    width: auto; /* Permet au champ de s'adapter au contenu */
+    font-size: 0.8em; /* Réduit la taille du texte pour s'adapter à la largeur */
+}
+
+.user-informations input,
+.child-informations input,
+.tutor-informations input {
+    max-width: 230px;
+    min-width: 150px;
+    width: auto;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.user-details,
+.children-details {
+    margin-top: 20px;
+}
+
+.user-details h2,
+.children-details h2 {
+    color: #5e3370; /* Violet foncé */
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.user-details p,
+.children-details p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.user-informations {
+    border: 2px dotted purple;
+    border-radius: 8px;
+    padding: 10px 10px;
+}
+
+.child-card {
+    border: 1px solid #5e3370;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e5d3f2;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.child-card h3 {
+    margin-top: 0.2em;
+    font-size: 1.3em;
+    color: #5e3370; /* Violet foncé */
+}
+
+.tutors-details {
+    margin-top: 15px;
+}
+
+.tutors-details h4 {
+    font-size: 1.2em;
+    color: #5e3370;
+}
+
+.tutor-card {
+    background-color: #fff6d5; /* Jaune clair */
+    border-radius: 8px;
+    border: 1px solid #5e3370;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.tutor-card p {
+    margin: 3px 0;
+}
+
+/* Styles pour les champs d'édition */
+.family-details input[type="text"] {
+    font-size: 1.1em;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: calc(100% - 22px);
+    background-color: #f9f4ff; /* Pour rester cohérent avec le fond en mode présentation */
+}
+
+.family-details input[type="text"]:focus {
+    border-color: #5e3370; /* Violet foncé */
+    outline: none;
+}
+
+/* Pour garantir que les <p> et <input> ont un style commun, permettant de garder l'alignement */
+.editable-field {
+    display: inline-block;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.editable-field input {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px;
+    width: calc(100% - 22px);
+    transition: border 0.2s ease-in-out;
+}
+
+.editable-address {
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.editable-field input:focus {
+    border-color: #5e3370;
+    outline: none;
+}
