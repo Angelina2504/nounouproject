@@ -100,7 +100,7 @@ export default function Family() {
 
             <section className="add-tutor-section">
                 <h2>Ajouter un Second Tuteur</h2>
-                <AddTutorForm childrenList={children}></AddTutorForm>
+                <AddTutorForm childrenList={children} handleSave={handleTutorSave}></AddTutorForm>
             </section>
 
             <section className="children-list-section">

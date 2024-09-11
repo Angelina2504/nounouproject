@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
 
-export default function UpdateTutordForm ({}) {
+export default function UpdateTutordForm ({tutor, handleSave}) {
 
     const [tutorForm, setTutorForm] = useState(tutor);
 
@@ -25,7 +25,7 @@ export default function UpdateTutordForm ({}) {
             };
 
             await axiosInstance.put(`/tutors/edit/${tutor.id}`, payload);
-            onSave(); // Appel de la fonction de rappel après la sauvegarde
+            handleSave(); // Appel de la fonction de rappel après la sauvegarde
         } catch (error) {
             console.error('Erreur lors de l\'édition de l\'enfant', error)
         }

@@ -18,15 +18,15 @@ class TutorRepository extends AbstractRepository {
 
             // On insert le nouveau tuteur
             const [result] = await connection.query(
-                `insert into ${this.table}(gender, firstname, lastname, email, phone_number, address, user_id)
+                `insert into ${this.table}( firstname, lastname, email, phone_number, address,gender, user_id)
                  values (?, ?, ?, ?, ?, ?, ?)`,
                 [
-                    tutor.gender,
                     tutor.firstname,
                     tutor.lastname,
                     tutor.email,
                     tutor.phoneNumber,
                     tutor.address,
+                    tutor.gender,
                     tutor.userId
                 ]
             );
@@ -79,10 +79,10 @@ class TutorRepository extends AbstractRepository {
     async update(tutor) {
         const [result] = await this.databasePool.query(
             `update ${this.table} 
-             set gender = ?, firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?, user_id = ?
+             set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?, user_id = ?
              where id = ?`,
             [
-                tutor.gender,
+               
                 tutor.firstname,
                 tutor.lastname,
                 tutor.email,

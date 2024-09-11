@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
 import { useCheckConnected } from "../../hooks/useCheckConnected";
 
-export default function AddTutorForm({ childrenList }) {
+export default function AddTutorForm({ childrenList, handleSave }) {
 
     const { user } = useCheckConnected();
 
@@ -32,7 +32,7 @@ export default function AddTutorForm({ childrenList }) {
             // Define the payload parsing form data
             const payload = {
                 tutor: {
-                    gender: tutorChildForm.firstname,
+                    gender: tutorChildForm.gender,
                     firstname: tutorChildForm.firstname,
                     lastname: tutorChildForm.lastname,
                     email:tutorChildForm.email,
@@ -43,6 +43,7 @@ export default function AddTutorForm({ childrenList }) {
             };
 
             await axiosInstance.post('/tutors/create', payload);
+            handleSave();
         
             setTutorChildForm(
                 { gender: '',
