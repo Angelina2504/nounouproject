@@ -44,7 +44,7 @@ const edit = async (req, res) => {
     // Extract the tutor data from the request body
     const tutor = req.body;
 
-    tutor.userid = req.session.user.id;
+    tutor.userId = req.session.user.id;
 
     try {
         // Update the tutor in the database

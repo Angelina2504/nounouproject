@@ -12,7 +12,7 @@ export default function Family() {
     const [children, setChildren] = useState([]);
     const [tutors, setTutors] = useState([]);
     const [selectedChild, setSelectedChild] = useState(null);
-    const [selectedTutors, setSelectedTutors] = useState(null);
+    const [selectedTutor, setSelectedTutor] = useState(null);
 
     // // Fonction pour récupérer la liste des enfants
     const fetchChildren = async () => {
@@ -42,11 +42,12 @@ export default function Family() {
     const handleEdit = (id) => {
         const child = children.find(c => c.id === id);
         setSelectedChild(child);
+        setSelectedTutor(null);
     };
 
     const handleSave = async () => {
         await fetchChildren(); // Recharger la liste des enfants après la sauvegarde
-        setSelectedTutor(null); // Fermer le formulaire d'édition
+        setSelectedChild(null); // Fermer le formulaire d'édition
     };
 
     const handleDelete = async (id) => {
@@ -69,18 +70,19 @@ export default function Family() {
 
     const handleTutorEdit = async (id) => {
         try  {
-            await axiosInstance.delete(`/tutors/edit/${id}`);
-            const tutor = tutor.find(t => t.id === id);
+            await axiosInstance.put(`/tutors/edit/${id}`);
+            const tutor = tutors.find(t => t.id === id);
         setSelectedTutor(tutor);
+        setSelectedChild(null);
            
         }catch (error){
-            console.error('Erreur lors de la suppression du tuteur', error);
+            console.error('Erreur lors de la modification du tuteur', error);
         }
     }
 
     const handleTutorSave = async () => {
         await fetchTutors(); // Recharger la liste des enfants après la sauvegarde
-        setSelectedChild(null); // Fermer le formulaire d'édition
+        setSelectedTutor(null); // Fermer le formulaire d'édition
     };
 
    useEffect(() => {
@@ -121,10 +123,10 @@ export default function Family() {
                 </section>
             )}
 
-            {selectedTutors && (
-                <section className="edit-child-section">
-                    <h2>Éditer un Enfant</h2>
-                    <UpdateTutorForm tutor={selectedTutors} onSave={handleTutorSave} />
+            {selectedTutor && (
+                <section className="edit-tutor-section">
+                    <h2>Éditer un Tuteur</h2>
+                    <UpdateTutorForm tutor={selectedTutor} onSave={handleTutorSave} />
                 </section>
             )}
         

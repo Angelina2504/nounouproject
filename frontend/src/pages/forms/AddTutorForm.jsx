@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
-import { useCheckConnected } from "../../hooks/useCheckConnected";
 
 export default function AddTutorForm({ childrenList, handleSave }) {
-
-    const { user } = useCheckConnected();
 
     const [tutorChildForm, setTutorChildForm] = useState({
         firstname: '',

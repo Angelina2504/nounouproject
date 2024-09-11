@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
+import dateUtils from '../../services/dateUtils';
 
 export default function UpdateChildForm ({child, onSave}) {
 
@@ -18,7 +19,7 @@ export default function UpdateChildForm ({child, onSave}) {
                 gender: childForm.gender,
                 firstname: childForm.firstname,
                 lastname: childForm.lastname,
-                birthdate: childForm.birthdate,
+                birthdate: dateUtils.formatFromJsonToSQLDate(childForm.birthdate),
                 allergy: childForm.allergy
                 // userId est géré par le controleur qui récupère l'id du user de la session
             };
@@ -55,7 +56,9 @@ export default function UpdateChildForm ({child, onSave}) {
             <input type="text" name="lastname" value={childForm.lastname} onChange={handleChange} required/>
 
             <label>Date de Naissance</label>
-            <input type="date" name="birthdate" value={childForm.birthdate} onChange={handleChange} required/>
+            <input type="date" name="birthdate" value={
+                dateUtils.formatFromJsonToSQLDate(childForm.birthdate)
+                } onChange={handleChange} required/>
 
             <label>Allergies</label>
             <input type="text" name="allergy" value={childForm.allergy} onChange={handleChange}/>

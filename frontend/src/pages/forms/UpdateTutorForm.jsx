@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
 
-export default function UpdateTutordForm ({tutor, handleSave}) {
+export default function UpdateTutordForm ({tutor, onSave}) {
 
     const [tutorForm, setTutorForm] = useState(tutor);
 
@@ -19,13 +19,13 @@ export default function UpdateTutordForm ({tutor, handleSave}) {
                 firstname: tutorForm.firstname,
                 lastname: tutorForm.lastname,
                 email: tutorForm.email,
-                phoneNumber: tutorForm.phoneNumber,
-                adress: tutorForm.adress
+                phoneNumber: tutorForm.phone_number,
+                address: tutorForm.address
                 // userId est géré par le controleur qui récupère l'id du user de la session
             };
 
             await axiosInstance.put(`/tutors/edit/${tutor.id}`, payload);
-            handleSave(); // Appel de la fonction de rappel après la sauvegarde
+            onSave(); // Appel de la fonction de rappel après la sauvegarde
         } catch (error) {
             console.error('Erreur lors de l\'édition de l\'enfant', error)
         }
@@ -59,10 +59,10 @@ export default function UpdateTutordForm ({tutor, handleSave}) {
             <input type="email" name="email" value={tutorForm.email} onChange={handleChange} required/>
 
             <label>Numéro de téléphone</label>
-            <input type="text" name="phoneNumber" value={tutorForm.phoneNumber} onChange={handleChange}/>
+            <input type="text" name="phone_number" value={tutorForm.phone_number} onChange={handleChange}/>
 
-            <label>Adress</label>
-            <input type="text" name="adress" value={tutorForm.adress} onChange={handleChange} />
+            <label>Adresse</label>
+            <input type="text" name="address" value={tutorForm.address} onChange={handleChange} />
 
             <button type="submit">Sauvegarder</button>
         </form>
