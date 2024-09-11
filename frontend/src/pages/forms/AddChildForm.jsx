@@ -1,26 +1,15 @@
 import { useState } from 'react';
-/*import { useCheckConnected } from '../../hooks/useCheckConnected';*/
-/*import { useNavigate } from 'react-router-dom';*/
 import axiosInstance from "../../services/httpClient";
 
-export default function AddChildForm({ onAddChild }) {
-    /*const { connected } = useCheckConnected();*/
-   /* const navigate = useNavigate();*/
+export default function AddChildForm({onSave}) {
 
     const [childForm, setChildForm] = useState({
+        gender: '',
         firstname: '',
         lastname: '',
         birthdate: '',
         allergy: ''
-      /*  userId: connected?.id || null   Utiliser null si connected n'est pas défini */
     });
-
-    // FIXME a-t-on besoin de checker la connexion encore ici ? Ca casse pas le contexte ?
-    // useEffect(() => {
-    //     if (!connected) {
-    //         navigate('/login');  // Redirige vers la page de login si l'utilisateur n'est pas connecté
-    //     }
-    // }, [connected, navigate]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -36,17 +25,22 @@ export default function AddChildForm({ onAddChild }) {
 
             const payload = {
               child: {  
+                gender: childForm.gender,
                 firstname: childForm.firstname,
                 lastname: childForm.lastname,
                 birthdate: childForm.birthdate,
                 allergy: childForm.allergy
+                 // userId est géré par le controleur qui récupère l'id du user de la session
               }
-            }
+            };
 
             await axiosInstance.post('/children/create', payload);
+            onSave();
            
             setChildForm(
-                { firstname: '',
+                { 
+                  gender: '',
+                  firstname: '',
                   lastname: '',
                   birthdate: '',
                   allergy: '' }
@@ -58,6 +52,13 @@ export default function AddChildForm({ onAddChild }) {
 
     return (
         <form className="add-child-form" onSubmit={handleSubmit}>
+            <label>Genre</label>        
+            <select name="gender" value={childForm.gender} onChange={handleChange}>
+                <option value="M">Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+            </select>
+
             <label>Prénom</label>
             <input type="text" name="firstname" value={childForm.firstname} onChange={handleChange} required/>
 

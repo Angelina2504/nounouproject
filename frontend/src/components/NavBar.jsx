@@ -1,6 +1,7 @@
 import Logo from "../assets/pictures/logo.png";
 import { Link } from "react-router-dom";
-import { useCheckConnected } from "../hooks/useCheckConnected"
+import { useCheckConnected } from "../hooks/useCheckConnected";
+
 
 import "../styles/navbar.css"
 import {useEffect, useState} from 'react';
@@ -28,6 +29,7 @@ export default function Navbar() {
        <Link to="/"> <img className="logo" src={Logo} alt="Logo : le message des signes et des mots est entouré de jouets" /></Link>
 
        { user ? (
+
            <>
                {isAdmin ? (
                    <Link className="navbar-button" to="/admin">Administration</Link>) : ''}

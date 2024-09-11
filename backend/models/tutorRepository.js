@@ -18,14 +18,15 @@ class TutorRepository extends AbstractRepository {
 
             // On insert le nouveau tuteur
             const [result] = await connection.query(
-                `insert into ${this.table}(firstname, lastname, email, phone_number, address, user_id)
-                 values (?, ?, ?, ?, ?, ?)`,
+                `insert into ${this.table}( firstname, lastname, email, phone_number, address,gender, user_id)
+                 values (?, ?, ?, ?, ?, ?, ?)`,
                 [
                     tutor.firstname,
                     tutor.lastname,
                     tutor.email,
                     tutor.phoneNumber,
                     tutor.address,
+                    tutor.gender,
                     tutor.userId
                 ]
             );
@@ -66,9 +67,10 @@ class TutorRepository extends AbstractRepository {
         return rows[0];
     }
 
-    async readAll() {
+    async readAllForUser(userId) {
         const [rows] = await this.databasePool.query(
-            `select * from ${this.table}`
+            `select * from ${this.table} where user_id = ?`,
+            [userId]
         );
 
         return rows;
@@ -80,6 +82,7 @@ class TutorRepository extends AbstractRepository {
              set firstname = ?, lastname = ?, email = ?, phone_number = ?, address = ?, gender = ?, user_id = ?
              where id = ?`,
             [
+               
                 tutor.firstname,
                 tutor.lastname,
                 tutor.email,

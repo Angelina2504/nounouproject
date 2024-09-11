@@ -3,8 +3,11 @@ const tutorRepository = require('../models/tutorRepository');
 // Browse all tutors
 const browse = async (req, res) => {
     try {
+        // retrieve current user id from session 
+        const userId = req.session.user.id;
+
         // Get all tutors from the database
-        const tutors = await tutorRepository.readAll();
+        const tutors = await tutorRepository.readAllForUser(userId);
 
         // Respond with the tutors in JSON format
         res.status(200).json({ success: true, tutors: tutors });
@@ -18,6 +21,7 @@ const browse = async (req, res) => {
 // Get a tutor by its id
 const read = async (req, res) => {
     try {
+
         // Search tutor by id
         const tutor = await tutorRepository.read(req.params.id);
 
@@ -40,6 +44,8 @@ const edit = async (req, res) => {
     // Extract the tutor data from the request body
     const tutor = req.body;
 
+    tutor.userId = req.session.user.id;
+
     try {
         // Update the tutor in the database
         await tutorRepository.update(tutor);
@@ -59,9 +65,12 @@ const add = async (req, res) => {
     const childId = req.body.childId;
     const tutor = req.body.tutor;
 
+    tutor.userId = req.session.user.id; 
+
     try {
+        
         // Insert the tutor into the database
-        const insertId = await tutorRepository.create(tutor, childId);
+        const insertId =  await tutorRepository.create(tutor, childId);
 
         // Respond with HTTP 201 (Created) and the ID of the newly inserted tutor
         res.status(201).json({ success: true, tutorId: insertId });

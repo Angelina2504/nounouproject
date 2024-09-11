@@ -1,10 +1,14 @@
 const childRepository = require('../models/childRepository');
 
-// Browse all children
-const browse = async (req, res) => {
+// Browse all children for authenticated user
+const browseForUser = async (req, res) => {
     try {
-        // Get all children from the database
-        const children = await childRepository.readAll();
+
+        // retrieve current user id from session 
+        const userId = req.session.user.id;
+
+        // Get all children for authenticated user from the database
+        const children = await childRepository.readAllForUser(userId);
 
         // Respond with the children in JSON format
         res.status(200).json({ success: true, children: children });
@@ -40,7 +44,10 @@ const edit = async (req, res) => {
     // Extract the child data from the request body
     const child = req.body;
 
+    child.userId = req.session.user.id;
+
     try {
+        
         // Update the child in the database
         await childRepository.update(child);
 
@@ -57,6 +64,8 @@ const edit = async (req, res) => {
 const add = async (req, res) => {
     // Extract the child data from the request body
     const { child } = req.body;
+
+    child.userId = req.session.user.id;
 
     try {
         // Insert the child into the database
@@ -95,7 +104,7 @@ const destroy = async (req, res) => {
 }
 
 module.exports = {
-    browse,
+    browseForUser,
     read,
     edit,
     add,

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
 
-export default function AddTutorForm({ children }) {
+export default function AddTutorForm({ childrenList, handleSave }) {
+
     const [tutorChildForm, setTutorChildForm] = useState({
         firstname: '',
         lastname: '',
@@ -28,6 +29,7 @@ export default function AddTutorForm({ children }) {
             // Define the payload parsing form data
             const payload = {
                 tutor: {
+                    gender: tutorChildForm.gender,
                     firstname: tutorChildForm.firstname,
                     lastname: tutorChildForm.lastname,
                     email:tutorChildForm.email,
@@ -38,14 +40,16 @@ export default function AddTutorForm({ children }) {
             };
 
             await axiosInstance.post('/tutors/create', payload);
+            handleSave();
         
             setTutorChildForm(
-                { firstname: '', 
+                { gender: '',
+                  firstname: '', 
                   lastname: '',
                   email:'',
                   phoneNumber: '',
-                  address: '', 
-                  childId: "" }
+                  address: '',
+                  childId: '' }
                 );
         } catch (error) {
             console.error('Erreur lors de l\'ajout du tuteur', error);
@@ -54,6 +58,14 @@ export default function AddTutorForm({ children }) {
 
     return (
         <form className="add-tutor-form" onSubmit={handleSubmit}>
+
+            <label>Genre</label>        
+            <select name="gender" value={tutorChildForm.gender} onChange={handleChange}>
+                <option value="M">Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+            </select>
+
             <label>Prénom</label>
             <input type="text" name="firstname" value={tutorChildForm.firstname} onChange={handleChange} required />
 
@@ -72,7 +84,7 @@ export default function AddTutorForm({ children }) {
             <label>Enfant</label>
             <select name="childId" value={tutorChildForm.childId} onChange={handleChange} required>
                 <option key={-1} value={''}>Choisissez un enfant</option>
-                {(children || []).map((child) => (
+                {(childrenList || []).map((child) => (
                     <option key={child.id} value={child.id}>
                         {child.firstname} {child.lastname}
                     </option>

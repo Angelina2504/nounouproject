@@ -8,13 +8,14 @@ class ChildRepository extends AbstractRepository {
   async create(child) {
 
     const [result] = await this.databasePool.query(
-        `insert into ${this.table} (firstname, lastname, birthdate, allergy) values (?, ?, ?, ?)`,
+        `insert into ${this.table} (firstname, lastname, birthdate, allergy, gender, user_id) values (?, ?, ?, ?, ?, ?)`,
         [
-            child.firstname,
-            child.lastname,
-            child.birthdate,
-            child.allergy
-            /*child.userId */
+          child.firstname,
+          child.lastname,
+          child.birthdate,
+          child.allergy,
+          child.gender,          
+          child.userId
         ]
       );
 
@@ -31,9 +32,10 @@ class ChildRepository extends AbstractRepository {
     return rows[0];
   }
 
-  async readAll() {
+  async readAllForUser(userId) {
     const [rows] = await this.databasePool.query(
-        `select * from ${this.table}`
+        `select * from ${this.table} where user_id = ?`,
+        [userId]
     );
 
     return rows;
