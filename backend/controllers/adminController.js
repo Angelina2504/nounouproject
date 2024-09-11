@@ -8,8 +8,11 @@ const userRepository = require('../models/userRepository');
  */
 const getFamilies = async (req, res) => {
     try {
+        // Get the search terms from the query parameters, if there are any
+        const searchParam = req.query.search || '';
+
         // Get all users from the database
-        const families = await userRepository.getFamilies();
+        const families = await userRepository.getFamilies(searchParam);
 
         // Respond with the users in JSON format
         res.status(200).json({ success: true, families: families });

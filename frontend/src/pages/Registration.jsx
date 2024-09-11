@@ -1,18 +1,19 @@
 import { useState } from "react";
 import axiosInstance from "../services/httpClient";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { useCheckConnected } from "../hooks/useCheckConnected"; // Importer le contexte d'authentification
 
 import "../styles/register.css"
 
 export default function Registration() {
     const [inscription, setInscription] = useState({
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        phoneNumber: "",
-        address: ""
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+        phoneNumber: '',
+        address: '',
+        gender: 'F' // Valeur par défaut
     });
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
@@ -48,14 +49,12 @@ export default function Registration() {
         }
 
         try {
-            const response = await axiosInstance.post(
-                "/auth/register",
-                inscription);
+            const response = await axiosInstance.post("/auth/register", inscription);
 
             if (response.status === 201) {
-        
+
                 await login(inscription.email, inscription.password);
-                navigate("/family"); 
+                navigate("/family");
             } else {
                 setError("Erreur lors de l'inscription : " + response.data.message);
             }
@@ -63,36 +62,42 @@ export default function Registration() {
             setError("Erreur lors de l'inscription : " + (error.response?.data?.message || error.message));
         }
     };
-    
+
 
     return(
         <section className="register">
-        <h2>S&rsquo;inscrire</h2>
+        <h1>S&rsquo;inscrire</h1>
 
         {error && <p className="error">{error}</p>}
 
         <form className="formRegister" onSubmit={handleRegister}>
+            <label htmlFor="gender">Genre</label>
+            <select name="gender" value={inscription.gender} onChange={handleChange} required>
+                <option value="M" >Homme</option>
+                <option value="F">Femme</option>
+                <option value="O">Autre</option>
+            </select>
 
             <label htmlFor="firstname">Prénom</label>
-            <input  type="text" name="firstname" value={inscription.firstname} onChange={handleChange} required />
+            <input  type="text" name="firstname" value={inscription.firstname} placeholder={'Prénom'} onChange={handleChange} required />
 
             <label htmlFor="lastname">Nom</label>
-            <input  type="text" name="lastname" value={inscription.lastname} onChange={handleChange} required />
+            <input  type="text" name="lastname" value={inscription.lastname} placeholder={'Nom'} onChange={handleChange} required />
 
             <label htmlFor="email">Email</label>
-            <input  type="email" name="email" value={inscription.email} onChange={handleChange} required />
+            <input  type="email" name="email" value={inscription.email} placeholder={'Email'} onChange={handleChange} required />
 
             <label htmlFor="password">Mot de passe</label>
-            <input  type="password" name="password" value={inscription.password} onChange={handleChange} required />
+            <input  type="password" name="password" value={inscription.password} placeholder={'Mot de passe'}onChange={handleChange} required />
 
             <label htmlFor="passwordConfirmation">Confirmation du mot de passe</label>
-            <input type="password" name="passwordConfirmation" value={passwordConfirmation} onChange={handlePasswordConfirmationChange} required />
+            <input type="password" name="passwordConfirmation" value={passwordConfirmation} placeholder={'Confirmation du mot de passe'} onChange={handlePasswordConfirmationChange} required />
 
             <label htmlFor="phoneNumber">Téléphone</label>
-            <input  type="text" name="phoneNumber" value={inscription.phoneNumber} onChange={handleChange} required />
+            <input  type="text" name="phoneNumber" value={inscription.phoneNumber} placeholder={'Téléphone'} onChange={handleChange} required />
 
             <label htmlFor="address">Adresse</label>
-            <input  type="text" name="address" value={inscription.address} onChange={handleChange} required />
+            <input  type="text" name="address" value={inscription.address} placeholder={'Adresse'} onChange={handleChange} required />
 
             <button type="submit">S&rsquo;inscrire</button>
 

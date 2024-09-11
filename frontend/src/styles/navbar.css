@@ -1,3 +1,7 @@
+.logo {
+    height: 250px;
+}
+
 .navbar {
     display: flex;
     align-items: center;
@@ -6,6 +10,42 @@
     height: 100px;
 }
 
-.logo {
- height: 250px;
+.deconnexion,
+.navbar-button{
+    margin-left: 10px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600; /* Ajuster à 600 pour correspondre à un bold standard */
+    font-size: 1rem; /* Ajuste la taille de la police pour être cohérente */
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    text-decoration: none; /* Supprimer la décoration des liens */
+    display: inline-block; /* Comportement des liens comme des boutons */
+    line-height: 1; /* Assure que la hauteur de ligne soit cohérente */
+}
+
+.deconnexion {
+    background-color: #ffff54; /* Jaune vif */
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    margin-left: 50px;
+}
+
+.deconnexion:hover {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54; /* Jaune vif */
+    text-decoration: none; /* Assure qu'il n'y a pas de soulignement au survol */
+}
+
+.navbar-button {
+    background-color: #5e3370; /* Violet foncé */
+    color: #ffff54;
+    border: 2px solid #5e3370;
+}
+
+.navbar-button:hover {
+    background-color: #ffff54; /* Jaune vif */
+    color: #5e3370;
+    text-decoration: none; /* Assure qu'il n'y a pas de soulignement au survol */
 }
