@@ -35,6 +35,9 @@ const edit = async (req, res) => {
     // Extract the user data from the request body
     const user = req.body;
 
+    // retrieve current user id from session 
+    user.id = req.session.user.id;
+
     try {
         // Update the user in the database
         await userRepository.update(user);
