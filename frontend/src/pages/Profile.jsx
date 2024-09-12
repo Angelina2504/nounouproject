@@ -26,14 +26,6 @@ export default function Profile () {
         fetchUser();
     },[]);
 
-    /*const handleOnDelete = async (id) => {
-        try {
-            await axiosInstance.delete(`/users/profile/`);
-            setUser((prevUserForm) => prevUserForm.filter(user => user.id !== id));
-        } catch (error) {
-            console.error('Erreur lors de la suppression de l\'utilisateur', error);
-        }
-    };*/
 
     return (          
         <>
