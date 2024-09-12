@@ -281,6 +281,17 @@ class UserRepository extends AbstractRepository {
         return rows[0];
     }
 
+    async readForProfile(id) {
+        const [rows] = await this.databasePool.query(
+            `select firstname, lastname, email, phone_number, address, gender from ${this.table}
+             where id = ?`,
+            [id]
+        );
+
+        return rows[0];
+    }
+
+
     async update(user) {
         const [result] = await this.databasePool.query(
             `update ${this.table}
