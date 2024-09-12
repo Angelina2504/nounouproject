@@ -1,24 +1,39 @@
 import { useState, useEffect } from "react";
-import ProfilList from "../components/ProfilList"
 import axiosInstance from "../services/httpClient";
 
-export default function Profile () {
+export default function Profile (onEdit, onDelete) {
 
-    const [users, setUser] = useState([]);
+    const [user, setUser] = useState([]);
 
     // // Fonction pour récupérer la liste des users
-    const fetchTutors = async () => {
+    const fetchUser = async () => {
         try {
-            const response = await axiosInstance.get('/tutors');
-            setUser(response.data.tutors);
+            const response = await axiosInstance.get('/users/profile');
+            setUser(response.data.user);
         } catch (error) {
             console.error('Erreur lors de la récupération des enfants', error);
         }
     };
 
+    useEffect(() => {
+        fetchUser();
+    },[]);
+
     return (          
         <>
-            <ProfilList/>
+            <section>
+                <ul className="user-list">
+                    { user ? (
+                            <li key={user.id}>
+                                {user.gender} {user.firstname} {user.lastname} - {user.email} - {user.phone_number} {user.address} 
+                                <button onClick={() => onEdit(user.id)}>Éditer</button>
+                                <button onClick={() => onDelete(user.id)}>Supprimer</button>
+                            </li>
+                    ) : (
+                        <li>Aucun utilisateur trouvé</li>
+                    )}
+                </ul>
+            </section>
             
         </>
     );
