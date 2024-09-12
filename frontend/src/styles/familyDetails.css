@@ -12,8 +12,15 @@
     color: #5e3370; /* Violet foncé */
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
 .back-button,
-.edit-button {
+.edit-button,
+.delete-button {
     background-color: #ffff54; /* Jaune vif */
     color: #5e3370; /* Violet foncé */
     border: 2px solid #5e3370;
@@ -27,14 +34,28 @@
     padding: 10px 20px;
 }
 
-.edit-button {
+.edit-button,
+.delete-button{
     padding: 5px 10px;
 }
 
 .back-button:hover,
-.edit-button:hover {
+.edit-button:hover,
+.delete-button:hover {
     background-color: #5e3370; /* Violet foncé */
     color: #ffff54;
+}
+
+.delete-button {
+    background-color: #ff3a3a; /* Rouge */
+    color: #FFFF54;
+    border: 2px solid #ff3a3a;
+}
+
+.delete-button:hover {
+    background-color: #FFFF54; /* jaune vif */
+    color: #ff3a3a; /* Rouge */
+    border: 2px solid #ff3a3a;
 }
 
 /* Ajoute un conteneur flex pour les prénoms et noms */
@@ -79,7 +100,13 @@
 .children-details p {
     margin: 5px 0;
     font-size: 1.1em;
-    color: #333;
+    color: #5e3370;
+    text-align: left;
+}
+
+.no-child-text,
+.no-tutor-text {
+    font-style: italic;
 }
 
 .user-informations {

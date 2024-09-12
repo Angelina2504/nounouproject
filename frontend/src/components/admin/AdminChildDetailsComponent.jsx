@@ -10,7 +10,9 @@ const AdminChildDetailsComponent = ({
         handleSaveChild,
         handleSaveTutor,
         handleCancel,
-        handleEditToggle
+        handleEditToggle,
+        handleDeleteChild,
+        handleDeleteTutor
     }) => {
 
     const isChildEditing = isEditing?.child || false; // Default to false if undefined
@@ -62,14 +64,17 @@ const AdminChildDetailsComponent = ({
                         <button className="edit-button" onClick={() => handleCancel('children', child.id)}>Annuler</button>
                     </div>
                 ) : (
-                    <button className="edit-button" onClick={() => handleEditToggle('children', child.id)}>Editer</button>
+                    <div className="buttons-container">
+                        <button className="edit-button" onClick={() => handleEditToggle('children', child.id)}>Editer</button>
+                        <button className="delete-button" onClick={() => handleDeleteChild(child)}>Supprimer</button>
+                    </div>
                 )}
             </div>
 
             {/* Render tutors for this child */}
             <section className="tutors-details">
                 <h4>Tuteur(s):</h4>
-                {child.tutorsDetails.map(tutor => (
+                {child.tutorsDetails && child.tutorsDetails.length > 0 ? (child.tutorsDetails.map(tutor => (
                     <AdminTutorDetailsComponent
                         key={tutor.id}
                         tutor={tutor}
@@ -79,8 +84,11 @@ const AdminChildDetailsComponent = ({
                         handleSaveTutor={handleSaveTutor}
                         handleCancel={handleCancel}
                         handleEditToggle={handleEditToggle}
+                        handleDeleteTutor={handleDeleteTutor}
                     />
-                ))}
+                ))) : (
+                    <p className="no-tutor-text">Aucun tuteur enregistré pour cet enfant.</p>
+                )}
             </section>
         </div>
     );
@@ -133,7 +141,9 @@ AdminChildDetailsComponent.propTypes = {
     handleSaveChild: PropTypes.func.isRequired,
     handleSaveTutor: PropTypes.func.isRequired,
     handleCancel: PropTypes.func.isRequired,
-    handleEditToggle: PropTypes.func.isRequired
+    handleEditToggle: PropTypes.func.isRequired,
+    handleDeleteChild: PropTypes.func.isRequired,
+    handleDeleteTutor: PropTypes.func.isRequired
 };
 
 export default AdminChildDetailsComponent;

@@ -14,7 +14,7 @@ class ChildRepository extends AbstractRepository {
           child.lastname,
           child.birthdate,
           child.allergy,
-          child.gender,          
+          child.gender,
           child.userId
         ]
       );
@@ -59,12 +59,60 @@ class ChildRepository extends AbstractRepository {
   }
 
   async delete(id) {
-    const [result] = await this.databasePool.query(
-      `delete from ${this.table} where id = ?`,
-      [id]
-    );
 
-    return result.affectedRows;
+      const totalResult = {
+          affectedRowsInChild: 0,
+          affectedRowsInTutor: 0
+      };
+
+
+      // Get a connection from the pool, we need to handle a transaction here
+      const connection = await this.databasePool.getConnection();
+
+      try {
+          // On commence la transaction
+          await connection.beginTransaction();
+
+          // 1 - Delete child
+          const [result] = await connection.query(
+              `delete from ${this.table} where id = ?`,
+              [id]
+          );
+
+          // Set the number of affected rows for child table
+          totalResult.affectedRowsInChild = result.affectedRows;
+
+          // 2 - Find tutors that no longer have children and delete them
+          const [tutorsWithoutChildren] = await connection.query(
+              `select t.id 
+               from tutor t
+               left join tutor_child tc on t.id = tc.tutor_id
+               where tc.child_id is null`
+          );
+
+          // 3 - Delete tutors without children
+          if (tutorsWithoutChildren && tutorsWithoutChildren.length > 0) {
+              for (const tutor of tutorsWithoutChildren) {
+                  // Do not call tutorRepository.delete() because we need to use the same connection
+                  // since we are in a transaction.
+                  const [deleteResult] = await connection.query(
+                      `delete from tutor where id = ?`, [tutor.id]
+                  );
+                  totalResult.affectedRowsInTutor += deleteResult.affectedRows;
+              }
+          }
+
+          // Commmit the transaction
+          await connection.commit();
+
+          return totalResult ;
+      } catch (error) {
+          await connection.rollback();
+          console.error("Error deleting child", error);
+          throw error;
+      } finally {
+          connection.release();
+      }
   }
 }
 

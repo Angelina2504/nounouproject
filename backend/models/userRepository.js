@@ -299,6 +299,15 @@ class UserRepository extends AbstractRepository {
 
         return result.affectedRows;
     }
+
+    async delete(id) {
+        const [result] = await this.databasePool.query(
+            `delete from ${this.table} where id = ?`,
+            [id]
+        );
+
+        return result.affectedRows;
+    }
 }
 
 module.exports = new UserRepository();
