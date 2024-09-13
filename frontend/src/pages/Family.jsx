@@ -29,7 +29,7 @@ export default function Family() {
         setChildren((prevChildren) => [...prevChildren, newChild]);
     };
 
-    // // Fonction pour récupérer la liste des enfants
+    // // Fonction pour récupérer la liste des tutors
     const fetchTutors = async () => {
         try {
             const response = await axiosInstance.get('/tutors');
