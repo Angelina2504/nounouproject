@@ -6,6 +6,9 @@ import ChildrenList from '../components/ChildrenList';
 import UpdateChildForm from './forms/UpdateChildForm';
 import UpdateTutorForm from './forms/UpdateTutorForm';
 import axiosInstance from "../services/httpClient";
+import {useNavigate} from 'react-router-dom';
+
+import '../styles/family.css';
 
 export default function Family() {
 
@@ -52,8 +55,16 @@ export default function Family() {
         setSelectedChild(null); // Fermer le formulaire d'édition
     };
 
-    const handleDelete = async (id) => {
+    const handleCancel = () => {
+        setSelectedChild(null);
+        setSelectedTutor(null);
+    }
+
+    const handleDeleteChild = async (child) => {
+        if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cet enfant ${child.firstname} ${child.lastname?.toUpperCase()} ?`)) return;
+
         try {
+            const id = child.id;
             await axiosInstance.delete(`/children/delete/${id}`);
             setChildren((prevChildren) => prevChildren.filter(child => child.id !== id));
         } catch (error) {
@@ -74,10 +85,10 @@ export default function Family() {
         try  {
             await axiosInstance.put(`/tutors/edit/${id}`);
             const tutor = tutors.find(t => t.id === id);
-        setSelectedTutor(tutor);
-        setSelectedChild(null);
+            setSelectedTutor(tutor);
+            setSelectedChild(null);
 
-        }catch (error){
+        } catch (error){
             console.error('Erreur lors de la modification du tuteur', error);
         }
     }
@@ -103,47 +114,51 @@ export default function Family() {
         <div className="family-container">
             <h1>Gestion de la Famille</h1>
 
-            <section className="add-child-section">
-                <h2>Ajouter un Enfant</h2>
-                <AddChildForm onAddChild={handleAddChild} onSave={handleSave}/>
-            </section>
-
-            <section className="add-tutor-section">
-                <h2>Ajouter un Second Tuteur</h2>
-                <AddTutorForm childrenList={children} handleSave={handleTutorSave}></AddTutorForm>
-            </section>
-
             <section className="children-list-section">
                 <h2>Liste des Enfants</h2>
-                <ChildrenList childrenList={children} onEdit={handleEdit} onDelete={handleDelete}/>
+                <ChildrenList childrenList={children}
+                              onEdit={handleEdit}
+                              onDelete={handleDeleteChild}
+                              selectedChildId={selectedChild ? selectedChild.id : null}/>
+            </section>
+
+            {selectedChild && (
+                <section className="edit-child-section">
+                    <h2>Éditer un Enfant : <span>{selectedChild.firstname + ' ' + selectedChild.lastname}</span></h2>
+                    <UpdateChildForm child={selectedChild}
+                                     onSave={handleSave}
+                                     onCancel={handleCancel}/>
+                </section>
+            )}
+
+            <section className="add-child-section">
+                <h2>Ajouter un Enfant</h2>
+                <AddChildForm onAddChild={handleAddChild}
+                              onSave={handleSave}/>
             </section>
 
             <section className="tutor-list-section">
                 <h2>Liste des Tuteurs</h2>
-                <TutorList tutors={tutors} onEdit={handleTutorEdit} onDelete={handleTutorDelete}/>
+                <TutorList tutors={tutors}
+                           onEdit={handleTutorEdit}
+                           onDelete={handleTutorDelete}/>
             </section>
-
-
-            {selectedChild && (
-                <section className="edit-child-section">
-                    <h2>Éditer un Enfant</h2>
-                    <UpdateChildForm child={selectedChild} onSave={handleSave}/>
-                </section>
-            )}
 
             {selectedTutor && (
                 <section className="edit-tutor-section">
                     <h2>Éditer un Tuteur</h2>
-                    <UpdateTutorForm tutor={selectedTutor} onSave={handleTutorSave}/>
+                    <UpdateTutorForm tutor={selectedTutor}
+                                     onSave={handleTutorSave}/>
                 </section>
             )}
 
-            {/* Emergency contacts */}
+            <section className="add-tutor-section">
+                <h2>Ajouter un Second Tuteur</h2>
+                <AddTutorForm childrenList={children}
+                              handleSave={handleTutorSave}></AddTutorForm>
+            </section>
+
             <button className="edit-button" onClick={loadEmergencyContactsManagement}>Gérer les Contacts d&apos;Urgence</button>
-            {/*<section className="emergency-contacts-section">*/}
-            {/*    <h2>Gérer les Contacts d&apos;Urgence</h2>*/}
-            {/*    <EmergencyContactsManagement childrenList={children} />*/}
-            {/*</section>*/}
 
         </div>
     );

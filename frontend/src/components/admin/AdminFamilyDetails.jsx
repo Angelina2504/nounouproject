@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import axiosInstance from '../../services/httpClient.js';
-import '../../styles/familyDetails.css';
+import '../../styles/admin/familyDetails.css';
 import dateUtils from '../../services/dateUtils.js';
 import AdminUserDetailsComponent from './AdminUserDetailsComponent.jsx';
 import AdminChildDetailsComponent from './AdminChildDetailsComponent.jsx';

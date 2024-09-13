@@ -2,7 +2,9 @@ import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
 import dateUtils from '../../services/dateUtils';
 
-export default function UpdateChildForm ({child, onSave}) {
+import '../../styles/editChildForm.css';
+
+export default function UpdateChildForm ({child, onSave, onCancel}) {
 
     const [childForm, setChildForm] = useState(child);
 
@@ -40,30 +42,34 @@ export default function UpdateChildForm ({child, onSave}) {
     };
 
     return (
-        <form className="edit-child-form" onSubmit={handleSubmit}>
+        <div className="edit-child-form" onSubmit={handleSubmit}>
+            <div>
+                <label>Genre :</label>
+                <select name="gender" value={childForm.gender} onChange={handleChange}>
+                    <option value="M">Homme</option>
+                    <option value="F">Femme</option>
+                    <option value="O">Autre</option>
+                </select>
 
-            <label>Genre</label>        
-            <select name="gender" value={childForm.gender} onChange={handleChange}>
-                <option value="M">Homme</option>
-                <option value="F">Femme</option>
-                <option value="O">Autre</option>
-            </select>
+                <label>Prénom :</label>
+                <input type="text" name="firstname" value={childForm.firstname} onChange={handleChange} required/>
 
-            <label>Prénom</label>
-            <input type="text" name="firstname" value={childForm.firstname} onChange={handleChange} required/>
+                <label>Nom :</label>
+                <input type="text" name="lastname" value={childForm.lastname} onChange={handleChange} required/>
+            </div>
+            <div>
+                <label>Date de Naissance :</label>
+                <input type="date" name="birthdate" value={
+                    dateUtils.formatFromJsonToSQLDate(childForm.birthdate)
+                    } onChange={handleChange} required/>
 
-            <label>Nom</label>
-            <input type="text" name="lastname" value={childForm.lastname} onChange={handleChange} required/>
-
-            <label>Date de Naissance</label>
-            <input type="date" name="birthdate" value={
-                dateUtils.formatFromJsonToSQLDate(childForm.birthdate)
-                } onChange={handleChange} required/>
-
-            <label>Allergies</label>
-            <input type="text" name="allergy" value={childForm.allergy} onChange={handleChange}/>
-
-            <button type="submit">Sauvegarder</button>
-        </form>
+                <label>Allergies :</label>
+                <input type="text" name="allergy" value={childForm.allergy || ''} onChange={handleChange}/>
+            </div>
+            <div className="children-buttons-container">
+                <button className="children-edit-button" onClick={handleSubmit}>Sauvegarder</button>
+                <button className="children-cancel-button" onClick={onCancel}>Annuler</button>
+            </div>
+        </div>
     );
 }

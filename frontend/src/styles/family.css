@@ -1,0 +1,13 @@
+.family-container {
+    border: 2px solid #c8a2c8; /* Violet */
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f4ff; /* Violet très clair */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #5e3370; /* Violet foncé */
+}
+
+.family-container h1 {
+    font-size: 2em;
+}

@@ -233,7 +233,7 @@ export default function EmergencyContactsManagement() {
             {isEditing ? (
                 <div className="buttons-container">
                     <button className="edit-button" onClick={handleSaveEdit}>Enregistrer</button>
-                    <button className="edit-button" onClick={handleCancel}>Annuler</button>
+                    <button className="cancel-button" onClick={handleCancel}>Annuler</button>
                 </div>
             ) : (
                 <button className="edit-button" onClick={handleAddContact}>Ajouter un Contact</button>

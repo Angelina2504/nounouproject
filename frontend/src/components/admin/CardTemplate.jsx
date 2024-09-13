@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import "../../styles/cardTemplate.css";
+import "../../styles/admin/cardTemplate.css";
 
 export default function CardTemplate({ family }) {
 

@@ -66,7 +66,7 @@ const AdminUserDetailsComponent = ({
                 {isEditing ? (
                     <div>
                         <button className="edit-button" onClick={handleSaveUser}>Enregistrer</button>
-                        <button className="edit-button" onClick={() => handleCancel('user')}>Annuler</button>
+                        <button className="cancel-button" onClick={() => handleCancel('user')}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">
