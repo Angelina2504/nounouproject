@@ -14,6 +14,8 @@ export default function Family() {
     const [selectedChild, setSelectedChild] = useState(null);
     const [selectedTutor, setSelectedTutor] = useState(null);
 
+    const navigate = useNavigate();
+
     // // Fonction pour récupérer la liste des enfants
     const fetchChildren = async () => {
         try {
@@ -23,7 +25,7 @@ export default function Family() {
             console.error('Erreur lors de la récupération des enfants', error);
         }
     };
-    
+
     // Fonction pour ajouter un enfant
     const handleAddChild = (newChild) => {
         setChildren((prevChildren) => [...prevChildren, newChild]);
@@ -74,7 +76,7 @@ export default function Family() {
             const tutor = tutors.find(t => t.id === id);
         setSelectedTutor(tutor);
         setSelectedChild(null);
-           
+
         }catch (error){
             console.error('Erreur lors de la modification du tuteur', error);
         }
@@ -83,6 +85,12 @@ export default function Family() {
     const handleTutorSave = async () => {
         await fetchTutors(); // Recharger la liste des enfants après la sauvegarde
         setSelectedTutor(null); // Fermer le formulaire d'édition
+    };
+
+    const loadEmergencyContactsManagement = () => {
+        navigate('/family/emergency-contacts', {
+                state: {childrenList: children}
+            });
     };
 
    useEffect(() => {
@@ -107,7 +115,7 @@ export default function Family() {
 
             <section className="children-list-section">
                 <h2>Liste des Enfants</h2>
-                <ChildrenList childrenList={children} onEdit={handleEdit} onDelete={handleDelete} />
+                <ChildrenList childrenList={children} onEdit={handleEdit} onDelete={handleDelete}/>
             </section>
 
             <section className="tutor-list-section">
@@ -115,21 +123,28 @@ export default function Family() {
                 <TutorList tutors={tutors} onEdit={handleTutorEdit} onDelete={handleTutorDelete}/>
             </section>
 
-            
+
             {selectedChild && (
                 <section className="edit-child-section">
                     <h2>Éditer un Enfant</h2>
-                    <UpdateChildForm child={selectedChild} onSave={handleSave} />
+                    <UpdateChildForm child={selectedChild} onSave={handleSave}/>
                 </section>
             )}
 
             {selectedTutor && (
                 <section className="edit-tutor-section">
                     <h2>Éditer un Tuteur</h2>
-                    <UpdateTutorForm tutor={selectedTutor} onSave={handleTutorSave} />
+                    <UpdateTutorForm tutor={selectedTutor} onSave={handleTutorSave}/>
                 </section>
             )}
-        
+
+            {/* Emergency contacts */}
+            <button className="edit-button" onClick={loadEmergencyContactsManagement}>Gérer les Contacts d&apos;Urgence</button>
+            {/*<section className="emergency-contacts-section">*/}
+            {/*    <h2>Gérer les Contacts d&apos;Urgence</h2>*/}
+            {/*    <EmergencyContactsManagement childrenList={children} />*/}
+            {/*</section>*/}
+
         </div>
     );
 }

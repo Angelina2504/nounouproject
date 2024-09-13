@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authRoutes");
 const childRoutes = require("./routes/childRoutes");
 const userRoutes = require("./routes/userRoutes");
 const tutorRoutes = require("./routes/tutorRoutes");
+const emergencyContactRoutes = require("./routes/emergencyContactRoutes")
 
 //Variable qui permet de stocker l'instance express
 const app = express();
@@ -43,8 +44,9 @@ app.use("/", routes);
 app.use("/admin", adminRoutes);
 app.use("/auth", authRoutes);
 app.use("/children", childRoutes);
-app.use("/users", userRoutes);
+app.use("/emergency-contacts", emergencyContactRoutes);
 app.use("/tutors", tutorRoutes);
+app.use("/users", userRoutes);
 
 //Création de la const pour le PORT
 const PORT = process.env.APP_PORT;
