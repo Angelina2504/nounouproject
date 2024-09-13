@@ -8,7 +8,8 @@ const AdminTutorDetailsComponent = ({
         handleInputChange,
         handleSaveTutor,
         handleCancel,
-        handleEditToggle
+        handleEditToggle,
+        handleDeleteTutor
     }) => {
 
     const isTutorEditing = isEditing || false; // Default to false if undefined
@@ -67,7 +68,10 @@ const AdminTutorDetailsComponent = ({
                         <button className="edit-button" onClick={() => handleCancel('tutors', tutor.id)}>Annuler</button>
                     </div>
                 ) : (
-                    <button className="edit-button" onClick={() => handleEditToggle('tutors', tutor.id)}>Editer</button>
+                    <div className="buttons-container">
+                        <button className="edit-button" onClick={() => handleEditToggle('tutors', tutor.id)}>Editer</button>
+                        <button className="delete-button" onClick={() => handleDeleteTutor(tutor)}>Supprimer</button>
+                    </div>
                 )}
             </div>
         </div>
@@ -96,7 +100,8 @@ AdminTutorDetailsComponent.propTypes = {
     handleInputChange: PropTypes.func.isRequired,
     handleSaveTutor: PropTypes.func.isRequired,
     handleCancel: PropTypes.func.isRequired,
-    handleEditToggle: PropTypes.func.isRequired
+    handleEditToggle: PropTypes.func.isRequired,
+    handleDeleteTutor: PropTypes.func.isRequired
 };
 
 

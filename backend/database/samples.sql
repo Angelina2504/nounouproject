@@ -10,11 +10,11 @@ INSERT INTO user (email, firstname, lastname, gender, phone_number, address, pas
     -- toto1234
     ('toto@toto.fr', 'To', 'To', 'M', '0101010101', '1 Rue de Toto, Totoville', '$argon2id$v=19$m=65536,t=3,p=4$h79BAc8O2nuketsfbfPKGg$10uOm9o+4XbpKIbT9TXwPlTX/ZQEXzb2XHDj+GwpVVw', false),
     -- password123
-    ('jean.durand@example.com', 'Jean', 'Durand', 'O', '0987654321', '456 Rue Principale, Lyon', '$argon2id$v=19$m=65536,t=3,p=4$zwLzJFXMkdsj4LQCOkCjaA$EDfA6QoxZaZhYT2F0qMs3ARUjGvc5tSomix+oBtB1K8', false),
-    -- password456
-    ('claire.martin@example.com', 'Claire', 'Martin', 'F', '1234567890', '789 Avenue de la Liberté, Marseille', '$argon2id$v=19$m=65536,t=3,p=4$WEQVhR2hSrx7PLRkxI+c4g$SmeA/nexk6OD2C7nZfwuouYaxrdfvztvwnSos+2s1BI', false),
+    ('jean.durand@example.com', 'Jean', 'Durand', 'O', '0987654321', '456 Rue Principale, Lyon', '$argon2id$v=19$m=65536,t=3,p=4$iIViHC5llHG07jVfD/PO3g$bb6bcGRu3WQYsmRlVwyoh0QQMiqkfPB/msOx2Ii+JEc', false),
     -- password123
-    ('beber@example.com', 'Bernard', 'Bernard', 'M', '6543209871', '123 Rue de la Route, Nantes', '$argon2id$v=19$m=65536,t=3,p=4$zwLzJFXMkdsj4LQCOkCjaA$EDfA6QoxZaZhYT2F0qMs3ARUjGvc5tSomix+oBtB1K8', false);
+    ('claire.martin@example.com', 'Claire', 'Martin', 'F', '1234567890', '789 Avenue de la Liberté, Marseille', '$argon2id$v=19$m=65536,t=3,p=4$iIViHC5llHG07jVfD/PO3g$bb6bcGRu3WQYsmRlVwyoh0QQMiqkfPB/msOx2Ii+JEc', false),
+    -- password123
+    ('beber@example.com', 'Bernard', 'Bernard', 'M', '6543209871', '123 Rue de la Route, Nantes', '$argon2id$v=19$m=65536,t=3,p=4$iIViHC5llHG07jVfD/PO3g$bb6bcGRu3WQYsmRlVwyoh0QQMiqkfPB/msOx2Ii+JEc', false);
 
 -- Insert tutors
 INSERT INTO tutor (email, firstname, lastname, gender, phone_number, address, user_id) VALUES
@@ -40,11 +40,11 @@ INSERT INTO child (firstname, lastname, birthdate, gender, allergy, user_id) VAL
     ('Inès', 'Bernard', '2020-02-20', 'F', null, 5);
 
 -- Insert emergency contacts
-INSERT INTO emergency_contact (firstname, lastname, relationship, address, phone_number) VALUES
-    ('Luc', 'Muller', 'Oncle', '100 Rue de l''Urgence, Paris', '5432109876'),
-    ('Julie', 'Petit', 'Tante', '200 Avenue de la Sécurité, Lyon', '6543210987'),
-    ('René', 'Gauthier', 'Grand-parent', '300 Boulevard des Aînés, Marseille', '7654321098'),
-    ('Paul', 'Chevalier', 'Voisin', '400 Allée des Amis, Bordeaux', '8765432109');
+INSERT INTO emergency_contact (firstname, lastname, relationship, gender, address, phone_number) VALUES
+    ('Luc', 'Muller', 'Oncle', 'M', '100 Rue de l''Urgence, Paris', '5432109876'),
+    ('Julie', 'Petit', 'Tante', 'F', '200 Avenue de la Sécurité, Lyon', '6543210987'),
+    ('René', 'Gauthier', 'Grand-parent', 'O', '300 Boulevard des Aînés, Marseille', '7654321098'),
+    ('Paul', 'Chevalier', 'Voisin',  'M', '400 Allée des Amis, Bordeaux', '8765432109');
 
 -- Insert todos
 INSERT INTO todo (title, description, status, date) VALUES
@@ -95,5 +95,6 @@ INSERT INTO tutor_child (tutor_id, child_id) VALUES
 INSERT INTO child_emergency_contact (child_id, contact_id) VALUES
     (1, 1),  -- Lucas -> Luc Muller (Oncle)
     (2, 2),  -- Emma -> Julie Petit (Tante)
+    (2, 3),  -- Emma -> René Gaithier (Grand-parent)
     (3, 3),  -- Chloé -> René Gauthier (Grand-parent)
     (4, 4);  -- Alex -> Paul Chevalier (Voisin)

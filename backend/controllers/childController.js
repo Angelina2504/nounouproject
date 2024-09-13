@@ -4,7 +4,7 @@ const childRepository = require('../models/childRepository');
 const browseForUser = async (req, res) => {
     try {
 
-        // retrieve current user id from session 
+        // retrieve current user id from session
         const userId = req.session.user.id;
 
         // Get all children for authenticated user from the database
@@ -47,7 +47,7 @@ const edit = async (req, res) => {
     child.userId = req.session.user.id;
 
     try {
-        
+
         // Update the child in the database
         await childRepository.update(child);
 
@@ -90,7 +90,7 @@ const destroy = async (req, res) => {
         const result = await childRepository.delete(childId);
 
         // If the child is not found, return an error response
-        if (result && result.affectedRows <= 0) {
+        if (result && result.affectedRowsInChild <= 0) {
             res.status(404).json({ success: false, message: "Child not found" });
         } else {
             // In case of success, return an empty response

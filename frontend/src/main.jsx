@@ -14,6 +14,7 @@ import AdminFamilyDetails from './components/admin/AdminFamilyDetails.jsx';
 import AdminFamiliesCards from './components/admin/AdminFamiliesCards.jsx';
 
 import "./styles/main.css";
+import EmergencyContactsManagement from './components/EmergencyContactsManagement.jsx';
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
             {
               path: "/family",
               element: <Family />,
+            },
+            {
+              path: "/family/emergency-contacts",
+              element: <EmergencyContactsManagement />
             },
             {
               path: "/profile",

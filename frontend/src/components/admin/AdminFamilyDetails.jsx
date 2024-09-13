@@ -318,6 +318,81 @@ export default function AdminFamilyDetails() {
         }
     };
 
+    // ************************************************************************
+    // * Methods to delete user, child or tutor, performing API backend calls *
+    // ************************************************************************
+
+    // Function to handle User deletion
+    const handleDeleteUser = async (user) => {
+        if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cet utilisateur ${user.firstname} ${user.lastname} ?`)) return;
+
+        try {
+            const userId = user.id;
+            const response = await axiosInstance.delete(`/admin/users/${userId}`);
+
+            if (response.status === 204) {
+                // Navigate back to the families list after user deletion
+                navigate('/admin/families');
+            } else {
+                console.error('Erreur lors de la suppression de l\'utilisateur :', response);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression:', error);
+        }
+    };
+
+    // Function to handle Child deletion
+    const handleDeleteChild = async (child) => {
+        if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cet enfant ${child.firstname} ${child.lastname?.toUpperCase()} ?`)) return;
+
+        try {
+            const childId = child.id;
+            const response = await axiosInstance.delete(`/admin/children/${childId}`);
+
+            if (response.status === 204) {
+                // After deletion, update the local state by removing the deleted child
+                setFamilyDetails(prev => ({
+                    ...prev,
+                    childrenDetails: prev.childrenDetails.filter(child => child.id !== childId),
+                }));
+            } else {
+                console.error('Erreur lors de la suppression de l\'enfant:', response);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression de l\'enfant :', error);
+        }
+    };
+
+    // Function to handle Tutor deletion
+    const handleDeleteTutor = async (tutor) => {
+        if (!window.confirm(`Êtes-vous sûr de vouloir supprimer ce tuteur ${tutor.firstname} ${tutor.lastname?.toUpperCase()} ?`)) return;
+
+        try {
+            const tutorId = tutor.id;
+            const response = await axiosInstance.delete(`/admin/tutors/${tutorId}`);
+
+            if (response.status === 204) {
+                // After deletion, update the local state by removing the deleted tutor
+                setFamilyDetails(prev => ({
+                    ...prev,
+                    // For each child, find the tutor by tutorId and update the tutor details.
+                    childrenDetails: prev.childrenDetails.map(child => ({
+                        ...child,
+                        tutorsDetails: child.tutorsDetails.filter(tutor => tutor.id !== tutorId
+                        )
+                    }))
+
+
+                    // tutorsDetails: prev.tutorsDetails.filter(tutor => tutor.id !== tutorId),
+                }));
+            } else {
+                console.error('Erreur lors de la suppression du tuteur :', response);
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression du tuteur :', error);
+        }
+    };
+
     /*************************************************/
     /******** Template when loading/no result ********/
     /*************************************************/
@@ -351,30 +426,36 @@ export default function AdminFamilyDetails() {
                 handleSaveUser={handleSaveUser}
                 handleCancel={handleCancel}
                 handleEditToggle={handleEditToggle}
+                handleDeleteUser={handleDeleteUser}
             />
 
             {/* Children and their Tutors */}
             <section className="children-details">
                 <h2>Enfant(s) :</h2>
-                {familyDetails.childrenDetails.map(child => (
-                    <AdminChildDetailsComponent
-                        key={child.id}
-                        child={child}
-                        formData={{
-                                child: formData.children[child.id],
-                                tutors: formData.tutors
-                            }} // Correctly pass child-specific formData
-                        isEditing={{
-                                child: isEditing.children[child.id],
-                                tutors: isEditing.tutors
-                            }} // Pass the isEditing status for child and tutors
-                        handleInputChange={handleInputChange}
-                        handleSaveChild={handleSaveChild}
-                        handleSaveTutor={handleSaveTutor}
-                        handleCancel={handleCancel}
-                        handleEditToggle={handleEditToggle}
-                    />
-                ))}
+                {familyDetails.childrenDetails && familyDetails.childrenDetails.length > 0 ?
+                    (familyDetails.childrenDetails.map(child => (
+                        <AdminChildDetailsComponent
+                            key={child.id}
+                            child={child}
+                            formData={{
+                                    child: formData.children[child.id],
+                                    tutors: formData.tutors
+                                }} // Correctly pass child-specific formData
+                            isEditing={{
+                                    child: isEditing.children[child.id],
+                                    tutors: isEditing.tutors
+                                }} // Pass the isEditing status for child and tutors
+                            handleInputChange={handleInputChange}
+                            handleSaveChild={handleSaveChild}
+                            handleSaveTutor={handleSaveTutor}
+                            handleCancel={handleCancel}
+                            handleEditToggle={handleEditToggle}
+                            handleDeleteChild={handleDeleteChild}
+                            handleDeleteTutor={handleDeleteTutor}
+                        />
+                ))) : (
+                    <p className="no-child-text">Aucun enfant enregistré pour cette famille.</p>
+                )}
             </section>
         </section>
     );

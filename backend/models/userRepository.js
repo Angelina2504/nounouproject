@@ -311,6 +311,15 @@ class UserRepository extends AbstractRepository {
         return result.affectedRows;
     }
 
+    async delete(id) {
+        const [result] = await this.databasePool.query(
+            `delete from ${this.table} where id = ?`,
+            [id]
+        );
+
+        return result.affectedRows;
+    }
+
     async findOneById(id) {
 
         const [rows] = await this.databasePool.query(`SELECT * FROM ${this.table} WHERE id = ?`, [id]);
