@@ -283,7 +283,7 @@ class UserRepository extends AbstractRepository {
 
     async readForProfile(id) {
         const [rows] = await this.databasePool.query(
-            `select firstname, lastname, email, phone_number, address, gender from ${this.table}
+            `select firstname, lastname, email, phone_number, address, gender  from ${this.table}
              where id = ?`,
             [id]
         );
