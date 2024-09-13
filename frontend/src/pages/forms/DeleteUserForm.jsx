@@ -1,29 +1,21 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import axiosInstance from '../../services/httpClient';
+import { useNavigate } from "react-router-dom";
 
-export default function DeleteUserForm () {
+export default function DeleteUserForm ({ setIsDeleting }) {
     const [password, setPassword] = useState("");
-  
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
 
-
- const handleDelete = async (id) => {
+ const handleDelete = async () => {
         try {
 
-            /*
-            - verifier compte ==> back confirmation du couple id connecté et password ( back connait l'id user connecté)
-            >> définir une route qui va récupérer ce user avec comme param le password uniquement (l'id sera récupéré côté back encore une fois)
-            /!\ on serait tenté de faire un GET et d'envoyer le pass en clair dans l'url... get(/users?password=xxxxxx) évidemment, c'est interdit... on doit l'envoyer dans un payload (body), donc un post.
+            await axiosInstance.post("/users/checkDelete", { password });
+            // After deleting the user navigate to /login
+            navigate("/login");
 
-            - si ok , le back doit me retourner un user Id
-            >> cette route retourne l'id de l'user trouvé, ou une erreur si ça ne matche pas
-
-            - recupère l'id et l'envoie dans le delete
-            >> définir la route pour delete un user, le controleur et le repository 
-            */
-
-            await axiosInstance.delete(`/users/{userId}`);
-            setUser((prevUserForm) => prevUserForm.filter(user => user.id !== id));
         } catch (error) {
+            setError("Erreur lors de la suppression du compte");
             console.error('Erreur lors de la suppression de l\'utilisateur', error);
         }
     };
@@ -45,7 +37,7 @@ export default function DeleteUserForm () {
                 />
 
                 <button type="submit">Supprimer</button>
-                <button type="submit">Annuler</button>
+                <button onClick={() => setIsDeleting(false) }>Annuler</button>
             </form>
 
         </section>
