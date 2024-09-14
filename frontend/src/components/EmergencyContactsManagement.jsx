@@ -32,7 +32,6 @@ export default function EmergencyContactsManagement() {
     });
 
     const [editingContact, setEditingContact] = useState(null); // Le contact en cours d'édition
-    const [isEditing, setIsEditing] = useState(false);
 
     /**
      * Fetch emergency contacts from the API, for children of the connected user
@@ -74,7 +73,6 @@ export default function EmergencyContactsManagement() {
      * Reset the form and cancel editing mode
      */
     const resetEditForm = () => {
-        setIsEditing(false);
         setEditingContact(null);
         setNewContactForm({
             firstname: '',
@@ -157,7 +155,6 @@ export default function EmergencyContactsManagement() {
      * @param contact
      */
     const handleEditContact = (childId, contact) => {
-        setIsEditing(true);
         setEditingContact(contact);
         setNewEditContactForm({
             ...contact,
