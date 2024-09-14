@@ -1,4 +1,4 @@
-import Logo from '../assets/pictures/logo2.png';
+import Logo from '../assets/pictures/logo.png';
 import {Link} from 'react-router-dom';
 import {useCheckConnected} from '../hooks/useCheckConnected';
 import {useEffect, useState} from 'react';
