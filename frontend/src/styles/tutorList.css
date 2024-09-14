@@ -1,0 +1,108 @@
+.tutor-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: left;
+}
+
+.tutor-name {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    word-wrap: break-word;
+    font-weight: bold;
+}
+
+.tutor-card-template {
+    border: 1px solid #69353f;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #c8a2c8;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 300px;
+    min-width: 250px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+}
+
+.tutor-card-template:hover {
+    transform: scale(1.05);
+}
+
+.selected-tutor {
+    background-color: #f8f3b6;
+}
+
+.tutors-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.tutors-edit-button, .tutor-delete-button {
+    background-color: #ffff54;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tutor-delete-button {
+    background-color: #a30000;
+    color: #ffff54;
+    border: 2px solid #a30000;
+}
+
+.tutors-edit-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+.tutor-delete-button:hover {
+    background-color: #ffff54; /* jaune vif */
+    color: #a30000; /* rouge */
+    border: 2px solid #a30000;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.tutors-edit-button {
+    background-color: #ffff54;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    min-width: 120px;
+}
+
+.tutors-edit-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+.tutors-cancel-button {
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+}
+
+.tutors-cancel-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+    border: 2px solid #5e3370;
+}

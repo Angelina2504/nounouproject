@@ -1,13 +1,27 @@
 .logo {
-    height: 250px;
+    height: 100px;
+    width: auto;
 }
 
 .navbar {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background-color: #ffff54;
-    height: 100px;
+    border: 2px solid #c8a2c8;
+    border-radius: 10px;
+    padding: 10px 20px;
+    max-height: 100px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-left {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right {
+    margin-left: auto; /* Align deconnexion button to the right */
 }
 
 .deconnexion,
@@ -26,15 +40,16 @@
 }
 
 .deconnexion {
-    background-color: #ffff54; /* Jaune vif */
-    color: #5e3370;
-    border: 2px solid #5e3370;
+    background-color: #a30000; /* Rouge */
+    color: #FFFF54;
+    border: 2px solid #a30000;
     margin-left: 50px;
 }
 
 .deconnexion:hover {
-    background-color: #5e3370; /* Violet foncé */
-    color: #ffff54; /* Jaune vif */
+    background-color: #FFFF54; /* jaune vif */
+    color: #a30000; /* Rouge */
+    border: 2px solid #a30000;
     text-decoration: none; /* Assure qu'il n'y a pas de soulignement au survol */
 }
 

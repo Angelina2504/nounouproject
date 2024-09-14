@@ -1,0 +1,16 @@
+.edit-child-form {
+    background-color: #fff6d5;
+    border-radius: 8px;
+    border: 1px solid #5e3370;
+    padding: 10px;
+    margin-top: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.edit-child-form input, select {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #5e3370;
+    color: #5e3370;
+}

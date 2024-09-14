@@ -65,7 +65,7 @@ const AdminTutorDetailsComponent = ({
                 {isTutorEditing ? (
                     <div>
                         <button className="edit-button" onClick={() => handleSaveTutor(tutor.id)}>Enregistrer</button>
-                        <button className="edit-button" onClick={() => handleCancel('tutors', tutor.id)}>Annuler</button>
+                        <button className="cancel-button" onClick={() => handleCancel('tutors', tutor.id)}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">

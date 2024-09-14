@@ -1,4 +1,4 @@
-import "../../styles/admin.css";
+import "../../styles/admin/admin.css";
 import {useCheckConnected} from '../../hooks/useCheckConnected.jsx';
 import {useCallback, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient.js';

@@ -61,7 +61,7 @@ const AdminChildDetailsComponent = ({
                 {isChildEditing ? (
                     <div>
                         <button className="edit-button" onClick={() => handleSaveChild(child.id)}>Enregistrer</button>
-                        <button className="edit-button" onClick={() => handleCancel('children', child.id)}>Annuler</button>
+                        <button className="cancel-button" onClick={() => handleCancel('children', child.id)}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">

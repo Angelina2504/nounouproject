@@ -1,0 +1,159 @@
+.emergency-contacts-manager-container {
+    border: 2px solid #c8a2c8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f4ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    color: #5e3370;
+}
+
+.emergency-contacts-manager-container button {
+    min-width: 120px;
+}
+
+.back-button-container {
+    margin-bottom: 15px;
+}
+
+.emergency-contacts-manager-container .back-button {
+    min-width: 120px;
+}
+
+.emergency-contact-form-container {
+    background-color: #fff6d5;
+    padding: 10px;
+    border: 1px solid #5e3370;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.emergency-contact-form-container input {
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid #5e3370;
+    color: #5e3370;
+}
+
+/* Child block wrapping emergency contacts */
+.child-contacts-block {
+    border: 1px solid #69353f;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #e9dff5; /* Light purple background */
+    margin-bottom: 24px;
+}
+
+/* Contact details block, stacked within the child block */
+.contact-details-block {
+    background-color: #fff6d5; /* Pale yellow */
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #69353f;
+    margin-bottom: 10px;
+}
+
+/* Contact individual entry styling */
+.contact-details {
+    margin-bottom: 12px;
+}
+
+/* Contact name style */
+.contact-details p strong {
+    font-size: 1.2em;
+    color: #5e3370; /* Violet */
+}
+
+/* Contact details (e.g., phone, relation, etc.) */
+.contact-details p {
+    margin: 4px 0;
+    color: #5e3370;
+}
+
+/* Same background as the Add/Update form for the input fields */
+.contact-details input,
+.contact-details select {
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid #5e3370;
+    color: #5e3370;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 0.85em;
+}
+
+/* Button styles, shared between edit and delete */
+.contact-buttons-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+/* Button styles */
+.contact-save-button,
+.contact-cancel-button {
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-save-button:hover,
+.contact-cancel-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+.contact-cancel-button {
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+}
+
+.contact-cancel-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+    border: 2px solid #5e3370;
+}
+
+
+/* Edit Button */
+.contact-edit-button {
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-edit-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+/* Delete Button */
+.contact-delete-button {
+    background-color: #a30000;
+    color: #ffff54;
+    border: 2px solid #a30000;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-delete-button:hover {
+    background-color: #ffff54;
+    color: #a30000;
+}
