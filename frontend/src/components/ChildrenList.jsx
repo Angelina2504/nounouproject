@@ -1,19 +1,27 @@
-import React from 'react';
+import '../styles/childrenList.css';
 
-export default function ChildrenList({ childrenList, onEdit, onDelete }) {
+export default function ChildrenList({ childrenList, onEdit, onDelete, selectedChildId }) {
     return (
-        <ul className="children-list">
+        <div className="children-list">
             {childrenList.length > 0 ? (
                 childrenList.map((child) => (
-                    <li key={child.id}>
-                        {child.gender} - {child.firstname} {child.lastname} - {new Date(child.birthdate).toLocaleDateString()} - Allergies: {child.allergy || "Aucune"}
-                        <button onClick={() => onEdit(child.id)}>Éditer</button>
-                        <button onClick={() => onDelete(child.id)}>Supprimer</button>
-                    </li>
+                    <div key={child.id}
+                        className={`children-card-template ${selectedChildId === child.id ? 'selected-child' : ''}`}>
+                        <div className="child-name">{child.firstname} {child.lastname}</div>
+                        <p>{child.gender === 'M' ? 'Né ' : (child.gender === 'F' ? 'Née ' : 'Né(e) ')}
+                            le {new Date(child.birthdate).toLocaleDateString()}</p>
+                        <p>Allergies: {child.allergy || 'Aucune'}</p>
+
+                        <div className="children-buttons-container">
+                            <button className="children-edit-button" onClick={() => onEdit(child.id)}>Éditer</button>
+                            <button className="children-delete-button" onClick={() => onDelete(child)}>Supprimer</button>
+                        </div>
+                    </div>
                 ))
             ) : (
-                <li>Aucun enfant déclaré</li>
+                <p>Aucun enfant déclaré</p>
             )}
-        </ul>
+        </div>
+
     );
 }

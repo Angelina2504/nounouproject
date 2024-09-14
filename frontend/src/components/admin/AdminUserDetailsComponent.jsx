@@ -8,7 +8,8 @@ const AdminUserDetailsComponent = ({
         handleInputChange,
         handleSaveUser,
         handleCancel,
-        handleEditToggle
+        handleEditToggle,
+        handleDeleteUser
     }) => {
     return (
         <div className="user-details">
@@ -65,10 +66,13 @@ const AdminUserDetailsComponent = ({
                 {isEditing ? (
                     <div>
                         <button className="edit-button" onClick={handleSaveUser}>Enregistrer</button>
-                        <button className="edit-button" onClick={() => handleCancel('user')}>Annuler</button>
+                        <button className="cancel-button" onClick={() => handleCancel('user')}>Annuler</button>
                     </div>
                 ) : (
-                    <button className="edit-button" onClick={() => handleEditToggle('user')}>Editer</button>
+                    <div className="buttons-container">
+                        <button className="edit-button" onClick={() => handleEditToggle('user')}>Editer</button>
+                        <button className="delete-button" onClick={() => handleDeleteUser(userDetails)}>Supprimer</button>
+                    </div>
                 )}
             </div>
         </div>
@@ -77,6 +81,7 @@ const AdminUserDetailsComponent = ({
 
 AdminUserDetailsComponent.propTypes = {
     userDetails: PropTypes.shape({
+        id: PropTypes.number.isRequired,
         firstname: PropTypes.string.isRequired,
         lastname: PropTypes.string.isRequired,
         gender: PropTypes.string,
@@ -96,7 +101,8 @@ AdminUserDetailsComponent.propTypes = {
     handleInputChange: PropTypes.func.isRequired,
     handleSaveUser: PropTypes.func.isRequired,
     handleCancel: PropTypes.func.isRequired,
-    handleEditToggle: PropTypes.func.isRequired
+    handleEditToggle: PropTypes.func.isRequired,
+    handleDeleteUser: PropTypes.func.isRequired
 };
 
 export default AdminUserDetailsComponent;

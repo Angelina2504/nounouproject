@@ -1,5 +1,14 @@
-.allLink {
+.footer {
     display: flex;
     justify-content: space-around;
     background-color: #FFFF54;
+    border: 2px solid #c8a2c8;
+    border-radius: 10px;
+    max-height: 50px;
+    min-height: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer a {
+    margin: auto 0;
 }

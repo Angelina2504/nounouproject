@@ -1,0 +1,297 @@
+/*.profile-container {*/
+/*    border: 2px solid #c8a2c8;*/
+/*    border-radius: 10px;*/
+/*    padding: 20px;*/
+/*    margin: 20px 0;*/
+/*    background-color: #f9f4ff;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.profile-details,*/
+/*.update-user-form,*/
+/*.delete-user-form {*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.profile-details {*/
+/*    border: 2px dotted #5e3370;*/
+/*    border-radius: 8px;*/
+/*    padding: 10px 10px;*/
+/*}*/
+
+/*.profile-field {*/
+/*    margin-bottom: 12px;*/
+/*    display: flex;*/
+/*    justify-content: flex-start;*/
+/*    font-size: 1.1rem;*/
+/*    color: #5e3370;*/
+/*}*/
+
+.info {
+    font-style: italic;
+    font-size: 1em;
+    color: #a30000;
+    margin-bottom: 10px;
+}
+
+/*.profile-field input {*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 10px;*/
+/*    padding: 5px;*/
+/*    width: calc(100% - 22px);*/
+/*    transition: border 0.2s ease-in-out;*/
+/*    color: #5e3370;*/
+/*    margin-bottom: 0;*/
+/*}*/
+
+/*.profile-field input:focus {*/
+/*    border-color: #5e3370;*/
+/*    outline: none;*/
+/*}*/
+
+.profile-field label {
+    font-weight: bold;
+    min-width: 80px; /* Ensures consistent label width */
+    color: #5e3370;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.profile-field label.inline {
+    margin-left: 10px;
+}
+
+/*input[type="text"], select {*/
+/*    border: 2px solid #69353f;*/
+/*}*/
+
+/*.profile-buttons-container {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.edit-button,*/
+/*.save-button,*/
+/*.cancel-button,*/
+/*.delete-button {*/
+/*    padding: 10px 20px;*/
+/*    border-radius: 20px;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    border: 2px solid #5e3370;*/
+/*}*/
+
+/*.edit-button,*/
+/*.save-button {*/
+/*    background-color: #ffff54;*/
+/*    color: #5e3370;*/
+/*}*/
+
+/*.edit-button:hover,*/
+/*.save-button:hover {*/
+/*    background-color: #5e3370;*/
+/*    color: #ffff54;*/
+/*}*/
+
+/*.cancel-button {*/
+/*    background-color: #5e3370;*/
+/*    color: #ffff54;*/
+/*}*/
+
+/*.cancel-button:hover {*/
+/*    background-color: #ffff54;*/
+/*    color: #5e3370;*/
+/*}*/
+
+/*.delete-button {*/
+/*    background-color: #a30000;*/
+/*    color: #ffff54;*/
+/*    border-color: #a30000;*/
+/*}*/
+
+/*.delete-button:hover {*/
+/*    background-color: #ffff54;*/
+/*    color: #a30000;*/
+/*}*/
+
+
+
+/*!******************************************!*/
+
+/*.update-user-form {*/
+/*    border: 2px solid #c8a2c8;*/
+/*    border-radius: 10px;*/
+/*    padding: 20px;*/
+/*    margin: 20px 0;*/
+/*    background-color: #f9f4ff;*/
+/*    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*.profile-field {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: flex-start;*/
+/*    margin-bottom: 12px;*/
+/*}*/
+
+/*.profile-field input,*/
+/*.profile-field select {*/
+/*    padding: 5px;*/
+/*    color: #5e3370;*/
+/*}*/
+
+/*.profile-field input {*/
+/*    width: 100%;*/
+/*    max-width: 300px;*/
+/*}*/
+
+/*.profile-buttons-container {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.save-button,*/
+/*.cancel-button {*/
+/*    padding: 10px 20px;*/
+/*    border-radius: 20px;*/
+/*    font-weight: bold;*/
+/*    cursor: pointer;*/
+/*    border: 2px solid #5e3370;*/
+/*}*/
+
+/*.save-button {*/
+/*    background-color: #ffff54;*/
+/*    color: #5e3370;*/
+/*}*/
+
+/*.save-button:hover {*/
+/*    background-color: #5e3370;*/
+/*    color: #ffff54;*/
+/*}*/
+
+/*.cancel-button {*/
+/*    background-color: #5e3370;*/
+/*    color: #ffff54;*/
+/*}*/
+
+/*.cancel-button:hover {*/
+/*    background-color: #ffff54;*/
+/*    color: #5e3370;*/
+/*}*/
+/* Profile container */
+
+
+
+
+/******************************************************/
+
+.profile-container {
+
+    border: 2px solid #c8a2c8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background-color: #f9f4ff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-details, .update-user-form, .delete-user-form {
+    margin-bottom: 20px;
+}
+
+.profile-details {
+    border: 2px dotted #5e3370;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: #f9f4ff;
+}
+
+/* Fields styling */
+.profile-field {
+    display: flex;
+    justify-content: flex-start;
+    /*align-items: center;*/
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+    color: #5e3370;
+}
+
+.profile-field label {
+    font-weight: bold;
+    min-width: 110px; /* Ensures consistent label width */
+    color: #5e3370;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.profile-field label.no-margin-bottom {
+    margin-bottom: 0;
+}
+.profile-field p {
+    background-color: #fff;
+    text-align: left;
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #69353f;
+    border-radius: 10px;
+    color: #5e3370;
+    margin: 0 0 0 5px;
+}
+
+.profile-field input,
+.profile-field select {
+    padding: 5px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #69353f;
+    border-radius: 10px;
+    color: #5e3370;
+}
+
+/* Buttons styling */
+.profile-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.edit-button, .save-button, .cancel-button, .delete-button {
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border: 2px solid #5e3370;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button, .save-button {
+    background-color: #ffff54;
+    color: #5e3370;
+}
+
+.edit-button:hover, .save-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+.cancel-button {
+    background-color: #5e3370;
+    color: #ffff54;
+}
+
+.cancel-button:hover {
+    background-color: #ffff54;
+    color: #5e3370;
+}
+
+.delete-button {
+    background-color: #a30000;
+    color: #ffff54;
+    border-color: #a30000;
+}
+
+.delete-button:hover {
+    background-color: #ffff54;
+    color: #a30000;
+}

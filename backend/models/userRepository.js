@@ -281,6 +281,17 @@ class UserRepository extends AbstractRepository {
         return rows[0];
     }
 
+    async readForProfile(id) {
+        const [rows] = await this.databasePool.query(
+            `select firstname, lastname, email, phone_number, address, gender  from ${this.table}
+             where id = ?`,
+            [id]
+        );
+
+        return rows[0];
+    }
+
+
     async update(user) {
         const [result] = await this.databasePool.query(
             `update ${this.table}
@@ -299,6 +310,30 @@ class UserRepository extends AbstractRepository {
 
         return result.affectedRows;
     }
-}
 
+    async delete(id) {
+        const [result] = await this.databasePool.query(
+            `delete from ${this.table} where id = ?`,
+            [id]
+        );
+
+        return result.affectedRows;
+    }
+
+    async findOneById(id) {
+
+        const [rows] = await this.databasePool.query(`SELECT * FROM ${this.table} WHERE id = ?`, [id]);
+
+        return rows[0] || null; // Retourne le premier utilisateur trouvé ou null s'il n'y en a pas*/
+    };
+
+    async delete(id) {
+        const [result] = await this.databasePool.query(
+            `delete from ${this.table} where id = ?`,
+            [id]
+        );
+
+        return result.affectedRows;
+    }
+};
 module.exports = new UserRepository();

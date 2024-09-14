@@ -12,8 +12,16 @@
     color: #5e3370; /* Violet foncé */
 }
 
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
 .back-button,
-.edit-button {
+.edit-button,
+.cancel-button,
+.delete-button {
     background-color: #ffff54; /* Jaune vif */
     color: #5e3370; /* Violet foncé */
     border: 2px solid #5e3370;
@@ -21,20 +29,42 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    min-width: 120px;
 }
 
 .back-button {
     padding: 10px 20px;
+    min-width: 120px;
 }
 
-.edit-button {
-    padding: 5px 10px;
+.cancel-button {
+    margin-left: 10px;
+}
+
+.edit-button,
+.cancel-button,
+.delete-button {
+    padding: 10px 20px;
 }
 
 .back-button:hover,
-.edit-button:hover {
+.edit-button:hover,
+.cancel-button:hover,
+.delete-button:hover {
     background-color: #5e3370; /* Violet foncé */
     color: #ffff54;
+}
+
+.delete-button {
+    background-color: #a30000; /* Rouge */
+    color: #FFFF54;
+    border: 2px solid #a30000;
+}
+
+.delete-button:hover {
+    background-color: #FFFF54; /* jaune vif */
+    color: #a30000; /* Rouge */
+    border: 2px solid #a30000;
 }
 
 /* Ajoute un conteneur flex pour les prénoms et noms */
@@ -79,7 +109,13 @@
 .children-details p {
     margin: 5px 0;
     font-size: 1.1em;
-    color: #333;
+    color: #5e3370;
+    text-align: left;
+}
+
+.no-child-text,
+.no-tutor-text {
+    font-style: italic;
 }
 
 .user-informations {
@@ -133,19 +169,21 @@
     border-radius: 5px;
     margin-right: 10px;
     width: calc(100% - 22px);
+    color: #5e3370;
     background-color: #f9f4ff; /* Pour rester cohérent avec le fond en mode présentation */
 }
 
 .family-details input[type="text"]:focus {
     border-color: #5e3370; /* Violet foncé */
     outline: none;
+    color: #5e3370;
 }
 
 /* Pour garantir que les <p> et <input> ont un style commun, permettant de garder l'alignement */
 .editable-field {
     display: inline-block;
     font-size: 1.1em;
-    color: #333;
+    color: #5e3370;
 }
 
 .editable-field input {
@@ -154,6 +192,7 @@
     padding: 5px;
     width: calc(100% - 22px);
     transition: border 0.2s ease-in-out;
+    color: #5e3370;
 }
 
 .editable-address {
