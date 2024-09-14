@@ -29,6 +29,10 @@
     transform: scale(1.05);
 }
 
+.selected-tutor {
+    background-color: #f8f3b6;
+}
+
 .tutors-buttons-container {
     display: flex;
     justify-content: space-between;

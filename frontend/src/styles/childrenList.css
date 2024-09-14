@@ -29,7 +29,7 @@
     transform: scale(1.05);
 }
 
-.children-card-template.selected-child {
+.selected-child {
     background-color: #f8f3b6; /* jaune pâle pour l'enfant sélectionné */
 }
 

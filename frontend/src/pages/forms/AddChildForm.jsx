@@ -6,7 +6,7 @@ import '../../styles/addChildForm.css';
 export default function AddChildForm({onSave, onCancel}) {
 
     const [childForm, setChildForm] = useState({
-        gender: '',
+        gender: '' || 'M',
         firstname: '',
         lastname: '',
         birthdate: '',

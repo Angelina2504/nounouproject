@@ -219,6 +219,7 @@ export default function Family() {
                 <TutorList tutors={tutors}
                            onEdit={handleTutorEdit}
                            onDelete={handleTutorDelete}
+                           selectedTutorId={selectedTutor ? selectedTutor.id : null}
                 />
             </section>
 

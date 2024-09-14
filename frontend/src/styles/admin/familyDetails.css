@@ -29,10 +29,12 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    min-width: 120px;
 }
 
 .back-button {
     padding: 10px 20px;
+    min-width: 120px;
 }
 
 .cancel-button {
