@@ -1,19 +1,26 @@
 import React from 'react';
 
+import '../styles/tutorList.css';
+
 export default function TutorList({ tutors, onEdit, onDelete }) {
     return (
-        <ul className="tutor-list">
-            {(tutors || []).length > 0 ? (
+        <div className="tutor-list">
+            {tutors.length > 0 ? (
                 tutors.map((tutor) => (
-                    <li key={tutor.id}>
-                        {tutor.gender} {tutor.firstname} {tutor.lastname} - {tutor.email} - {tutor.phoneNumber} {tutor.address} 
-                        <button onClick={() => onEdit(tutor.id)}>Éditer</button>
-                        <button onClick={() => onDelete(tutor.id)}>Supprimer</button>
-                    </li>
+                    <div key={tutor.id} className="tutor-card-template">
+                        <div className="tutor-name">{tutor.firstname} {tutor.lastname}</div>
+                        <p>Email: {tutor.email}</p>
+                        <p>Téléphone: {tutor.phone_number}</p>
+
+                        <div className="tutor-buttons-container">
+                            <button className="tutor-edit-button" onClick={() => onEdit(tutor.id)}>Éditer</button>
+                            <button className="tutor-delete-button" onClick={() => onDelete(tutor)}>Supprimer</button>
+                        </div>
+                    </div>
                 ))
             ) : (
-                <li>Aucun tuteur déclaré</li>
+                <p>Aucun tuteur déclaré</p>
             )}
-        </ul>
+        </div>
     );
 }

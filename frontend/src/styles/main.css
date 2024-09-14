@@ -1,6 +1,10 @@
-body {
-    font-family: 'Helvetica', 'Verdana', 'Arial', sans-serif;
+html {
+    background-color: #f9f4ff; /* Violet très clair */
     color: #5e3370; /* Violet foncé */
+    font-family: 'Helvetica', 'Verdana', 'Arial', sans-serif;
+}
+
+body {
 }
 
 h1 {
@@ -12,4 +16,9 @@ select {
     border-radius: 10px;
     border: 1px solid #5e3370;
     margin-bottom: 10px;
+}
+
+.separator {
+    border: 1px solid #c8a2c8; /* Violet */
+    margin: 20px 0 10px;
 }

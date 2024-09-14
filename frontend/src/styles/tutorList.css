@@ -1,18 +1,18 @@
-.children-list {
+.tutor-list {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
     justify-content: left;
 }
 
-.child-name {
+.tutor-name {
     font-size: 1.4em;
     margin-bottom: 10px;
     word-wrap: break-word;
     font-weight: bold;
 }
 
-.children-card-template {
+.tutor-card-template {
     border: 1px solid #69353f;
     border-radius: 8px;
     padding: 16px;
@@ -22,25 +22,20 @@
     max-width: 300px;
     min-width: 250px;
     box-sizing: border-box;
-    transition: transform 0.3s ease, background-color 0.3s ease;
+    transition: transform 0.3s ease;
 }
 
-.children-card-template:hover {
+.tutor-card-template:hover {
     transform: scale(1.05);
 }
 
-.children-card-template.selected-child {
-    background-color: #f8f3b6; /* jaune pâle pour l'enfant sélectionné */
-}
-
-.children-buttons-container {
+.tutor-buttons-container {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.children-edit-button,
-.children-cancel-button{
+.tutor-edit-button, .tutor-delete-button {
     background-color: #ffff54;
     border-radius: 20px;
     padding: 10px 20px;
@@ -49,18 +44,52 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    min-width: 120px;
 }
 
-.children-edit-button:hover {
+.tutor-delete-button {
+    background-color: #a30000;
+    color: #ffff54;
+    border: 2px solid #a30000;
+}
+
+.tutor-edit-button:hover {
     background-color: #5e3370;
     color: #ffff54;
 }
 
-.children-delete-button {
+.tutor-delete-button:hover {
+    background-color: #ffff54; /* jaune vif */
+    color: #a30000; /* rouge */
+    border: 2px solid #a30000;
+}
+
+
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.tutors-edit-button {
+    background-color: #5e3370;
     border-radius: 20px;
     padding: 10px 20px;
-    background-color: #a30000; /* rouge */
+    color: #ffff54;
+    border: 2px solid #5e3370;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tutors-edit-button:hover {
+    background-color: #ffff54;
+    color: #5e3370;
+}
+
+.tutors-cancel-button {
+    background-color: #a30000;
+    border-radius: 20px;
+    padding: 10px 20px;
     color: #ffff54;
     border: 2px solid #a30000;
     font-weight: bold;
@@ -68,15 +97,7 @@
     transition: background-color 0.3s ease;
 }
 
-.children-cancel-button {
-    background-color: #a30000; /* rouge */
-    color: #ffff54;
-    border: 2px solid #a30000;
-}
-
-.children-delete-button:hover,
-.children-cancel-button:hover {
-    background-color: #ffff54; /* jaune vif */
-    color: #a30000; /* rouge */
-    border: 2px solid #a30000;
+.tutors-cancel-button:hover {
+    background-color: #ffff54;
+    color: #a30000;
 }

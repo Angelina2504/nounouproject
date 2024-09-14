@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axiosInstance from "../../services/httpClient";
 
-export default function AddChildForm({onSave}) {
+export default function AddChildForm({onSave, onCancel}) {
 
     const [childForm, setChildForm] = useState({
         gender: '',
@@ -24,7 +24,7 @@ export default function AddChildForm({onSave}) {
         try {
 
             const payload = {
-              child: {  
+              child: {
                 gender: childForm.gender,
                 firstname: childForm.firstname,
                 lastname: childForm.lastname,
@@ -36,9 +36,9 @@ export default function AddChildForm({onSave}) {
 
             await axiosInstance.post('/children/create', payload);
             onSave();
-           
+
             setChildForm(
-                { 
+                {
                   gender: '',
                   firstname: '',
                   lastname: '',
@@ -51,8 +51,8 @@ export default function AddChildForm({onSave}) {
     };
 
     return (
-        <form className="add-child-form" onSubmit={handleSubmit}>
-            <label>Genre</label>        
+        <div className="add-child-form">
+            <label>Genre</label>
             <select name="gender" value={childForm.gender} onChange={handleChange}>
                 <option value="M">Homme</option>
                 <option value="F">Femme</option>
@@ -71,7 +71,9 @@ export default function AddChildForm({onSave}) {
             <label>Allergies</label>
             <input type="text" name="allergy" value={childForm.allergy} onChange={handleChange}/>
 
-            <button type="submit">Ajouter</button>
-        </form>
+            <div className="children-buttons-container">
+                <button className="children-edit-button" onClick={handleSubmit}>Ajouter</button>
+            </div>
+        </div>
     );
 }

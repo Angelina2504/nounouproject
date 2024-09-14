@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import axiosInstance from '../../services/httpClient';
 
-export default function UpdateTutordForm ({tutor, onSave}) {
+export default function UpdateTutordForm ({tutor, onSave, onCancel}) {
 
     const [tutorForm, setTutorForm] = useState(tutor);
 
@@ -42,7 +42,7 @@ export default function UpdateTutordForm ({tutor, onSave}) {
     return (
         <form className="edit-tutor-form" onSubmit={handleSubmit}>
 
-            <label>Genre</label>        
+            <label>Genre</label>
             <select name="gender" value={tutorForm.gender} onChange={handleChange}>
                 <option value="M">Homme</option>
                 <option value="F">Femme</option>
@@ -64,7 +64,10 @@ export default function UpdateTutordForm ({tutor, onSave}) {
             <label>Adresse</label>
             <input type="text" name="address" value={tutorForm.address} onChange={handleChange} />
 
-            <button type="submit">Sauvegarder</button>
+            <div className="tutors-buttons-container">
+                <button className="tutors-edit-button" onClick={handleSubmit}>Enregistrer</button>
+                <button className="tutors-cancel-button" onClick={onCancel}>Annuler</button>
+            </div>
         </form>
     );
 }

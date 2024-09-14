@@ -67,7 +67,7 @@ export default function UpdateChildForm ({child, onSave, onCancel}) {
                 <input type="text" name="allergy" value={childForm.allergy || ''} onChange={handleChange}/>
             </div>
             <div className="children-buttons-container">
-                <button className="children-edit-button" onClick={handleSubmit}>Sauvegarder</button>
+                <button className="children-edit-button" onClick={handleSubmit}>Enregistrer</button>
                 <button className="children-cancel-button" onClick={onCancel}>Annuler</button>
             </div>
         </div>
