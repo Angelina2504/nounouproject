@@ -1,17 +1,21 @@
 import {useState} from 'react';
 import axiosInstance from '../../services/httpClient';
 import { useNavigate } from "react-router-dom";
+import {useCheckConnected} from '../../hooks/useCheckConnected.jsx';
 
 export default function DeleteUserForm ({ setIsDeleting }) {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    const {logout} = useCheckConnected();
+
  const handleDelete = async () => {
         try {
 
-            await axiosInstance.post("/users/checkDelete", { password });
+            await axiosInstance.post("/users/check-delete", { password });
             // After deleting the user navigate to /login
+            logout();
             navigate("/login");
 
         } catch (error) {
@@ -26,7 +30,7 @@ export default function DeleteUserForm ({ setIsDeleting }) {
 
             {error && <p className="error">{error}</p>}
 
-            <form className="formLogin" onSubmit={handleDelete}>
+            <div className="formLogin">
 
                 <label htmlFor="password">Mot de passe</label>
                 <input type="password"
@@ -36,9 +40,9 @@ export default function DeleteUserForm ({ setIsDeleting }) {
                     required
                 />
 
-                <button type="submit">Supprimer</button>
+                <button onClick={handleDelete}>Supprimer</button>
                 <button onClick={() => setIsDeleting(false) }>Annuler</button>
-            </form>
+            </div>
 
         </section>
     )

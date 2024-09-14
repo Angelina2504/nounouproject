@@ -7,7 +7,8 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
-.edit-child-form input, select {
+.edit-child-form input,
+.edit-child-form select {
     padding: 5px;
     margin: 10px;
     border-radius: 5px;

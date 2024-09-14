@@ -29,11 +29,9 @@ export default function Navbar() {
                 <Link to="/"><img className="logo" src={Logo} alt="Logo"/></Link>
                 {user && (
                     <>
-                    {isAdmin ? (
-                        <Link className="navbar-button" to="/admin">Administration</Link>) : ''}
-                        <Link className="navbar-button" to="/family">Ma Famille</Link>
+                        {!isAdmin && <Link className="navbar-button" to="/family">Ma Famille</Link>}
+                        {isAdmin && <Link className="navbar-button" to="/admin">Administration</Link>}
                         <Link className="navbar-button" to="/profile">Mon Profil</Link>
-                        {user.isAdmin && <Link className="navbar-button" to="/admin">Administration</Link>}
                     </>
                 )}
             </div>
