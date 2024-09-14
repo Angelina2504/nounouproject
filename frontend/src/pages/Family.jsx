@@ -51,17 +51,6 @@ export default function Family() {
      *** Fonctions de gestion des événements ***
      ******************************************/
 
-    // FIXME à supprimer, ne sert plus ?
-    // /**
-    //  * Gérer l'ajout d'un enfant
-    //  * @param newChild
-    //  */
-    // const handleAddChild = (newChild) => {
-    //     setChildren((prevChildren) => [
-    //         ...prevChildren, newChild
-    //     ]);
-    // };
-
     /**
      * Afficher le formulaire d'ajout d'un enfant
      * @param id
