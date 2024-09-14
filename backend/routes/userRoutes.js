@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.get("/profile", checkSession, userController.myProfile);
 router.put("/profile/edit", checkSession, userController.edit);
-router.post("/checkDelete", checkSession, userController.checkDelete);
-//router.delete("/delete/:id", checkSession, userController.destroy);
+router.post("/check-delete", checkSession, userController.checkDelete);
 
 module.exports = router;

@@ -92,19 +92,10 @@ const checkDelete = async (req, res) => {
                 return res.status(401).json({ success: false, message: "Invalid credentials" });
             }
 
-            // Sauvegarde de la session, on stocke l'id et l'email de l'utilisateur car on en aura besoin dans d'autres requêtes
-            /*req.session.user = {
-                id: user.id,
-                email: user.email
-            };*/
+            await userRepository.delete(userId);
+            req.session.destroy(); // Détruire la session après suppression
+            return res.status(200).json({ success: true, message: "Compte supprimé avec succès" });
 
-            // On doit retourner l'id et l'email de l'utilisateur pour le front dans la réponse
-           /* res.status(200).json({ success: true, message: "Mot de passe correcte"*/
-                /*user: { id: user.id, email: user.email}*/
-
-                await userRepository.delete(userId);
-                req.session.destroy(); // Détruire la session après suppression
-                return res.status(200).json({ success: true, message: "Compte supprimé avec succès" });
             } catch (error) {
             console.error("Error during deleting:", error);
             res.status(500).json({ success: false, message: "Internal server error" });

@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react';
-import axiosInstance from '../../services/httpClient';
 
-export default function UpdateUserForm ({user, onSave}) {
+export default function UpdateUserForm ({user, onSave, onCancel}) {
 
     const [userForm, setUserForm] = useState(user);
 
@@ -9,61 +8,84 @@ export default function UpdateUserForm ({user, onSave}) {
         setUserForm(user);
     }, [user]);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-
-            const payload = {
-                gender: userForm.gender,
-                firstname: userForm.firstname,
-                lastname:userForm.lastname,
-                email:userForm.email,
-                phoneNumber:userForm.phone_number,
-                address: userForm.address
-                // userId est géré par le controleur qui récupère l'id du user de la session
-            };
-
-            await axiosInstance.put(`/users/profile/edit`, payload);
-            onSave(); // Appel de la fonction de rappel après la sauvegarde
-        } catch (error) {
-            console.error('Erreur lors de l\'édition de l\'utilisateur', error)
-        }
-    };
-
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setUserForm((prevUserForm) => ({
-            ...prevUserForm,
-            [name]: value,
+        setUserForm((prevData) => ({
+            ...prevData,
+            [name]: value
         }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        onSave(userForm);
+    };
+
     return (
-        <form className="edit-user-form" onSubmit={handleSubmit}>
+        <div className="update-user-form">
+            {/* First row with Gender, Firstname, and Lastname */}
+            <div className="profile-field">
+                <label>Genre :</label>
+                <select name="gender" value={userForm.gender} onChange={handleChange}>
+                    <option value="M">Homme</option>
+                    <option value="F">Femme</option>
+                    <option value="O">Autre</option>
+                </select>
 
-            <label>Genre</label>        
-            <select name="gender" value={userForm.gender} onChange={handleChange}>
-                <option value="M">Homme</option>
-                <option value="F">Femme</option>
-                <option value="O">Autre</option>
-            </select>
+                <label className="inline">Prénom :</label>
+                <input
+                    type="text"
+                    name="firstname"
+                    value={userForm.firstname}
+                    onChange={handleChange}
+                />
 
-            <label>Prénom</label>
-            <input type="text" name="firstname" value={userForm.firstname} onChange={handleChange} required/>
+                <label className="inline">Nom :</label>
+                <input
+                    type="text"
+                    name="lastname"
+                    value={userForm.lastname}
+                    onChange={handleChange}
+                />
+            </div>
 
-            <label>Nom</label>
-            <input type="text" name="lastname" value={userForm.lastname} onChange={handleChange} required/>
+            {/* Second row with Email, Phone, and Address */}
+            <div className="profile-field">
+                <label>Email :</label>
+                <input
+                    type="text"
+                    name="email"
+                    value={userForm.email}
+                    onChange={handleChange}
+                />&nbsp;
+                <span className="bold-text info">Attention, il s&apos;agit de votre identifiant pour vous connecter !</span>
+            </div>
+            <div className="profile-field">
+                <label>Téléphone :</label>
+                <input
+                    type="text"
+                    name="phone_number"
+                    value={userForm.phone_number}
+                    onChange={handleChange}
+                />
 
-            <label>Email</label>
-            <input type="email" name="email" value={userForm.email} onChange={handleChange} required/>
+                <label className="inline">Adresse :</label>
+                <input
+                    type="text"
+                    name="address"
+                    value={userForm.address}
+                    onChange={handleChange}
+                />
+            </div>
 
-            <label>Numéro de téléphone</label>
-            <input type="text" name="phone_number" value={userForm.phone_number} onChange={handleChange}/>
-
-            <label>Adresse</label>
-            <input type="text" name="address" value={userForm.address} onChange={handleChange} />
-
-            <button type="submit">Sauvegarder</button>
-        </form>
+            <div className="profile-buttons-container">
+                <button className="save-button" onClick={handleSubmit}>
+                    Enregistrer
+                </button>
+                <button className="cancel-button" onClick={onCancel}>
+                    Annuler
+                </button>
+            </div>
+        </div>
     );
 }

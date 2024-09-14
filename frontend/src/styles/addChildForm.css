@@ -8,7 +8,8 @@
     margin-top: 10px;
 }
 
-.add-child-form input, select {
+.add-child-form input,
+.add-child-form select {
     padding: 5px;
     margin: 10px;
     border: 1px solid #5e3370;

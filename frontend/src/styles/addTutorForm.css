@@ -8,7 +8,8 @@
     margin-top: 10px;
 }
 
-.add-tutor-form input, select {
+.add-tutor-form input,
+.add-tutor-form select {
     padding: 5px;
     margin: 10px;
     border: 1px solid #5e3370;
