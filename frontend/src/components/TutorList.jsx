@@ -12,8 +12,8 @@ export default function TutorList({ tutors, onEdit, onDelete }) {
                         <p>Email: {tutor.email}</p>
                         <p>Téléphone: {tutor.phone_number}</p>
 
-                        <div className="tutor-buttons-container">
-                            <button className="tutor-edit-button" onClick={() => onEdit(tutor.id)}>Éditer</button>
+                        <div className="tutors-buttons-container">
+                            <button className="tutors-edit-button" onClick={() => onEdit(tutor.id)}>Éditer</button>
                             <button className="tutor-delete-button" onClick={() => onDelete(tutor)}>Supprimer</button>
                         </div>
                     </div>

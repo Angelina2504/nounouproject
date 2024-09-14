@@ -1,0 +1,25 @@
+.add-tutor-form {
+    background-color: #fff6d5; /* Pale yellow */
+    padding: 10px;
+    border: 1px solid #5e3370;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.add-tutor-form input, select {
+    padding: 5px;
+    margin: 10px;
+    border: 1px solid #5e3370;
+    color: #5e3370;
+}
+
+.tutor-editable-address {
+    min-width: 350px;
+    max-width: 600px;
+}
+
+.tutors-buttons-container {
+    justify-content: space-between;
+}

@@ -40,7 +40,7 @@
 }
 
 .children-edit-button,
-.children-cancel-button{
+.children-cancel-button {
     background-color: #ffff54;
     border-radius: 20px;
     padding: 10px 20px;
@@ -69,14 +69,19 @@
 }
 
 .children-cancel-button {
-    background-color: #a30000; /* rouge */
-    color: #ffff54;
-    border: 2px solid #a30000;
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
 }
 
-.children-delete-button:hover,
-.children-cancel-button:hover {
+.children-delete-button:hover {
     background-color: #ffff54; /* jaune vif */
     color: #a30000; /* rouge */
     border: 2px solid #a30000;
+}
+
+.children-cancel-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+    border: 2px solid #5e3370;
 }

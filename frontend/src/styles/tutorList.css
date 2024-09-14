@@ -29,13 +29,13 @@
     transform: scale(1.05);
 }
 
-.tutor-buttons-container {
+.tutors-buttons-container {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
 }
 
-.tutor-edit-button, .tutor-delete-button {
+.tutors-edit-button, .tutor-delete-button {
     background-color: #ffff54;
     border-radius: 20px;
     padding: 10px 20px;
@@ -52,7 +52,7 @@
     border: 2px solid #a30000;
 }
 
-.tutor-edit-button:hover {
+.tutors-edit-button:hover {
     background-color: #5e3370;
     color: #ffff54;
 }
@@ -63,7 +63,6 @@
     border: 2px solid #a30000;
 }
 
-
 .buttons-container {
     display: flex;
     justify-content: space-between;
@@ -71,33 +70,35 @@
 }
 
 .tutors-edit-button {
-    background-color: #5e3370;
+    background-color: #ffff54;
     border-radius: 20px;
     padding: 10px 20px;
-    color: #ffff54;
+    color: #5e3370;
     border: 2px solid #5e3370;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    min-width: 120px;
 }
 
 .tutors-edit-button:hover {
-    background-color: #ffff54;
-    color: #5e3370;
+    background-color: #5e3370;
+    color: #ffff54;
 }
 
 .tutors-cancel-button {
-    background-color: #a30000;
     border-radius: 20px;
     padding: 10px 20px;
-    color: #ffff54;
-    border: 2px solid #a30000;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    background-color: #ffff54;
+    color: #5e3370;
+    border: 2px solid #5e3370;
 }
 
 .tutors-cancel-button:hover {
-    background-color: #ffff54;
-    color: #a30000;
+    background-color: #5e3370;
+    color: #ffff54;
+    border: 2px solid #5e3370;
 }

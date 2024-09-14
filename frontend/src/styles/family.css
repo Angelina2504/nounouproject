@@ -11,3 +11,21 @@
 .family-container h1 {
     font-size: 2em;
 }
+
+
+.add-button {
+    margin-bottom: 15px;
+    background-color: #ffff54;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-button:hover {
+    background-color: #5e3370;
+    color: #ffff54;
+}

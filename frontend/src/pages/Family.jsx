@@ -139,7 +139,6 @@ export default function Family() {
      */
     const handleTutorEdit = async (id) => {
         try {
-            await axiosInstance.put(`/tutors/edit/${id}`);
             const tutor = tutors.find(t => t.id === id);
             setSelectedTutor(tutor);
             setSelectedChild(null);
@@ -172,10 +171,10 @@ export default function Family() {
             <h1>Gestion de la Famille</h1>
 
             <section className="children-list-section">
-                <h2>Liste des Enfants</h2>
-                <button className="edit-button" onClick={() => setDisplayAddChildForm(!displayAddChildForm)}>
-                    {displayAddChildForm ? 'Annuler' : 'Ajouter un Enfant'}
-                </button>
+                <h2>Liste des Enfants <button className={displayAddChildForm ? 'children-cancel-button' : 'add-button'} onClick={() => setDisplayAddChildForm(!displayAddChildForm)}>
+                        {displayAddChildForm ? 'Annuler' : 'Ajouter un Enfant'}
+                    </button>
+                </h2>
 
                 {displayAddChildForm && (
                     <section className="add-child-section">
@@ -204,10 +203,10 @@ export default function Family() {
             <hr className="separator"/>
 
             <section className="tutor-list-section">
-                <h2>Liste des Tuteurs</h2>
-                <button className="edit-button" onClick={() => setDisplayAddTutorForm(!displayAddTutorForm)}>
-                    {displayAddTutorForm ? 'Annuler' : 'Ajouter un Second Tuteur'}
-                </button>
+                <h2>Liste des Tuteurs <button className={displayAddTutorForm ? 'cancel-button' : 'add-button'} onClick={() => setDisplayAddTutorForm(!displayAddTutorForm)}>
+                        {displayAddTutorForm ? 'Annuler' : 'Ajouter un Tuteur'}
+                    </button>
+                </h2>
                 <section className="add-tutor-section">
                     {displayAddTutorForm && (
                         <AddTutorForm childrenList={children}
