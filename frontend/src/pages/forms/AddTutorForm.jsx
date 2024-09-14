@@ -61,7 +61,7 @@ export default function AddTutorForm({ childrenList, handleSave, onCancel }) {
     return (
         <div className="add-tutor-form" onSubmit={handleSubmit}>
             <div>
-                <label class="bold-text">Enfant</label>
+                <label className="bold-text">Enfant</label>
                 <select name="childId" value={tutorChildForm.childId} onChange={handleChange} required>
                     <option key={-1} value={''}>Choisissez un enfant</option>
                     {(childrenList || []).map((child) => (

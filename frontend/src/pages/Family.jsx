@@ -117,7 +117,7 @@ export default function Family() {
 
     /**
      * Gérer la suppression d'un tuteur
-     * @param id
+     * @param tutor
      * @returns {Promise<void>}
      */
     const handleTutorDelete = async (tutor) => {
@@ -234,7 +234,7 @@ export default function Family() {
 
             <hr className="separator"/>
 
-            <h2>Contacts d'Urgence</h2>
+            <h2>Contacts d&apos;Urgence</h2>
             <button className="edit-button" onClick={loadEmergencyContactsManagement}>Gérer les Contacts
                 d&apos;Urgence
             </button>

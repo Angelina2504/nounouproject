@@ -1,5 +1,3 @@
-import React from 'react';
-
 import '../styles/tutorList.css';
 
 export default function TutorList({ tutors, onEdit, onDelete }) {
