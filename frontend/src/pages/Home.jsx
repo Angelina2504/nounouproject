@@ -9,6 +9,8 @@ export default function Home (){
     useEffect(() => {
         if (user) {
             navigate("/family");
+        } else {
+            navigate('/login');
         }
     }, [user, navigate]);
 
