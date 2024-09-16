@@ -332,6 +332,9 @@ export default function EmergencyContactsManagement() {
                         <div key={child.id} className="child-contacts-block">
                             <h2>Enfant : <strong>{child.firstname} {child.lastname}</strong></h2>
                             <div className="contact-details-block">
+                                {child.emergency_contacts.length === 0 ? (
+                                    <p>Aucun contact d&apos;Urgence enregistré pour cet enfant.</p>
+                                ) : ''}
                                 {child.emergency_contacts.map(contact => (
                                     <form key={contact.id} className="contact-details" onSubmit={handleSaveEdit}>
                                         {editingContact && editingContact.id === contact.id ? (

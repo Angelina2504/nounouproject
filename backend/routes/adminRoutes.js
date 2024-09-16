@@ -14,10 +14,10 @@ router.get('/families/:id', checkSession, adminController.getFamilyDetails);
 router.put('/users/:id', checkSession, userController.editFromAdmin);
 router.delete('/users/:id', checkSession, userController.destroy);
 
-router.put('/children/:id', checkSession, childController.edit);
+router.put('/children/:id', checkSession, childController.editFromAdmin);
 router.delete('/children/:id', checkSession, childController.destroy);
 
-router.put('/tutors/:id', checkSession, tutorController.edit);
+router.put('/tutors/:id', checkSession, tutorController.editFromAdmin);
 router.delete('/tutors/:id', checkSession, tutorController.destroy);
 
 module.exports = router;
