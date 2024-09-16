@@ -90,6 +90,7 @@ export default function Family() {
     const handleTutorSave = async () => {
         await fetchTutors(); // Recharger la liste des enfants après la sauvegarde
         setSelectedTutor(null); // Fermer le formulaire d'édition
+        setDisplayAddTutorForm(false); // Close Add Tutor Form if it was opened
     };
 
 

@@ -171,8 +171,8 @@ export default function EmergencyContactsManagement() {
 
             const payload = {
                 emergencyContact: {
-                    ...newContactForm,
-                    childId: newContactForm.childId
+                    ...newEditContactForm,
+                    childId: newEditContactForm.childId
                 }
             }
 
