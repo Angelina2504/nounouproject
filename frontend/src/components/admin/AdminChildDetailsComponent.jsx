@@ -18,20 +18,22 @@ const AdminChildDetailsComponent = ({
     const isChildEditing = isEditing?.child || false; // Default to false if undefined
 
     return (
-        <div className="child-card">
+        <form className="child-card" onSubmit={(event) => handleSaveChild(event, child.id)}>
             <h3>
                 <div className="name-fields">
                     {HTMLRenderers.renderEditableField(
                         isChildEditing,
                         formData.child?.firstname !== undefined ? formData.child.firstname : child.firstname,
                         'text',
-                        (e) => handleInputChange('children', child.id, 'firstname', e.target.value)
+                        (e) => handleInputChange('children', child.id, 'firstname', e.target.value),
+                        true
                     )}
                     {HTMLRenderers.renderEditableField(
                         isChildEditing,
                         formData.child?.lastname !== undefined ? formData.child.lastname.toUpperCase() : child.lastname.toUpperCase(),
                         'text',
-                        (e) => handleInputChange('children', child.id, 'lastname', e.target.value)
+                        (e) => handleInputChange('children', child.id, 'lastname', e.target.value),
+                        true
                     )}
                 </div>
             </h3>
@@ -40,33 +42,35 @@ const AdminChildDetailsComponent = ({
                     {HTMLRenderers.renderDateField(
                         isChildEditing,
                         formData.child?.birthdate !== undefined ? formData.child.birthdate : child.birthdate,
-                        (e) => handleInputChange('children', child.id, 'birthdate', e.target.value)
+                        (e) => handleInputChange('children', child.id, 'birthdate', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Genre : </span>
                     {HTMLRenderers.renderGenderField(
                         isChildEditing,
                         formData.child?.gender !== undefined ? formData.child.gender : child.gender,
-                        (e) => handleInputChange('children', child.id, 'gender', e.target.value)
+                        (e) => handleInputChange('children', child.id, 'gender', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Allergies : </span>
                     {HTMLRenderers.renderEditableField(
                         isChildEditing,
-                        formData.child?.allergy !== undefined ? formData.child.allergy : child.allergy,
+                        formData.child?.allergy !== undefined ? formData.child.allergy || '' : child.allergy || '',
                         'text',
                         (e) => handleInputChange('children', child.id, 'allergy', e.target.value)
                     )}
                 </div>
                 {isChildEditing ? (
                     <div>
-                        <button className="edit-button" onClick={() => handleSaveChild(child.id)}>Enregistrer</button>
-                        <button className="cancel-button" onClick={() => handleCancel('children', child.id)}>Annuler</button>
+                        <button className="edit-button" type="submit">Enregistrer</button>
+                        <button className="cancel-button" onClick={(event) => handleCancel(event, 'children', child.id)}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">
-                        <button className="edit-button" onClick={() => handleEditToggle('children', child.id)}>Editer</button>
-                        <button className="delete-button" onClick={() => handleDeleteChild(child)}>Supprimer</button>
+                        <button className="edit-button" onClick={(event) => handleEditToggle(event, 'children', child.id)}>Editer</button>
+                        <button className="delete-button" onClick={(event) => handleDeleteChild(event, child)}>Supprimer</button>
                     </div>
                 )}
             </div>
@@ -90,7 +94,7 @@ const AdminChildDetailsComponent = ({
                     <p className="no-tutor-text">Aucun tuteur enregistré pour cet enfant.</p>
                 )}
             </section>
-        </div>
+        </form>
     );
 };
 
