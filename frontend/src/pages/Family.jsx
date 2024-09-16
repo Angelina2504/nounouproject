@@ -111,6 +111,7 @@ export default function Family() {
             await axiosInstance.delete(`/children/delete/${id}`);
             setChildren((prevChildren) => prevChildren.filter(child => child.id !== id));
             setSelectedChild(null);
+            fetchTutors();
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'enfant', error);
         }
