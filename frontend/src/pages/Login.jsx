@@ -44,7 +44,7 @@ export default function Login() {
     };
 
     return (
-       <section className="login-container">
+        <section className="login-container">
             <h1>Se connecter</h1>
 
             {error && <p className="error">{error}</p>}
@@ -67,12 +67,15 @@ export default function Login() {
                        required
                 />
 
-                <button type="submit">Se connecter</button>
+                <button className="submit-login-button" type="submit">Se connecter</button>
+                <p className="forgotten-password">
+                    Mot de passe oublié ? <a href="/forgot-password">Réinitialiser</a>
+                </p>
+                <hr className="login-separator"/>
+                <p className="not-registered">Pas encore de compte ?</p>
+                <button onClick={() => navigate('/register')}>S&apos;inscrire</button>
             </form>
 
-            <p className="forgotten-password">
-                Mot de passe oublié ? <a href="/forgot-password">Réinitialiser</a>
-            </p>
         </section>
     );
 }

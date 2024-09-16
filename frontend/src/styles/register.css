@@ -9,6 +9,10 @@
     width: 90%; /* Ajustement responsive */
 }
 
+.register-back-button-container {
+    margin: 20px 0;
+}
+
 .register h1 {
     font-size: 2em;
     color: #5e3370; /* Violet foncé */

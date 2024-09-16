@@ -10,19 +10,21 @@ export default function DeleteUserForm ({ setIsDeleting }) {
 
     const {logout} = useCheckConnected();
 
- const handleDelete = async () => {
-        try {
+ const handleDelete = async (e) => {
+    e.preventDefault()
+    try {
 
-            await axiosInstance.post("/users/check-delete", { password });
-            // After deleting the user navigate to /login
-            logout();
-            navigate("/login");
+        await axiosInstance.post("/users/check-delete", { password });
+        // After deleting the user navigate to /login
+        logout();
+        navigate("/login");
 
-        } catch (error) {
-            setError("Erreur lors de la suppression du compte");
-            console.error('Erreur lors de la suppression de l\'utilisateur', error);
-        }
-    };
+    } catch (error) {
+        setError("Erreur lors de la suppression du compte");
+        setPassword('')
+        console.error('Erreur lors de la suppression de l\'utilisateur', error);
+    }
+};
 
     return(
         <section className="login-container">
@@ -30,8 +32,7 @@ export default function DeleteUserForm ({ setIsDeleting }) {
 
             {error && <p className="error">{error}</p>}
 
-            <div className="formLogin">
-
+            <form className="formLogin" onSubmit={handleDelete}>
                 <label htmlFor="password">Mot de passe</label>
                 <input type="password"
                     placeholder="Entrez votre mot de passe"
@@ -40,9 +41,9 @@ export default function DeleteUserForm ({ setIsDeleting }) {
                     required
                 />
 
-                <button onClick={handleDelete}>Supprimer</button>
+                <button type="submit">Supprimer</button>
                 <button onClick={() => setIsDeleting(false) }>Annuler</button>
-            </div>
+            </form>
 
         </section>
     )

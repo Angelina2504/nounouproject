@@ -132,8 +132,10 @@ export default function AdminFamilyDetails() {
      * Toggle the edit mode for a specific entity (user, child or tutor) by changing the value of 'isEditing'.
      * @param entityType - Type of the entity ('user', 'children', or 'tutors').
      * @param [entityId] - Optional ID of the specific entity being edited (for children and tutors).
+     * @param e
      */
-    const handleEditToggle = (entityType, entityId) => {
+    const handleEditToggle = (e, entityType, entityId) => {
+        e.preventDefault()
         // If entityId is defined, toggle the specific entity (child or tutor).
         // If not, toggle the entire entity type (for user).
         // If no entityId is provided, we are toggling the edit mode for the user.
@@ -175,10 +177,12 @@ export default function AdminFamilyDetails() {
 
     /**
      * Cancel the changes made in the form fields and revert to the original values.
+     * @param event
      * @param entityType - The type of entity ('user', 'children', 'tutors').
      * @param entityId - Optional ID of the entity (for children and tutors).
      */
-    const handleCancel = (entityType, entityId) => {
+    const handleCancel = (event, entityType, entityId) => {
+        event.preventDefault();
         // Revert the formData to the original familyDetails for each entity.
         if (entityType === 'user') {
             setFormData(prev => ({
@@ -231,9 +235,11 @@ export default function AdminFamilyDetails() {
 
     /**
      * Method to save the changes made to the user details.
+     * @âram e - The form submission event.
      * @returns {Promise<void>}
      */
-    const handleSaveUser = async () => {
+    const handleSaveUser = async (e) => {
+        e.preventDefault();
         try {
             await axiosInstance.put(`/admin/users/${userId}`, formData.user, { withCredentials: true });
 
@@ -252,12 +258,18 @@ export default function AdminFamilyDetails() {
 
     /**
      * Method to save the updated child details by sending a PUT request to the API.
+     * @param event
      * @param childId - The ID of the child whose details are being updated.
      */
-    const handleSaveChild = async (childId) => {
+    const handleSaveChild = async (event, childId) => {
+        event.preventDefault();
         try {
             // Get the child data from formData using the childId.
-            const childPayload =  formData.children[childId] || {};
+            const formPayload =  formData.children[childId] || {};
+            const childPayload = {
+                ...formPayload,
+                allergy: formPayload.allergy || '' // Ensure allergy is not null
+            };
 
             // Send the updated child data to the backend using a PUT request.
             await axiosInstance.put(`/admin/children/${childId}`, childPayload, { withCredentials: true });
@@ -286,9 +298,12 @@ export default function AdminFamilyDetails() {
 
     /**
      * Method to save the updated tutor details by sending a PUT request to the API.
+     * @param event
      * @param tutorId - The ID of the tutor being saved.
      */
-    const handleSaveTutor = async (tutorId) => {
+    const handleSaveTutor = async (event, tutorId) => {
+        event.preventDefault();
+
         try {
             // Get the tutor data from formData using the tutorId.
             await axiosInstance.put(`/admin/tutors/${tutorId}`, formData.tutors[tutorId], { withCredentials: true });
@@ -323,7 +338,8 @@ export default function AdminFamilyDetails() {
     // ************************************************************************
 
     // Function to handle User deletion
-    const handleDeleteUser = async (user) => {
+    const handleDeleteUser = async (e, user) => {
+        e.preventDefault();
         if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cet utilisateur ${user.firstname} ${user.lastname} ?`)) return;
 
         try {
@@ -342,7 +358,8 @@ export default function AdminFamilyDetails() {
     };
 
     // Function to handle Child deletion
-    const handleDeleteChild = async (child) => {
+    const handleDeleteChild = async (event, child) => {
+        event.preventDefault();
         if (!window.confirm(`Êtes-vous sûr de vouloir supprimer cet enfant ${child.firstname} ${child.lastname?.toUpperCase()} ?`)) return;
 
         try {
@@ -364,7 +381,8 @@ export default function AdminFamilyDetails() {
     };
 
     // Function to handle Tutor deletion
-    const handleDeleteTutor = async (tutor) => {
+    const handleDeleteTutor = async (event, tutor) => {
+        event.preventDefault();
         if (!window.confirm(`Êtes-vous sûr de vouloir supprimer ce tuteur ${tutor.firstname} ${tutor.lastname?.toUpperCase()} ?`)) return;
 
         try {

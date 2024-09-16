@@ -161,7 +161,6 @@ export default function Family() {
         });
     };
 
-
     useEffect(() => {
         fetchChildren();
         fetchTutors();
