@@ -21,13 +21,15 @@ const AdminTutorDetailsComponent = ({
                     isTutorEditing,
                     formData?.firstname !== undefined ? formData.firstname : tutor.firstname,
                     'text',
-                    (e) => handleInputChange('tutors', tutor.id, 'firstname', e.target.value)
+                    (e) => handleInputChange('tutors', tutor.id, 'firstname', e.target.value),
+                    true
                 )}
                 {HTMLRenderers.renderEditableField(
                     isTutorEditing,
                     formData?.lastname !== undefined ? formData.lastname.toUpperCase() : tutor.lastname.toUpperCase(),
                     'text',
-                    (e) => handleInputChange('tutors', tutor.id, 'lastname', e.target.value)
+                    (e) => handleInputChange('tutors', tutor.id, 'lastname', e.target.value),
+                    true
                 )}
             </div>
             <div className="tutor-informations">
@@ -35,7 +37,8 @@ const AdminTutorDetailsComponent = ({
                     {HTMLRenderers.renderGenderField(
                         isTutorEditing,
                         formData?.gender !== undefined ? formData.gender : tutor.gender,
-                        (e) => handleInputChange('tutors', tutor.id, 'gender', e.target.value)
+                        (e) => handleInputChange('tutors', tutor.id, 'gender', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Email : </span>
@@ -43,7 +46,8 @@ const AdminTutorDetailsComponent = ({
                         isTutorEditing,
                         formData?.email !== undefined ? formData.email : tutor.email,
                         'email',
-                        (e) => handleInputChange('tutors', tutor.id, 'email', e.target.value)
+                        (e) => handleInputChange('tutors', tutor.id, 'email', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Téléphone : </span>
@@ -51,7 +55,8 @@ const AdminTutorDetailsComponent = ({
                         isTutorEditing,
                         formData?.phoneNumber !== undefined ? formData.phoneNumber : tutor.phoneNumber,
                         'tel',
-                        (e) => handleInputChange('tutors', tutor.id, 'phoneNumber', e.target.value)
+                        (e) => handleInputChange('tutors', tutor.id, 'phoneNumber', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Adresse : </span>
@@ -59,18 +64,20 @@ const AdminTutorDetailsComponent = ({
                         isTutorEditing,
                         formData?.address !== undefined ? formData.address : tutor.address,
                         'text',
-                        (e) => handleInputChange('tutors', tutor.id, 'address', e.target.value)
+                        (e) => handleInputChange('tutors', tutor.id, 'address', e.target.value),
+                        true,
+                        'editable-address'
                     )}
                 </div>
                 {isTutorEditing ? (
                     <div>
-                        <button className="edit-button" onClick={() => handleSaveTutor(tutor.id)}>Enregistrer</button>
-                        <button className="cancel-button" onClick={() => handleCancel('tutors', tutor.id)}>Annuler</button>
+                        <button className="edit-button" onClick={(event) => handleSaveTutor(event, tutor.id)}>Enregistrer</button>
+                        <button className="cancel-button" onClick={(event) => handleCancel(event, 'tutors', tutor.id)}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">
-                        <button className="edit-button" onClick={() => handleEditToggle('tutors', tutor.id)}>Editer</button>
-                        <button className="delete-button" onClick={() => handleDeleteTutor(tutor)}>Supprimer</button>
+                        <button className="edit-button" onClick={(event) => handleEditToggle(event, 'tutors', tutor.id)}>Editer</button>
+                        <button className="delete-button" onClick={(event) => handleDeleteTutor(event, tutor)}>Supprimer</button>
                     </div>
                 )}
             </div>
