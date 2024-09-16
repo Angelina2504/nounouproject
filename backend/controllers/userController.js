@@ -52,6 +52,31 @@ const edit = async (req, res) => {
     }
 }
 
+/**
+ * Update a user in the database.
+ *
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+const editFromAdmin = async (req, res) => {
+    // Extract the user data from the request body
+    // Since we're editing a user from admin, we expect to have the userId within the payload
+    const user = req.body;
+
+    try {
+        // Update the user in the database
+        await userRepository.update(user);
+
+        // Respond with HTTP 204 (No Content)
+        res.sendStatus(204);
+    } catch (err) {
+        // In case of an error, log it and return an error response
+        console.error("Error during editing user:", err);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 // Delete a user by its id
 const destroy = async (req, res) => {
     // Extract the userId data from the request body
@@ -106,6 +131,7 @@ const checkDelete = async (req, res) => {
 module.exports = {
     myProfile,
     edit,
+    editFromAdmin,
     checkDelete,
     destroy
 };
