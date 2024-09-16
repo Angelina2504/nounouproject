@@ -268,6 +268,7 @@ export default function AdminFamilyDetails() {
             const formPayload =  formData.children[childId] || {};
             const childPayload = {
                 ...formPayload,
+                birthdate: dateUtils.formatFromJsonToSQLDate(formPayload.birthdate), // Format birthdate here
                 allergy: formPayload.allergy || '' // Ensure allergy is not null
             };
 
