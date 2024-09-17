@@ -48,6 +48,10 @@ const router = createBrowserRouter([
                 {
                   path: "families/:userId",
                   element: <AdminFamilyDetails /> // Affiche les détails d'une famille
+                },
+                {
+                  path: "family/emergency-contacts",
+                  element: <EmergencyContactsManagement />
                 }
               ]
             },
