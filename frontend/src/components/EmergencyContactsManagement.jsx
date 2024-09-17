@@ -266,7 +266,7 @@ export default function EmergencyContactsManagement() {
                 <button className="back-button" onClick={handleBack}>Retour</button>
             </div>
 
-            <h1>Gestion des Contacts d&apos;Urgence
+            <h1>{!isAdmin ? 'Gestion des ' : ''} Contacts d&apos;Urgence
                 {!isAdmin &&
                     <button className={displayAddContactForm ? 'contact-cancel-button' : 'contact-add-button'}
                         onClick={toggleAddContactForm}>
