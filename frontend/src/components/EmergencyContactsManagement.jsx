@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import axiosInstance from '../services/httpClient';
 import {useLocation, useNavigate} from 'react-router-dom';
 
@@ -8,6 +8,7 @@ export default function EmergencyContactsManagement() {
     const location = useLocation();
     const navigate = useNavigate();
     const childrenList = location.state?.childrenList || []; // récupère la liste des enfants passée en paramètre du navigate options
+    const userId = location.state?.userId || undefined; // récupère l'id de l'utilisateur passé en paramètre du navigate options
     const [displayAddContactForm, setDisplayAddContactForm] = useState(false);
 
     const [emergencyContacts, setEmergencyContacts] = useState([]);
@@ -33,25 +34,50 @@ export default function EmergencyContactsManagement() {
 
     const [editingContact, setEditingContact] = useState(null); // Le contact en cours d'édition
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    // FIXME this is a copy of the function in Admin.jsx, should be moved to a shared file
+    /**
+     * Check if the user is an admin, and redirect to the appropriate page.
+     * useCallback to avoid recreating the function at each render
+     */
+    const checkUserIsAdmin = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get("/auth/is-admin", { withCredentials: true });
+            // If user is not admin, or no user authenticated, we will return false
+            setIsAdmin(!(!response.data || !response.data.isAdmin));
+            return isAdmin;
+        } catch (error) {
+            console.error('Erreur lors de la vérification des droits administrateurs', error);
+        }
+    }, [isAdmin]);
+
+
     /**
      * Fetch emergency contacts from the API, for children of the connected user
      * @returns {Promise<void>}
      */
-    const fetchEmergencyContacts = async () => {
+    const fetchEmergencyContacts = useCallback( async (isAdmin = false) => {
         try {
-            const response = await axiosInstance.get('/emergency-contacts');
+            const emergencyContactsURL = (isAdmin && userId) ? `/admin/emergency-contacts?userId=${userId}` : '/emergency-contacts';
+            const response = await axiosInstance.get(emergencyContactsURL);
             setEmergencyContacts(response.data.childrenEmergencyContacts);
         } catch (error) {
             console.error('Erreur lors de la récupération des contacts d\'urgence', error);
         }
-    };
+    }, [userId]);
 
     /**
      * Fetch emergency contacts when the component is mounted
      */
     useEffect(() => {
-        fetchEmergencyContacts();
-    }, []);
+        checkUserIsAdmin();
+    }, [checkUserIsAdmin]);
+
+
+    useEffect(() => {
+        fetchEmergencyContacts(isAdmin);
+    }, [fetchEmergencyContacts, isAdmin]);
 
     /**
      * Reset the form and cancel editing mode
@@ -87,7 +113,12 @@ export default function EmergencyContactsManagement() {
 
     // Back button function
     const handleBack = () => {
-        navigate('/family'); // Navigates back to the family page
+        if (isAdmin && userId) {
+            // Redirige vers l'URL d'administration avec l'ID de l'utilisateur
+            navigate(`/admin/families/${userId}`);
+        } else {
+            navigate('/family'); // Redirige les utilisateurs non-admins vers la page de la famille
+        }
     };
 
     /**
@@ -235,10 +266,13 @@ export default function EmergencyContactsManagement() {
                 <button className="back-button" onClick={handleBack}>Retour</button>
             </div>
 
-            <h1>Gestion des Contacts d&apos;Urgence <button className={displayAddContactForm ? 'contact-cancel-button' : 'add-button'}
-                onClick={toggleAddContactForm}>
-                {displayAddContactForm ? 'Annuler' : 'Ajouter un Contact d\'Urgence'}
-            </button></h1>
+            <h1>Gestion des Contacts d&apos;Urgence
+                {!isAdmin &&
+                    <button className={displayAddContactForm ? 'contact-cancel-button' : 'contact-add-button'}
+                        onClick={toggleAddContactForm}>
+                        {displayAddContactForm ? 'Annuler' : 'Ajouter un Contact d\'Urgence'}
+                    </button>}
+                </h1>
 
             {displayAddContactForm && (
                 <form className="emergency-contact-form-container" onSubmit={handleAddContact}>
@@ -408,7 +442,6 @@ export default function EmergencyContactsManagement() {
                                                         required
                                                     />
                                                 </p>
-                                                {/*</div>*/}
                                                 <div className="contact-buttons-container">
                                                     <button
                                                         className="contact-save-button"
@@ -427,29 +460,31 @@ export default function EmergencyContactsManagement() {
                                         ) : (
                                             <>
                                                 {/* Display Mode */}
-                                                <p><strong>{contact.firstname} {contact.lastname}</strong></p>
+                                                <p className="contact-details-name"><strong>{contact.firstname} {contact.lastname}</strong></p>
                                                 <p><span
                                                     className="bold-text">Genre :</span> {contact.gender === 'M' ? 'Homme' : (contact.gender === 'F' ? 'Femme' : 'Autre')}
                                                 </p>
                                                 <p><span className="bold-text">Relation : </span>{contact.relationship}
                                                 </p>
-                                                <p><span className="bold-text">Téléphone : </span>{contact.phone_number}
+                                                <p className={isAdmin ? 'bold-text contact-red-text' : ''}><span className="bold-text">Téléphone : </span>{contact.phone_number}
                                                 </p>
                                                 <p><span className="bold-text">Adresse : </span>{contact.address}</p>
-                                                <div className="contact-buttons-container">
-                                                    <button
-                                                        className="contact-edit-button"
-                                                        onClick={() => handleEditContact(child.id, contact)}
-                                                    >
-                                                        Éditer
-                                                    </button>
-                                                    <button
-                                                        className="contact-delete-button"
-                                                        onClick={() => handleDeleteContact(contact, child.id)}
-                                                    >
-                                                        Supprimer
-                                                    </button>
-                                                </div>
+                                                {!isAdmin &&
+                                                    <div className="contact-buttons-container">
+                                                        <button
+                                                            className="contact-edit-button"
+                                                            onClick={() => handleEditContact(child.id, contact)}
+                                                        >
+                                                            Éditer
+                                                        </button>
+                                                        <button
+                                                            className="contact-delete-button"
+                                                            onClick={() => handleDeleteContact(contact, child.id)}
+                                                        >
+                                                            Supprimer
+                                                        </button>
+                                                    </div>
+                                                }
                                             </>
                                         )}
                                     </form>

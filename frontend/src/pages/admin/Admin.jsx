@@ -22,7 +22,7 @@ export default function Admin() {
       } catch (error) {
           console.error('Erreur lors de la vérification des droits administrateurs', error);
       }
-    }, [/*navigate*/]);
+    }, []);
 
     // Fetch families when the component is mounted if the user is an admin
     useEffect(() => {
