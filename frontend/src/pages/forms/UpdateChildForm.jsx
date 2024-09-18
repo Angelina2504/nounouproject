@@ -42,10 +42,10 @@ export default function UpdateChildForm ({child, onSave, onCancel}) {
     };
 
     return (
-        <div className="edit-child-form" onSubmit={handleSubmit}>
+        <form className="edit-child-form" onSubmit={handleSubmit}>
             <div>
                 <label>Genre :</label>
-                <select name="gender" value={childForm.gender} onChange={handleChange}>
+                <select name="gender" value={childForm.gender} onChange={handleChange} required>
                     <option value="M">Homme</option>
                     <option value="F">Femme</option>
                     <option value="O">Autre</option>
@@ -67,9 +67,9 @@ export default function UpdateChildForm ({child, onSave, onCancel}) {
                 <input type="text" name="allergy" value={childForm.allergy || ''} onChange={handleChange}/>
             </div>
             <div className="children-buttons-container">
-                <button className="children-edit-button" onClick={handleSubmit}>Enregistrer</button>
+                <button className="children-edit-button" type="submit">Enregistrer</button>
                 <button className="children-cancel-button" onClick={onCancel}>Annuler</button>
             </div>
-        </div>
+        </form>
     );
 }

@@ -12,10 +12,11 @@ const HTMLRenderers = {
      * @param value - The value to display in the input or static text.
      * @param fieldType - The type of the input field (e.g., 'text', 'email').
      * @param onChange - The function to call when the user types in the field.
+     * @param required
      * @param [additionalClass] - Additional class to style the field.
      * @returns {JSX.Element} The rendered field.
      */
-    renderEditableField(isEditing, value, fieldType, onChange, additionalClass = '') {
+    renderEditableField(isEditing, value, fieldType, onChange, required = false, additionalClass = '') {
 
         // Add a class to the field if additionalClass is provided
         const className = "editable-field" + (additionalClass ? ` ${additionalClass}` : '');
@@ -27,6 +28,7 @@ const HTMLRenderers = {
                     <input type={fieldType}
                            value={value !== 'undefined' ? value : ''} // Utiliser une chaîne vide si la valeur est undefined
                            onChange={onChange}
+                           {...(required ? { required: true } : {})}
                     />
                 </div>
             );
@@ -42,9 +44,10 @@ const HTMLRenderers = {
      * @param isEditing - Whether the field is in editing mode.
      * @param value - The date value to display or edit.
      * @param onChange - The function to call when the user changes the date.
+     * @param required
      * @returns {JSX.Element} The rendered date field.
      */
-    renderDateField(isEditing, value, onChange) {
+    renderDateField(isEditing, value, onChange, required = false) {
         if (isEditing) {
             // When editing, the date should be in the format 'YYYY-MM-DD' (suitable for <input type="date">).
             const formattedDate = dateUtils.formatFromJsonToSQLDate(value);
@@ -52,7 +55,9 @@ const HTMLRenderers = {
                 <div className="editable-field">
                     <input type="date"
                            value={formattedDate}
-                           onChange={onChange} />
+                           onChange={onChange}
+                           {...(required ? { required: true } : {})}
+                    />
                 </div>
             );
         }
@@ -67,14 +72,15 @@ const HTMLRenderers = {
      * @param isEditing - Whether the field is in editing mode.
      * @param value - The current value of the gender ('M', 'F', 'O').
      * @param onChange - The function to call when the user changes the gender.
+     * @param required
      * @returns {JSX.Element} The rendered gender field.
      */
-    renderGenderField(isEditing, value, onChange) {
+    renderGenderField(isEditing, value, onChange, required = false) {
         if (isEditing) {
             // When editing, show a dropdown <select> for gender.
             return (
                 <div className="editable-field">
-                    <select value={value} onChange={onChange}>
+                    <select value={value} onChange={onChange} {...(required ? { required: true } : {})}>
                         <option value="M">Homme</option>
                         <option value="F">Femme</option>
                         <option value="O">Autre</option>

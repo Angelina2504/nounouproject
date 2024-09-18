@@ -11,7 +11,8 @@ export default function AddTutorForm({ childrenList, handleSave, onCancel }) {
         phoneNumber: '',
         email: '',
         address: '',
-        childId: ''
+        childId: '',
+        gender: '' || 'F'
     });
 
     const handleChange = (e) => {
@@ -59,7 +60,7 @@ export default function AddTutorForm({ childrenList, handleSave, onCancel }) {
     };
 
     return (
-        <div className="add-tutor-form" onSubmit={handleSubmit}>
+        <form className="add-tutor-form" onSubmit={handleSubmit}>
             <div>
                 <label className="bold-text">Enfant</label>
                 <select name="childId" value={tutorChildForm.childId} onChange={handleChange} required>
@@ -96,9 +97,9 @@ export default function AddTutorForm({ childrenList, handleSave, onCancel }) {
                 <input type="text" name="address" className="tutor-editable-address" value={tutorChildForm.address} onChange={handleChange} required/>
             </div>
             <div className="tutors-buttons-container">
-                <button className="tutors-edit-button" onClick={handleSubmit}>Ajouter</button>
+                <button className="tutors-edit-button" type="submit">Ajouter</button>
                 <button className="tutors-cancel-button" onClick={onCancel}>Annuler</button>
             </div>
-        </div>
+        </form>
     );
 }

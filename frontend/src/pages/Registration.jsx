@@ -64,44 +64,57 @@ export default function Registration() {
     };
 
 
-    return(
+    return (
+        <>
+        <div className="register-back-button-container">
+            <button className="back-button" onClick={() => navigate(-1)}>Retour</button>
+        </div>
         <section className="register">
-        <h1>S&rsquo;inscrire</h1>
+            <h1>S&rsquo;inscrire</h1>
 
-        {error && <p className="error">{error}</p>}
+            {error && <p className="error">{error}</p>}
 
-        <form className="formRegister" onSubmit={handleRegister}>
-            <label htmlFor="gender">Genre</label>
-            <select name="gender" value={inscription.gender} onChange={handleChange} required>
-                <option value="M" >Homme</option>
-                <option value="F">Femme</option>
-                <option value="O">Autre</option>
-            </select>
+            <form className="formRegister" onSubmit={handleRegister}>
+                    <label htmlFor="gender">Genre</label>
+                    <select name="gender" value={inscription.gender} onChange={handleChange} required>
+                        <option value="M">Homme</option>
+                        <option value="F">Femme</option>
+                        <option value="O">Autre</option>
+                    </select>
 
-            <label htmlFor="firstname">Prénom</label>
-            <input  type="text" name="firstname" value={inscription.firstname} placeholder={'Prénom'} onChange={handleChange} required />
+                    <label htmlFor="firstname">Prénom</label>
+                    <input type="text" name="firstname" value={inscription.firstname} placeholder={'Prénom'}
+                           onChange={handleChange} required/>
 
-            <label htmlFor="lastname">Nom</label>
-            <input  type="text" name="lastname" value={inscription.lastname} placeholder={'Nom'} onChange={handleChange} required />
+                    <label htmlFor="lastname">Nom</label>
+                    <input type="text" name="lastname" value={inscription.lastname} placeholder={'Nom'}
+                           onChange={handleChange} required/>
 
-            <label htmlFor="email">Email</label>
-            <input  type="email" name="email" value={inscription.email} placeholder={'Email'} onChange={handleChange} required />
+                    <label htmlFor="email">Email</label>
+                    <input type="email" name="email" value={inscription.email} placeholder={'Email'} onChange={handleChange}
+                           required/>
 
-            <label htmlFor="password">Mot de passe</label>
-            <input  type="password" name="password" value={inscription.password} placeholder={'Mot de passe'}onChange={handleChange} required />
+                    <label htmlFor="password">Mot de passe</label>
+                    <input type="password" name="password" value={inscription.password} placeholder={'Mot de passe'}
+                           onChange={handleChange} required/>
 
-            <label htmlFor="passwordConfirmation">Confirmation du mot de passe</label>
-            <input type="password" name="passwordConfirmation" value={passwordConfirmation} placeholder={'Confirmation du mot de passe'} onChange={handlePasswordConfirmationChange} required />
+                    <label htmlFor="passwordConfirmation">Confirmation du mot de passe</label>
+                    <input type="password" name="passwordConfirmation" value={passwordConfirmation}
+                           placeholder={'Confirmation du mot de passe'} onChange={handlePasswordConfirmationChange}
+                           required/>
 
-            <label htmlFor="phoneNumber">Téléphone</label>
-            <input  type="text" name="phoneNumber" value={inscription.phoneNumber} placeholder={'Téléphone'} onChange={handleChange} required />
+                    <label htmlFor="phoneNumber">Téléphone</label>
+                    <input type="text" name="phoneNumber" value={inscription.phoneNumber} placeholder={'Téléphone'}
+                           onChange={handleChange} required/>
 
-            <label htmlFor="address">Adresse</label>
-            <input  type="text" name="address" value={inscription.address} placeholder={'Adresse'} onChange={handleChange} required />
+                    <label htmlFor="address">Adresse</label>
+                    <input type="text" name="address" value={inscription.address} placeholder={'Adresse'}
+                           onChange={handleChange} required/>
 
-            <button type="submit">S&rsquo;inscrire</button>
+                    <button type="submit">S&rsquo;inscrire</button>
 
-        </form>
-        </section>
+                </form>
+            </section>
+        </>
     );
 }

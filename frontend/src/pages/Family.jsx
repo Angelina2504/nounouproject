@@ -90,6 +90,7 @@ export default function Family() {
     const handleTutorSave = async () => {
         await fetchTutors(); // Recharger la liste des enfants après la sauvegarde
         setSelectedTutor(null); // Fermer le formulaire d'édition
+        setDisplayAddTutorForm(false); // Close Add Tutor Form if it was opened
     };
 
 
@@ -110,6 +111,7 @@ export default function Family() {
             await axiosInstance.delete(`/children/delete/${id}`);
             setChildren((prevChildren) => prevChildren.filter(child => child.id !== id));
             setSelectedChild(null);
+            fetchTutors();
         } catch (error) {
             console.error('Erreur lors de la suppression de l\'enfant', error);
         }
@@ -159,7 +161,6 @@ export default function Family() {
             state: {childrenList: children}
         });
     };
-
 
     useEffect(() => {
         fetchChildren();

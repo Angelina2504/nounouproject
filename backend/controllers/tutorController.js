@@ -3,7 +3,7 @@ const tutorRepository = require('../models/tutorRepository');
 // Browse all tutors
 const browse = async (req, res) => {
     try {
-        // retrieve current user id from session 
+        // retrieve current user id from session
         const userId = req.session.user.id;
 
         // Get all tutors from the database
@@ -59,16 +59,35 @@ const edit = async (req, res) => {
     }
 }
 
+// Edit a tutor by its id
+const editFromAdmin = async (req, res) => {
+    // Extract the tutor data from the request body
+    // Since we're editing a tutor from admin, we expect to have the userId within the payload
+    const tutor = req.body;
+
+    try {
+        // Update the tutor in the database
+        await tutorRepository.update(tutor);
+
+        // Respond with HTTP 204 (No Content)
+        res.sendStatus(204);
+    } catch (err) {
+        // In case of an error, log it and return an error response
+        console.error("Error during editing tutor:", err);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+}
+
 // Add a new tutor
 const add = async (req, res) => {
     // Extract the tutor data from the request body
     const childId = req.body.childId;
     const tutor = req.body.tutor;
 
-    tutor.userId = req.session.user.id; 
+    tutor.userId = req.session.user.id;
 
     try {
-        
+
         // Insert the tutor into the database
         const insertId =  await tutorRepository.create(tutor, childId);
 
@@ -108,6 +127,7 @@ module.exports = {
     browse,
     read,
     edit,
+    editFromAdmin,
     add,
     destroy
 }

@@ -228,12 +228,9 @@
     margin-bottom: 0;
 }
 .profile-field p {
-    background-color: #fff;
     text-align: left;
-    padding: 5px;
     width: 100%;
     max-width: 300px;
-    border: 1px solid #69353f;
     border-radius: 10px;
     color: #5e3370;
     margin: 0 0 0 5px;
