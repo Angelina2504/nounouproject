@@ -3,6 +3,7 @@ const adminController = require('../controllers/adminController');
 const userController = require('../controllers/userController');
 const childController = require('../controllers/childController');
 const tutorController = require('../controllers/tutorController');
+const emergencyContactController = require('../controllers/emergencyContactController');
 const checkSession = require('../services/checkSession');
 
 const router = express.Router();
@@ -19,5 +20,7 @@ router.delete('/children/:id', checkSession, childController.destroy);
 
 router.put('/tutors/:id', checkSession, tutorController.editFromAdmin);
 router.delete('/tutors/:id', checkSession, tutorController.destroy);
+
+router.get('/emergency-contacts', checkSession, emergencyContactController.browseForUserFromAdmin);
 
 module.exports = router;

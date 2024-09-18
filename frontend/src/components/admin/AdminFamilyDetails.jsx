@@ -412,6 +412,18 @@ export default function AdminFamilyDetails() {
         }
     };
 
+    /**
+     * Navigue vers la page de gestion des contacts d'urgence
+     */
+    const loadEmergencyContactsManagement = () => {
+        navigate('/admin/family/emergency-contacts', {
+            state: {
+                childrenList: familyDetails.childrenDetails,
+                userId: userId
+            }
+        });
+    };
+
     /*************************************************/
     /******** Template when loading/no result ********/
     /*************************************************/
@@ -450,20 +462,23 @@ export default function AdminFamilyDetails() {
 
             {/* Children and their Tutors */}
             <section className="children-details">
-                <h2>Enfant(s) :</h2>
+                <h2>Enfant(s) : <button className="edit-button" onClick={loadEmergencyContactsManagement}>Voir les Contacts
+                        d&apos;Urgence
+                    </button>
+                </h2>
                 {familyDetails.childrenDetails && familyDetails.childrenDetails.length > 0 ?
                     (familyDetails.childrenDetails.map(child => (
                         <AdminChildDetailsComponent
                             key={child.id}
                             child={child}
                             formData={{
-                                    child: formData.children[child.id],
-                                    tutors: formData.tutors
-                                }} // Correctly pass child-specific formData
+                                child: formData.children[child.id],
+                                tutors: formData.tutors
+                            }} // Correctly pass child-specific formData
                             isEditing={{
-                                    child: isEditing.children[child.id],
-                                    tutors: isEditing.tutors
-                                }} // Pass the isEditing status for child and tutors
+                                child: isEditing.children[child.id],
+                                tutors: isEditing.tutors
+                            }} // Pass the isEditing status for child and tutors
                             handleInputChange={handleInputChange}
                             handleSaveChild={handleSaveChild}
                             handleSaveTutor={handleSaveTutor}
@@ -472,9 +487,9 @@ export default function AdminFamilyDetails() {
                             handleDeleteChild={handleDeleteChild}
                             handleDeleteTutor={handleDeleteTutor}
                         />
-                ))) : (
-                    <p className="no-child-text">Aucun enfant enregistré pour cette famille.</p>
-                )}
+                    ))) : (
+                        <p className="no-child-text">Aucun enfant enregistré pour cette famille.</p>
+                    )}
             </section>
         </section>
     );
