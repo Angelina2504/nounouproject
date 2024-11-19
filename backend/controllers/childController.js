@@ -58,7 +58,32 @@ const edit = async (req, res) => {
         console.error("Error during editing child:", err);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
-}
+};
+
+/**
+ * Update a child in the database from admin.
+ * @param req
+ * @param res
+ * @returns {Promise<void>}
+ */
+const editFromAdmin = async (req, res) => {
+    // Extract the child data from the request body
+    // Since we're editing a child from admin, we expect to have the userId within the payload
+    const child = req.body;
+
+    try {
+
+        // Update the child in the database
+        await childRepository.update(child);
+
+        // Respond with HTTP 204 (No Content)
+        res.sendStatus(204);
+    } catch (err) {
+        // In case of an error, log it and return an error response
+        console.error("Error during editing child:", err);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
 
 // Add a new child
 const add = async (req, res) => {
@@ -78,7 +103,7 @@ const add = async (req, res) => {
         console.error("Error during adding child:", err);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
-}
+};
 
 // Delete a child by its id
 const destroy = async (req, res) => {
@@ -101,12 +126,13 @@ const destroy = async (req, res) => {
         console.error("Error during deleting child:", err);
         res.status(500).json({ success: false, message: "Internal server error" });
     }
-}
+};
 
 module.exports = {
     browseForUser,
     read,
     edit,
+    editFromAdmin,
     add,
     destroy
-}
+};

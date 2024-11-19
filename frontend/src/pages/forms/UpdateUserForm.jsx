@@ -22,11 +22,11 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
     };
 
     return (
-        <div className="update-user-form">
+        <form className="update-user-form" onSubmit={handleSubmit}>
             {/* First row with Gender, Firstname, and Lastname */}
             <div className="profile-field">
                 <label>Genre :</label>
-                <select name="gender" value={userForm.gender} onChange={handleChange}>
+                <select name="gender" value={userForm.gender} onChange={handleChange} required >
                     <option value="M">Homme</option>
                     <option value="F">Femme</option>
                     <option value="O">Autre</option>
@@ -38,6 +38,7 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
                     name="firstname"
                     value={userForm.firstname}
                     onChange={handleChange}
+                    required
                 />
 
                 <label className="inline">Nom :</label>
@@ -46,6 +47,7 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
                     name="lastname"
                     value={userForm.lastname}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
@@ -57,6 +59,7 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
                     name="email"
                     value={userForm.email}
                     onChange={handleChange}
+                    required
                 />&nbsp;
                 <span className="bold-text info">Attention, il s&apos;agit de votre identifiant pour vous connecter !</span>
             </div>
@@ -67,6 +70,7 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
                     name="phone_number"
                     value={userForm.phone_number}
                     onChange={handleChange}
+                    required
                 />
 
                 <label className="inline">Adresse :</label>
@@ -75,17 +79,14 @@ export default function UpdateUserForm ({user, onSave, onCancel}) {
                     name="address"
                     value={userForm.address}
                     onChange={handleChange}
+                    required
                 />
             </div>
 
             <div className="profile-buttons-container">
-                <button className="save-button" onClick={handleSubmit}>
-                    Enregistrer
-                </button>
-                <button className="cancel-button" onClick={onCancel}>
-                    Annuler
-                </button>
+                <button className="save-button" type="submit">Enregistrer</button>
+                <button className="cancel-button" onClick={onCancel}>Annuler</button>
             </div>
-        </div>
+        </form>
     );
 }

@@ -1,5 +1,5 @@
 import Logo from '../assets/pictures/logo.png';
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import {useCheckConnected} from '../hooks/useCheckConnected';
 import {useEffect, useState} from 'react';
 import axiosInstance from '../services/httpClient.js';
@@ -9,19 +9,33 @@ import '../styles/navbar.css';
 export default function Navbar() {
     const {user, logout} = useCheckConnected();
     const [isAdmin, setIsAdmin] = useState(false);
+    const navigate = useNavigate();
+
+    const checkIsAdmin = async () => {
+        try {
+            const response = await axiosInstance.get('/auth/is-admin', {withCredentials: true});
+            setIsAdmin(response.data.isAdmin);
+        } catch (error) {
+            setIsAdmin(false);
+        }
+    };
 
     useEffect(() => {
-        const checkIsAdmin = async () => {
-            try {
-                const response = await axiosInstance.get('/auth/is-admin', {withCredentials: true});
-                setIsAdmin(response.data.isAdmin);
-            } catch (error) {
-                setIsAdmin(false);
-            }
-        };
+        // Checks if the user is connected and if he is an admin, redirect to /admin
+        checkIsAdmin()
+            .then(() => {
+                if (user && isAdmin) {
+                    navigate('/admin');
+                    //else, if the user is connected but not an admin, redirect to /family
+                } else if (user && !isAdmin) {
+                    navigate('/family');
+                } else {
+                    //if the user is not connected, redirect to /login (can this else happen?)
+                    navigate('/login');
+                }
+            });
+    }, [user, isAdmin, navigate]);
 
-        checkIsAdmin();
-    }, [user]);
 
     return (
         <section className="navbar">

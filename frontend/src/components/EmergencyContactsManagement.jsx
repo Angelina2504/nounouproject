@@ -130,7 +130,8 @@ export default function EmergencyContactsManagement() {
      * Handle adding a new emergency contact
      * @returns {Promise<void>}
      */
-    const handleAddContact = async () => {
+    const handleAddContact = async (e) => {
+        e.preventDefault();
         try {
 
             const payload = {
@@ -166,13 +167,14 @@ export default function EmergencyContactsManagement() {
      * Handle saving the edited contact
      * @returns {Promise<void>}
      */
-    const handleSaveEdit = async () => {
+    const handleSaveEdit = async (e) => {
+        e.preventDefault();
         try {
 
             const payload = {
                 emergencyContact: {
-                    ...newContactForm,
-                    childId: newContactForm.childId
+                    ...newEditContactForm,
+                    childId: newEditContactForm.childId
                 }
             }
 
@@ -239,7 +241,7 @@ export default function EmergencyContactsManagement() {
             </button></h1>
 
             {displayAddContactForm && (
-                <div className="emergency-contact-form-container">
+                <form className="emergency-contact-form-container" onSubmit={handleAddContact}>
                     <div>
                         <label htmlFor="childId"><span className="bold-text">Enfant</span></label>
                         <select name="childId" value={newContactForm.childId} onChange={handleSelectChildChange} required>
@@ -252,7 +254,7 @@ export default function EmergencyContactsManagement() {
 
                     <div>
                         <label htmlFor="gender">Genre </label>
-                        <select name="gender" value={newContactForm.gender} onChange={handleChange}>
+                        <select name="gender" value={newContactForm.gender} onChange={handleChange} required>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
@@ -265,6 +267,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Prénom"
                             value={newContactForm.firstname}
                             onChange={handleChange}
+                            required
                         />
 
                         <label htmlFor="lastname">Nom </label>
@@ -274,6 +277,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Nom"
                             value={newContactForm.lastname}
                             onChange={handleChange}
+                            required
                         />
 
                         <label htmlFor="relationship">Relation </label>
@@ -283,6 +287,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Relation"
                             value={newContactForm.relationship}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -294,7 +299,9 @@ export default function EmergencyContactsManagement() {
                             className="editable-address"
                             placeholder="Adresse"
                             value={newContactForm.address}
-                            onChange={handleChange}/>
+                            onChange={handleChange}
+                            required
+                        />
 
                         <label htmlFor="phoneNumber">Numéro de téléphone </label>
                         <input
@@ -303,15 +310,16 @@ export default function EmergencyContactsManagement() {
                             placeholder="Numéro de téléphone"
                             value={newContactForm.phone_number}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
                     <div className="contact-buttons-container">
-                        <button className="contact-edit-button" onClick={handleAddContact}>Ajouter un Contact</button>
+                        <button className="contact-edit-button" type="submit">Ajouter un Contact</button>
                         <button className="contact-cancel-button" onClick={handleCancelAdd}>Annuler</button> {/* Now resets the form */}
                     </div>
 
-                </div>
+                </form>
             )}
 
             <h3>Liste des Contacts d&apos;Urgence par Enfant</h3>
@@ -324,8 +332,11 @@ export default function EmergencyContactsManagement() {
                         <div key={child.id} className="child-contacts-block">
                             <h2>Enfant : <strong>{child.firstname} {child.lastname}</strong></h2>
                             <div className="contact-details-block">
+                                {child.emergency_contacts.length === 0 ? (
+                                    <p>Aucun contact d&apos;Urgence enregistré pour cet enfant.</p>
+                                ) : ''}
                                 {child.emergency_contacts.map(contact => (
-                                    <div key={contact.id} className="contact-details">
+                                    <form key={contact.id} className="contact-details" onSubmit={handleSaveEdit}>
                                         {editingContact && editingContact.id === contact.id ? (
                                             <>
                                                 {/* Editing Mode */}
@@ -333,7 +344,9 @@ export default function EmergencyContactsManagement() {
                                                     <span className="bold-text">Genre : </span>
                                                     <select className="editable-field" name="gender"
                                                             value={newEditContactForm.gender}
-                                                            onChange={handleEditFormChange}>
+                                                            onChange={handleEditFormChange}
+                                                            required
+                                                    >
                                                         <option value="M">Homme</option>
                                                         <option value="F">Femme</option>
                                                         <option value="O">Autre</option>
@@ -347,6 +360,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.firstname}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Prénom"
+                                                        required
                                                     />
                                                 </p>
                                                 <p>
@@ -357,6 +371,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.lastname}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Nom"
+                                                        required
                                                     />
                                                 </p>
                                             <p>
@@ -367,6 +382,7 @@ export default function EmergencyContactsManagement() {
                                                     value={newEditContactForm.relationship}
                                                     onChange={handleEditFormChange}
                                                     placeholder="Relation"
+                                                    required
                                                 />
                                             </p>
                                                 <p>
@@ -377,6 +393,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.phone_number}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Numéro de téléphone"
+                                                        required
                                                     />
                                                 </p>
                                                 <p>
@@ -388,13 +405,14 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.address}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Adresse"
+                                                        required
                                                     />
                                                 </p>
                                                 {/*</div>*/}
                                                 <div className="contact-buttons-container">
                                                     <button
                                                         className="contact-save-button"
-                                                        onClick={handleSaveEdit}
+                                                        type="submit"
                                                     >
                                                         Enregistrer
                                                     </button>
@@ -434,7 +452,7 @@ export default function EmergencyContactsManagement() {
                                                 </div>
                                             </>
                                         )}
-                                    </div>
+                                    </form>
                                 ))}
                             </div>
                         </div>

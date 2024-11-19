@@ -10,6 +10,7 @@ export default function TutorList({ tutors, onEdit, onDelete, selectedTutorId })
                         <div className="tutor-name">{tutor.firstname} {tutor.lastname}</div>
                         <p>Email: {tutor.email}</p>
                         <p>Téléphone: {tutor.phone_number}</p>
+                        <p>Adresse: {tutor.address}</p>
 
                         <div className="tutors-buttons-container">
                             <button className="tutors-edit-button" onClick={() => onEdit(tutor.id)}>Éditer</button>
