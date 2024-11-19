@@ -17,6 +17,24 @@ const browseForUser = async (req, res) => {
     }
 };
 
+
+// Browse for a user's emergency contacts
+const browseForUserFromAdmin = async (req, res) => {
+    try {
+        // retrieve  user id from query parameters (/path/url?userId=XX)
+        const userId = req.query.userId || -1;
+
+        // Get all emergency contacts for authenticated user's children from the database
+        const childrenEmergencyContacts = await emergencyContactRepository.readAllForUser(userId);
+
+        // Respond with the emergency contacts in JSON format
+        res.status(200).json({ success: true, childrenEmergencyContacts: childrenEmergencyContacts });
+    } catch (error) {
+        console.error("Error during browsing emergency contacts:", error);
+        res.status(500).json({ success: false, message: "Internal server error" });
+    }
+};
+
 const add = async (req, res) => {
     // Extract the emergency contact data from the request body
     const { emergencyContact } = req.body;
@@ -86,6 +104,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
     browseForUser,
+    browseForUserFromAdmin,
     add,
     edit,
     destroy
