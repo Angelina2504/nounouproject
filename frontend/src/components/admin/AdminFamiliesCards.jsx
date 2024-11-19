@@ -56,7 +56,7 @@ export default function AdminFamiliesCards() {
                            onChange={handleSearchChange}
                     />
                     <button className="family-search-button" type="submit">Rechercher</button>
-                    <small className="family-search-hint">Recherche par prénom, nom ou email d'utilisateur, ou par prénom ou nom d'enfant</small>
+                    <small className="family-search-hint">Recherche par prénom, nom ou email d&apos;utilisateur, ou par prénom ou nom d&apos;enfant</small>
                 </form>
             </div>
 
