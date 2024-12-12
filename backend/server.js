@@ -10,6 +10,7 @@ const childRoutes = require("./routes/childRoutes");
 const userRoutes = require("./routes/userRoutes");
 const tutorRoutes = require("./routes/tutorRoutes");
 const emergencyContactRoutes = require("./routes/emergencyContactRoutes")
+const uploadRoutes = require("./routes/uploadRoutes")
 
 //Variable qui permet de stocker l'instance express
 const app = express();
@@ -47,6 +48,7 @@ app.use("/children", childRoutes);
 app.use("/emergency-contacts", emergencyContactRoutes);
 app.use("/tutors", tutorRoutes);
 app.use("/users", userRoutes);
+app.use("/uploads", uploadRoutes);
 
 //Création de la const pour le PORT
 const PORT = process.env.APP_PORT;

@@ -32,6 +32,7 @@ export default function Navbar() {
                         {!isAdmin && <Link className="navbar-button" to="/family">Ma Famille</Link>}
                         {isAdmin && <Link className="navbar-button" to="/admin">Administration</Link>}
                         <Link className="navbar-button" to="/profile">Mon Profil</Link>
+                        <Link className="navbar-button" to="/upload">Upload</Link>
                     </>
                 )}
             </div>

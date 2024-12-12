@@ -12,6 +12,7 @@ import Profile from "./pages/Profile.jsx"
 import PrivateRoute from './components/PrivateRoute.jsx';
 import AdminFamilyDetails from './components/admin/AdminFamilyDetails.jsx';
 import AdminFamiliesCards from './components/admin/AdminFamiliesCards.jsx';
+import UploadForm from "./pages/forms/UploadForm.jsx";
 
 import "./styles/main.css";
 import EmergencyContactsManagement from './components/EmergencyContactsManagement.jsx';
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
             {
               path: "/profile",
               element: <Profile />,
+            },
+            {
+              path: "/upload",
+              element: <UploadForm />,
             },
           ]
         }
