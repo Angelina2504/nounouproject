@@ -13,6 +13,7 @@ import PrivateRoute from './components/PrivateRoute.jsx';
 import AdminFamilyDetails from './components/admin/AdminFamilyDetails.jsx';
 import AdminFamiliesCards from './components/admin/AdminFamiliesCards.jsx';
 import UploadForm from "./pages/forms/UploadForm.jsx";
+import Download from "./components/admin/Download.jsx";
 
 import "./styles/main.css";
 import EmergencyContactsManagement from './components/EmergencyContactsManagement.jsx';
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
                 {
                   path: "families/:userId",
                   element: <AdminFamilyDetails /> // Affiche les détails d'une famille
+                },
+                {
+                  path: "download",
+                  element: <Download /> 
                 }
               ]
             },

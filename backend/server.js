@@ -2,6 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
+const path = require('path');
 
 const routes = require("./routes/routes");
 const adminRoutes = require("./routes/adminRoutes");
@@ -49,6 +50,10 @@ app.use("/emergency-contacts", emergencyContactRoutes);
 app.use("/tutors", tutorRoutes);
 app.use("/users", userRoutes);
 app.use("/uploads", uploadRoutes);
+
+// Servir le dossier des fichiers téléchargés
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 //Création de la const pour le PORT
 const PORT = process.env.APP_PORT;

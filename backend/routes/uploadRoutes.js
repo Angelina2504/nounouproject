@@ -18,4 +18,8 @@ router.post('/', uploadHandler.single('file'), (req, res) => {
     });
   }); */
 
+  router.get('/uploads/:filename', (req, res) => {
+    const filePath = path.join(__dirname, 'uploads', req.params.filename);
+    res.download(filePath); // Force le téléchargement
+  });
 module.exports = router;
