@@ -9,7 +9,7 @@
     useEffect(() => {
       const fetchFiles = async () => {
         try {
-          const response = await axiosInstance.get('/uploads/list');
+          const response = await axiosInstance.get('../../uploads');
           setFiles(response.data);
         } catch (error) {
           console.error('Erreur lors de la récupération des fichiers :', error);
@@ -22,7 +22,7 @@
     return (
       <div>
       {files.map((file, index) => (
-        <img key={index} src={file} alt={`Uploaded ${index}`} style={{ width: '200px', margin: '10px' }} />
+        <img key={index} src={file} alt={`Uploads ${index}`} style={{ width: '200px', margin: '10px' }} />
       ))}
     </div>
     );

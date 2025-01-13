@@ -18,7 +18,7 @@ router.post('/', uploadHandler.single('file'), (req, res) => {
     });
   }); */
 
-  router.get('/uploads/:filename', (req, res) => {
+  router.get('/uploads/demandent des doc pour prouver mon entreprise sur mat je vais faire :filename', (req, res) => {
     const filePath = path.join(__dirname, 'uploads', req.params.filename);
     res.download(filePath); // Force le téléchargement
   });
