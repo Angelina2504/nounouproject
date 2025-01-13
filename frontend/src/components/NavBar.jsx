@@ -49,9 +49,14 @@ export default function Navbar() {
                     </>
                 )}
             </div>
-            {user && (
+            {user ? (
                 <div className="navbar-right">
                     <button className="deconnexion" onClick={logout}>Se déconnecter</button>
+                </div>
+            ) : (
+                <div className="navbar-right">
+                    <Link to="/login" className="navbar-button">Se connecter</Link>
+                    <Link to="/register" className="navbar-button">S&apos;inscrire</Link>
                 </div>
             )}
         </section>
