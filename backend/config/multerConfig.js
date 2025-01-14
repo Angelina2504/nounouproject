@@ -1,10 +1,28 @@
 const multer = require('multer');
 const path = require('path');
+const userRepository = require('../models/userRepository');
 
 // Configuration du stockage
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.join(__dirname, '../uploads')); // Dossier où les fichiers seront stockés
+ 
+    //destination: path.join(__dirname, '../uploads/' + userDir),
+    destination: async (req, file, cb) => {
+        const userId = req.session.user.id;
+
+        // TODO construire le userdir
+        try {
+          // Read the user in the database
+          const user = await userRepository.read(userId);
+
+       //   user.firstname (here!!!!!!!!!!!)
+          let userDir = '';
+          
+          cb(null, path.join(__dirname, '../uploads/' + userDir)); // Dossier où les fichiers seront stockés
+      } catch (err) {
+          // In case of an error, log it and return an error response
+          console.error("Error during editing user:", err);
+         // res.status(500).json({ success: false, message: "Internal server error" });
+      }        
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`); // Nom unique pour chaque fichier
