@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const uploadHandler = require('../config/multerConfig');
+const checkSession = require('../services/checkSession');
 
-// Route pour uploader un fichier
-router.post('/', uploadHandler.single('file'), (req, res) => {
+// Route to upload a file
+router.post('/', checkSession, uploadHandler.single('file'), (req, res) => {
     res.json({
       message: 'Fichier uploadé avec succès !',
       file: req.file,
@@ -18,8 +19,8 @@ router.post('/', uploadHandler.single('file'), (req, res) => {
     });
   }); */
 
-  router.get('/uploads/demandent des doc pour prouver mon entreprise sur mat je vais faire :filename', (req, res) => {
+  router.get('/uploads/:filename', checkSession, (req, res) => {
     const filePath = path.join(__dirname, 'uploads', req.params.filename);
-    res.download(filePath); // Force le téléchargement
+    res.download(filePath); // Force download
   });
 module.exports = router;

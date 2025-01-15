@@ -3,10 +3,9 @@ const multer = require('multer');
 const path = require('path');
 const userRepository = require('../models/userRepository');
 
-// Configuration du stockage
+// Storage Config
 const storage = multer.diskStorage({
  
-    //destination: path.join(__dirname, '../uploads/' + userDir),
     destination: async (req, file, cb) => {
         const userId = req.session.user.id;
 
@@ -28,17 +27,17 @@ const storage = multer.diskStorage({
       cb(err); // Returns an error if a problem occurs
   }
 },
-    // Configuration pour le nom du fichier
+    // Config for file name
 filename: (req, file, cb) => {
-  const uniqueSuffix = `${Date.now()}`; // Génère un timestamp unique
-  const extension = path.extname(file.originalname); // Récupère l'extension du fichier
-  const baseName = path.basename(file.originalname, extension); // Récupère le nom sans extension
+  const uniqueSuffix = `${Date.now()}`; // Generate a unique timestamp
+  const extension = path.extname(file.originalname); // Get the file extension
+  const baseName = path.basename(file.originalname, extension); // Get the file without extension
 
-  cb(null, `${baseName}-${uniqueSuffix}${extension}`); // Construit le nom du fichier final
+  cb(null, `${baseName}-${uniqueSuffix}${extension}`); // Constructs the final file name
 },
 });
 
-// Filtre pour les types autorisés
+// Filter for allowed types
 const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
 
 const fileFilter = (req, file, cb) => {
@@ -48,7 +47,7 @@ const fileFilter = (req, file, cb) => {
     cb(null, true);
   };
   
-  // Configuration Multer
+  // Config Multer
 const uploadHandler = multer({
     storage: storage,
     fileFilter: fileFilter,
