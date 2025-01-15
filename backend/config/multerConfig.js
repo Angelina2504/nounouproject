@@ -1,3 +1,4 @@
+const fs = require('fs');
 const multer = require('multer');
 const path = require('path');
 const userRepository = require('../models/userRepository');
@@ -9,28 +10,36 @@ const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
         const userId = req.session.user.id;
 
-        // TODO construire le userdir
         try {
           // Read the user in the database
-          const user = await userRepository.read(userId);
+        const user = await userRepository.read(userId);
+        const userDir = `${user.lastname?.toUpperCase()} ${user.firstname} - ${userId}`;
+        const uploadPath = path.join(__dirname, '../uploads', userDir);
+      
+        fs.mkdir(uploadPath, { recursive: true }, (err) => {
+          if (err) {
+              console.error("Erreur lors de la création du dossier :", err);
+              return cb(err); // error if Mkdir fail
+          }
+          cb(null, uploadPath); // Pass the path once the folder is created
+      });
+  } catch (err) {
+      console.error("Erreur dans la fonction destination :", err);
+      cb(err); // Returns an error if a problem occurs
+  }
+},
+    // Configuration pour le nom du fichier
+filename: (req, file, cb) => {
+  const uniqueSuffix = `${Date.now()}`; // Génère un timestamp unique
+  const extension = path.extname(file.originalname); // Récupère l'extension du fichier
+  const baseName = path.basename(file.originalname, extension); // Récupère le nom sans extension
 
-       //   user.firstname (here!!!!!!!!!!!)
-          let userDir = '';
-          
-          cb(null, path.join(__dirname, '../uploads/' + userDir)); // Dossier où les fichiers seront stockés
-      } catch (err) {
-          // In case of an error, log it and return an error response
-          console.error("Error during editing user:", err);
-         // res.status(500).json({ success: false, message: "Internal server error" });
-      }        
-    },
-    filename: (req, file, cb) => {
-        cb(null, `${Date.now()}-${file.originalname}`); // Nom unique pour chaque fichier
-    },
+  cb(null, `${baseName}-${uniqueSuffix}${extension}`); // Construit le nom du fichier final
+},
 });
 
 // Filtre pour les types autorisés
-const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'];
 
 const fileFilter = (req, file, cb) => {
     if (!allowedTypes.includes(file.mimetype)) {
@@ -43,7 +52,7 @@ const fileFilter = (req, file, cb) => {
 const uploadHandler = multer({
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 5 * 1024 * 1024 }, // Limite de taille : 5 Mo
+    limits: { fileSize: 5 * 1024 * 1024 }, // size limit : 5 Mo
   });
   
   module.exports = uploadHandler;
