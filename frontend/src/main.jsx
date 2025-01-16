@@ -52,8 +52,12 @@ const router = createBrowserRouter([
                   element: <AdminFamilyDetails /> // Affiche les détails d'une famille
                 },
                 {
+                  path: "family/emergency-contacts",
+                  element: <EmergencyContactsManagement />
+                },
+                {
                   path: "download",
-                  element: <Download /> 
+                  element: <Download />
                 }
               ]
             },
