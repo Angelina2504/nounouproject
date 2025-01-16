@@ -2,6 +2,7 @@
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
+const path = require('path');
 
 const routes = require("./routes/routes");
 const adminRoutes = require("./routes/adminRoutes");
@@ -10,6 +11,7 @@ const childRoutes = require("./routes/childRoutes");
 const userRoutes = require("./routes/userRoutes");
 const tutorRoutes = require("./routes/tutorRoutes");
 const emergencyContactRoutes = require("./routes/emergencyContactRoutes")
+const uploadRoutes = require("./routes/uploadRoutes")
 
 //Variable qui permet de stocker l'instance express
 const app = express();
@@ -47,6 +49,11 @@ app.use("/children", childRoutes);
 app.use("/emergency-contacts", emergencyContactRoutes);
 app.use("/tutors", tutorRoutes);
 app.use("/users", userRoutes);
+app.use("/uploads", uploadRoutes);
+
+// Servir le dossier des fichiers téléchargés
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 
 //Création de la const pour le PORT
 const PORT = process.env.APP_PORT;

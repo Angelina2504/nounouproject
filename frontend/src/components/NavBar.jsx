@@ -45,13 +45,20 @@ export default function Navbar() {
                     <>
                         {!isAdmin && <Link className="navbar-button" to="/family">Ma Famille</Link>}
                         {isAdmin && <Link className="navbar-button" to="/admin">Administration</Link>}
+                        {isAdmin && <Link className="navbar-button" to="/admin/download">Download</Link>}
                         <Link className="navbar-button" to="/profile">Mon Profil</Link>
+                        <Link className="navbar-button" to="/upload">Upload</Link>
                     </>
                 )}
             </div>
-            {user && (
+            {user ? (
                 <div className="navbar-right">
                     <button className="deconnexion" onClick={logout}>Se déconnecter</button>
+                </div>
+            ) : (
+                <div className="navbar-right">
+                    <Link to="/login" className="navbar-button">Se connecter</Link>
+                    <Link to="/register" className="navbar-button">S&apos;inscrire</Link>
                 </div>
             )}
         </section>
