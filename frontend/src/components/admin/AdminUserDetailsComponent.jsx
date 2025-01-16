@@ -12,21 +12,23 @@ const AdminUserDetailsComponent = ({
         handleDeleteUser
     }) => {
     return (
-        <div className="user-details">
+        <form className="user-details" onSubmit={handleSaveUser}>
             <div className="name-fields">
                 <h2>Compte utilisateur :&nbsp;
                     {HTMLRenderers.renderEditableField(
                         isEditing,
                         formData.firstname !== undefined ? formData.firstname : userDetails.firstname,
                         'text',
-                        (e) => handleInputChange('user', undefined, 'firstname', e.target.value)
+                        (e) => handleInputChange('user', undefined, 'firstname', e.target.value),
+                        true
                     )}
                     &nbsp;
                     {HTMLRenderers.renderEditableField(
                         isEditing,
                         formData.lastname !== undefined ? formData.lastname?.toUpperCase() : userDetails.lastname.toUpperCase(),
                         'text',
-                        (e) => handleInputChange('user', undefined, 'lastname', e.target.value)
+                        (e) => handleInputChange('user', undefined, 'lastname', e.target.value),
+                        true
                     )}
                 </h2>
             </div>
@@ -35,7 +37,8 @@ const AdminUserDetailsComponent = ({
                     {HTMLRenderers.renderGenderField(
                         isEditing,
                         formData.gender || userDetails.gender,
-                        (e) => handleInputChange('user', undefined, 'gender', e.target.value)
+                        (e) => handleInputChange('user', undefined, 'gender', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Email : </span>
@@ -43,7 +46,8 @@ const AdminUserDetailsComponent = ({
                         isEditing,
                         formData.email !== undefined ? formData.email : userDetails.email,
                         'email',
-                        (e) => handleInputChange('user', undefined, 'email', e.target.value)
+                        (e) => handleInputChange('user', undefined, 'email', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Téléphone : </span>
@@ -51,7 +55,8 @@ const AdminUserDetailsComponent = ({
                         isEditing,
                         formData.phoneNumber !== undefined ? formData.phoneNumber : userDetails.phoneNumber,
                         'tel',
-                        (e) => handleInputChange('user', undefined, 'phoneNumber', e.target.value)
+                        (e) => handleInputChange('user', undefined, 'phoneNumber', e.target.value),
+                        true
                     )}
                 </div>
                 <div><span className="bold-text">Addresse : </span>
@@ -60,22 +65,23 @@ const AdminUserDetailsComponent = ({
                         formData.address !== undefined ? formData.address : userDetails.address,
                         'text',
                         (e) => handleInputChange('user', undefined, 'address', e.target.value),
+                        true,
                         'editable-address'
                     )}
                 </div>
                 {isEditing ? (
                     <div>
-                        <button className="edit-button" onClick={handleSaveUser}>Enregistrer</button>
-                        <button className="cancel-button" onClick={() => handleCancel('user')}>Annuler</button>
+                        <button className="edit-button" type="submit">Enregistrer</button>
+                        <button className="cancel-button" onClick={(event) => handleCancel(event, 'user')}>Annuler</button>
                     </div>
                 ) : (
                     <div className="buttons-container">
-                        <button className="edit-button" onClick={() => handleEditToggle('user')}>Editer</button>
-                        <button className="delete-button" onClick={() => handleDeleteUser(userDetails)}>Supprimer</button>
+                        <button className="edit-button" onClick={(event) => handleEditToggle(event, 'user')}>Editer</button>
+                        <button className="delete-button" onClick={(event) => handleDeleteUser(event, userDetails)}>Supprimer</button>
                     </div>
                 )}
             </div>
-        </div>
+        </form>
     );
 };
 

@@ -30,7 +30,8 @@
     margin-top: 10px;
 }
 
-.emergency-contact-form-container input {
+.emergency-contact-form-container input,
+.emergency-contact-form-container select {
     padding: 5px;
     margin: 10px;
     border: 1px solid #5e3370;
@@ -58,6 +59,8 @@
 /* Contact individual entry styling */
 .contact-details {
     margin-bottom: 12px;
+    border-bottom: 1px solid #5e3370;
+    padding-bottom: 5px;
 }
 
 /* Contact name style */
@@ -70,6 +73,14 @@
 .contact-details p {
     margin: 4px 0;
     color: #5e3370;
+}
+
+.contact-details p.contact-red-text {
+    color: #a30000;
+}
+
+.contact-details p.contact-details-name {
+    margin-bottom: 15px;
 }
 
 /* Same background as the Add/Update form for the input fields */
@@ -88,7 +99,7 @@
 .contact-buttons-container {
     display: flex;
     gap: 10px;
-    margin-top: 10px;
+    margin: 10px 0;
     justify-content: space-between;
 }
 
@@ -105,6 +116,20 @@
     transition: background-color 0.3s ease;
 }
 
+.contact-add-button {
+    margin: 0 0 15px 10px;
+    background-color: #ffff54;
+    border-radius: 20px;
+    padding: 10px 20px;
+    color: #5e3370;
+    border: 2px solid #5e3370;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.contact-add-button:hover,
 .contact-save-button:hover,
 .contact-cancel-button:hover {
     background-color: #5e3370;

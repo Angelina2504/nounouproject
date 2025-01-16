@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import axiosInstance from '../services/httpClient';
 import {useLocation, useNavigate} from 'react-router-dom';
 
@@ -8,6 +8,7 @@ export default function EmergencyContactsManagement() {
     const location = useLocation();
     const navigate = useNavigate();
     const childrenList = location.state?.childrenList || []; // récupère la liste des enfants passée en paramètre du navigate options
+    const userId = location.state?.userId || undefined; // récupère l'id de l'utilisateur passé en paramètre du navigate options
     const [displayAddContactForm, setDisplayAddContactForm] = useState(false);
 
     const [emergencyContacts, setEmergencyContacts] = useState([]);
@@ -33,25 +34,50 @@ export default function EmergencyContactsManagement() {
 
     const [editingContact, setEditingContact] = useState(null); // Le contact en cours d'édition
 
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    // FIXME this is a copy of the function in Admin.jsx, should be moved to a shared file
+    /**
+     * Check if the user is an admin, and redirect to the appropriate page.
+     * useCallback to avoid recreating the function at each render
+     */
+    const checkUserIsAdmin = useCallback(async () => {
+        try {
+            const response = await axiosInstance.get("/auth/is-admin", { withCredentials: true });
+            // If user is not admin, or no user authenticated, we will return false
+            setIsAdmin(!(!response.data || !response.data.isAdmin));
+            return isAdmin;
+        } catch (error) {
+            console.error('Erreur lors de la vérification des droits administrateurs', error);
+        }
+    }, [isAdmin]);
+
+
     /**
      * Fetch emergency contacts from the API, for children of the connected user
      * @returns {Promise<void>}
      */
-    const fetchEmergencyContacts = async () => {
+    const fetchEmergencyContacts = useCallback( async (isAdmin = false) => {
         try {
-            const response = await axiosInstance.get('/emergency-contacts');
+            const emergencyContactsURL = (isAdmin && userId) ? `/admin/emergency-contacts?userId=${userId}` : '/emergency-contacts';
+            const response = await axiosInstance.get(emergencyContactsURL);
             setEmergencyContacts(response.data.childrenEmergencyContacts);
         } catch (error) {
             console.error('Erreur lors de la récupération des contacts d\'urgence', error);
         }
-    };
+    }, [userId]);
 
     /**
      * Fetch emergency contacts when the component is mounted
      */
     useEffect(() => {
-        fetchEmergencyContacts();
-    }, []);
+        checkUserIsAdmin();
+    }, [checkUserIsAdmin]);
+
+
+    useEffect(() => {
+        fetchEmergencyContacts(isAdmin);
+    }, [fetchEmergencyContacts, isAdmin]);
 
     /**
      * Reset the form and cancel editing mode
@@ -87,7 +113,12 @@ export default function EmergencyContactsManagement() {
 
     // Back button function
     const handleBack = () => {
-        navigate('/family'); // Navigates back to the family page
+        if (isAdmin && userId) {
+            // Redirige vers l'URL d'administration avec l'ID de l'utilisateur
+            navigate(`/admin/families/${userId}`);
+        } else {
+            navigate('/family'); // Redirige les utilisateurs non-admins vers la page de la famille
+        }
     };
 
     /**
@@ -130,7 +161,8 @@ export default function EmergencyContactsManagement() {
      * Handle adding a new emergency contact
      * @returns {Promise<void>}
      */
-    const handleAddContact = async () => {
+    const handleAddContact = async (e) => {
+        e.preventDefault();
         try {
 
             const payload = {
@@ -166,13 +198,14 @@ export default function EmergencyContactsManagement() {
      * Handle saving the edited contact
      * @returns {Promise<void>}
      */
-    const handleSaveEdit = async () => {
+    const handleSaveEdit = async (e) => {
+        e.preventDefault();
         try {
 
             const payload = {
                 emergencyContact: {
-                    ...newContactForm,
-                    childId: newContactForm.childId
+                    ...newEditContactForm,
+                    childId: newEditContactForm.childId
                 }
             }
 
@@ -233,13 +266,16 @@ export default function EmergencyContactsManagement() {
                 <button className="back-button" onClick={handleBack}>Retour</button>
             </div>
 
-            <h1>Gestion des Contacts d&apos;Urgence <button className={displayAddContactForm ? 'contact-cancel-button' : 'add-button'}
-                onClick={toggleAddContactForm}>
-                {displayAddContactForm ? 'Annuler' : 'Ajouter un Contact d\'Urgence'}
-            </button></h1>
+            <h1>{!isAdmin ? 'Gestion des ' : ''} Contacts d&apos;Urgence
+                {!isAdmin &&
+                    <button className={displayAddContactForm ? 'contact-cancel-button' : 'contact-add-button'}
+                        onClick={toggleAddContactForm}>
+                        {displayAddContactForm ? 'Annuler' : 'Ajouter un Contact d\'Urgence'}
+                    </button>}
+                </h1>
 
             {displayAddContactForm && (
-                <div className="emergency-contact-form-container">
+                <form className="emergency-contact-form-container" onSubmit={handleAddContact}>
                     <div>
                         <label htmlFor="childId"><span className="bold-text">Enfant</span></label>
                         <select name="childId" value={newContactForm.childId} onChange={handleSelectChildChange} required>
@@ -252,7 +288,7 @@ export default function EmergencyContactsManagement() {
 
                     <div>
                         <label htmlFor="gender">Genre </label>
-                        <select name="gender" value={newContactForm.gender} onChange={handleChange}>
+                        <select name="gender" value={newContactForm.gender} onChange={handleChange} required>
                             <option value="M">Homme</option>
                             <option value="F">Femme</option>
                             <option value="O">Autre</option>
@@ -265,6 +301,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Prénom"
                             value={newContactForm.firstname}
                             onChange={handleChange}
+                            required
                         />
 
                         <label htmlFor="lastname">Nom </label>
@@ -274,6 +311,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Nom"
                             value={newContactForm.lastname}
                             onChange={handleChange}
+                            required
                         />
 
                         <label htmlFor="relationship">Relation </label>
@@ -283,6 +321,7 @@ export default function EmergencyContactsManagement() {
                             placeholder="Relation"
                             value={newContactForm.relationship}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
@@ -294,7 +333,9 @@ export default function EmergencyContactsManagement() {
                             className="editable-address"
                             placeholder="Adresse"
                             value={newContactForm.address}
-                            onChange={handleChange}/>
+                            onChange={handleChange}
+                            required
+                        />
 
                         <label htmlFor="phoneNumber">Numéro de téléphone </label>
                         <input
@@ -303,15 +344,16 @@ export default function EmergencyContactsManagement() {
                             placeholder="Numéro de téléphone"
                             value={newContactForm.phone_number}
                             onChange={handleChange}
+                            required
                         />
                     </div>
 
                     <div className="contact-buttons-container">
-                        <button className="contact-edit-button" onClick={handleAddContact}>Ajouter un Contact</button>
+                        <button className="contact-edit-button" type="submit">Ajouter un Contact</button>
                         <button className="contact-cancel-button" onClick={handleCancelAdd}>Annuler</button> {/* Now resets the form */}
                     </div>
 
-                </div>
+                </form>
             )}
 
             <h3>Liste des Contacts d&apos;Urgence par Enfant</h3>
@@ -324,8 +366,11 @@ export default function EmergencyContactsManagement() {
                         <div key={child.id} className="child-contacts-block">
                             <h2>Enfant : <strong>{child.firstname} {child.lastname}</strong></h2>
                             <div className="contact-details-block">
+                                {child.emergency_contacts.length === 0 ? (
+                                    <p>Aucun contact d&apos;Urgence enregistré pour cet enfant.</p>
+                                ) : ''}
                                 {child.emergency_contacts.map(contact => (
-                                    <div key={contact.id} className="contact-details">
+                                    <form key={contact.id} className="contact-details" onSubmit={handleSaveEdit}>
                                         {editingContact && editingContact.id === contact.id ? (
                                             <>
                                                 {/* Editing Mode */}
@@ -333,7 +378,9 @@ export default function EmergencyContactsManagement() {
                                                     <span className="bold-text">Genre : </span>
                                                     <select className="editable-field" name="gender"
                                                             value={newEditContactForm.gender}
-                                                            onChange={handleEditFormChange}>
+                                                            onChange={handleEditFormChange}
+                                                            required
+                                                    >
                                                         <option value="M">Homme</option>
                                                         <option value="F">Femme</option>
                                                         <option value="O">Autre</option>
@@ -347,6 +394,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.firstname}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Prénom"
+                                                        required
                                                     />
                                                 </p>
                                                 <p>
@@ -357,6 +405,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.lastname}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Nom"
+                                                        required
                                                     />
                                                 </p>
                                             <p>
@@ -367,6 +416,7 @@ export default function EmergencyContactsManagement() {
                                                     value={newEditContactForm.relationship}
                                                     onChange={handleEditFormChange}
                                                     placeholder="Relation"
+                                                    required
                                                 />
                                             </p>
                                                 <p>
@@ -377,6 +427,7 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.phone_number}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Numéro de téléphone"
+                                                        required
                                                     />
                                                 </p>
                                                 <p>
@@ -388,13 +439,13 @@ export default function EmergencyContactsManagement() {
                                                         value={newEditContactForm.address}
                                                         onChange={handleEditFormChange}
                                                         placeholder="Adresse"
+                                                        required
                                                     />
                                                 </p>
-                                                {/*</div>*/}
                                                 <div className="contact-buttons-container">
                                                     <button
                                                         className="contact-save-button"
-                                                        onClick={handleSaveEdit}
+                                                        type="submit"
                                                     >
                                                         Enregistrer
                                                     </button>
@@ -409,32 +460,34 @@ export default function EmergencyContactsManagement() {
                                         ) : (
                                             <>
                                                 {/* Display Mode */}
-                                                <p><strong>{contact.firstname} {contact.lastname}</strong></p>
+                                                <p className="contact-details-name"><strong>{contact.firstname} {contact.lastname}</strong></p>
                                                 <p><span
                                                     className="bold-text">Genre :</span> {contact.gender === 'M' ? 'Homme' : (contact.gender === 'F' ? 'Femme' : 'Autre')}
                                                 </p>
                                                 <p><span className="bold-text">Relation : </span>{contact.relationship}
                                                 </p>
-                                                <p><span className="bold-text">Téléphone : </span>{contact.phone_number}
+                                                <p className={isAdmin ? 'bold-text contact-red-text' : ''}><span className="bold-text">Téléphone : </span>{contact.phone_number}
                                                 </p>
                                                 <p><span className="bold-text">Adresse : </span>{contact.address}</p>
-                                                <div className="contact-buttons-container">
-                                                    <button
-                                                        className="contact-edit-button"
-                                                        onClick={() => handleEditContact(child.id, contact)}
-                                                    >
-                                                        Éditer
-                                                    </button>
-                                                    <button
-                                                        className="contact-delete-button"
-                                                        onClick={() => handleDeleteContact(contact, child.id)}
-                                                    >
-                                                        Supprimer
-                                                    </button>
-                                                </div>
+                                                {!isAdmin &&
+                                                    <div className="contact-buttons-container">
+                                                        <button
+                                                            className="contact-edit-button"
+                                                            onClick={() => handleEditContact(child.id, contact)}
+                                                        >
+                                                            Éditer
+                                                        </button>
+                                                        <button
+                                                            className="contact-delete-button"
+                                                            onClick={() => handleDeleteContact(contact, child.id)}
+                                                        >
+                                                            Supprimer
+                                                        </button>
+                                                    </div>
+                                                }
                                             </>
                                         )}
-                                    </div>
+                                    </form>
                                 ))}
                             </div>
                         </div>
