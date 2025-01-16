@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState} from 'react';
 import axiosInstance from "../services/httpClient";
 import { useNavigate } from "react-router-dom";
 import { useCheckConnected } from "../hooks/useCheckConnected"; // Importer le contexte d'authentification
@@ -20,7 +20,7 @@ export default function Registration() {
     const [error, setError] = useState("");
 
     const navigate = useNavigate();
-    const { login } = useCheckConnected();
+    const { user, login } = useCheckConnected();
 
     // Fonction pour gérer les changements du champ de confirmation du mot de passe
     const handlePasswordConfirmationChange = (e) => {
@@ -63,6 +63,11 @@ export default function Registration() {
         }
     };
 
+    useEffect(() => {
+        if (user) {
+            navigate("/family");
+        }
+    }, [user, navigate]);
 
     return (
         <>
