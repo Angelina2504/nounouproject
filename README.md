@@ -1,65 +1,124 @@
-## Concept
+# 🧸 Des signes et des mots
 
-The website "Des signes et des mots" is a site to facilite the communication between family and the nanny.
+A platform to facilitate communication between a family and their nanny, to track children’s needs, daily routines, and important events.
 
-============================================================================
-## TODO
-- real server address for API calls instead of localhost:3333
-- rename 'allergy' to 'allergies' in the database and everyhwere else
-- Use PropTypes for all components to enforce type checking
-- ADMIN: Add possibility to reset password for users, sending an email to redefine one
-  ============================================================================
+---
 
+## ✨ Features
 
+### Version 1 (current)
+- Nanny presentation page
+- Family home page
+- User authentication
 
-## Features
-
-# In the V1
-
-- nanny presentation page.
-- home page family
-
-# upcoming
-
+### Upcoming
 - Calendar page
+- Admin: Password reset with email
 
-## Setup & Use
+---
 
-First, run `npm install` to install all dependencies from `/frontend` and `/backend` folders.
+## ⚙️ Prerequisites
 
-Then, we need to initialize the database. To do so, go to `/backend` and run `npm run db:init`.
-_Note: Configuration has to be done in the `.env` file._
+Make sure the following tools are installed on your machine:
 
-To run the frontend, go to `/frontend` and run `npm run dev`.
-The frontend will be available at `http://localhost:5173`, according to the configuration in the `.env` file.
+- [Node.js](https://nodejs.org/) v18 or later
+- [MySQL 8](https://dev.mysql.com/downloads/mysql/)
+- [npm](https://www.npmjs.com/) (comes with Node.js)
+- [Git](https://git-scm.com/) (optional, to clone the project)
 
-To run the backend, go to `/backend` and run `npm run dev`.
-The server will be listening at `http://localhost:3333`, alsa according to the configuration in the `.env` file.
+---
 
-# Project Initialization
+## 🛠️ Installation & Configuration
 
-- In VSCode, install plugins Prettier.
+### 1. Clone the project
 
-- Code formatter and ESLint and configure them.
+```bash
+git clone <repository-url>
+cd nounouproject
+```
 
-- Type this command in your terminal if you're running Windows :
+### 2. Install dependencies
 
-    - git config --global core.eol lf,
-    - git config --global core.autocrlf false.
+In the root folder:
 
-- Run command npm i and npm run dev.
+```bash
+npm install
+```
 
+Then in `/frontend`:
 
-## Available Commands
+```bash
+cd frontend
+npm install
+```
 
-## FAQ
+### 3. Environment configuration
 
-## Technologies
+Create a `.env` file in the `/frontend` folder with:
 
-- JS.
-- React.
-- Node.
-- Express.
-- MySQL.
+```env
+VITE_API_URL=http://localhost:3333
+```
 
-## Tools
+(Change this URL if deploying the backend elsewhere.)
+
+### 4. Initialize the database
+
+Create a MySQL database (default: `nounou`) and configure credentials in your backend environment:
+
+Create a `.env` file in `/backend` or root with:
+
+```env
+DB_HOST=localhost
+DB_USER=your_mysql_user
+DB_PASSWORD=your_password
+DB_NAME=nounou
+```
+
+Then run the DB initialization:
+
+```bash
+cd backend
+npm run db:init
+```
+
+> 💡 You can use the example SQL dump at `/20240726-110949-sample.sql` to populate sample data.
+
+---
+
+## ▶️ Run the application
+
+### 1. Start the backend
+
+```bash
+cd backend
+npm run dev
+```
+
+API will run on `http://localhost:3333`.
+
+### 2. Start the frontend
+
+```bash
+cd frontend
+npm run dev
+```
+
+The frontend will be available at `http://localhost:5173` (or as shown by Vite).
+
+---
+
+## 🧪 Best practices & TODOs
+
+- Replace `localhost:3333` hardcoded URLs with `.env` config
+- Rename `allergy` to `allergies` in DB and codebase
+- Use `PropTypes` in all React components
+- Add password reset feature for admins
+
+---
+
+## 🧑‍💻 Tech stack
+
+- **Frontend**: React + Vite + CSS Modules
+- **Backend**: Node.js + Express (or similar)
+- **Database**: MySQL 8
