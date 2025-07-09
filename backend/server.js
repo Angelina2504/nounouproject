@@ -21,7 +21,9 @@ app.use(
     origin: [
       process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
     ],
-    credentials: true // permet de passer les cookies
+    credentials: true, // permet de passer les cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
 
