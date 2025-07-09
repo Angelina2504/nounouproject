@@ -47,7 +47,7 @@ const initializeDatabase = async () => {
     }
     // And properly close the pool, this is mandatory to end the Node.js process and prevent
     // it from hanging indefinitely (the terminal would not return to the prompt if the pool is not closed)
-    await pool.end();
+    // await pool.end();
   }
 };
 
