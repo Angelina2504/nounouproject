@@ -11,10 +11,6 @@
   to = "https://nounouproject-production.up.railway.app/:splat"
   status = 200
   force = true
-  headers = { 
-    Access-Control-Allow-Origin = "https://nounouproject.netlify.app", 
-    Access-Control-Allow-Credentials = "true"
-  }
 
 [[headers]]
   for = "/api/*"
