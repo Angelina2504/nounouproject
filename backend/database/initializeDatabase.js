@@ -15,13 +15,13 @@ const initializeDatabase = async () => {
     const samplesSql = fs.readFileSync(samplesPath, "utf-8");
 
     const schemaQueries = schemaSql
-        .split(";")
-        .map((query) => query.trim())
-        .filter((query) => query.length);
+      .split(";")
+      .map((query) => query.trim())
+      .filter((query) => query.length);
     const samplesQueries = samplesSql
-        .split(";")
-        .map((query) => query.trim())
-        .filter((query) => query.length);
+      .split(";")
+      .map((query) => query.trim())
+      .filter((query) => query.length);
 
     connection = await pool.getConnection();
 
@@ -51,5 +51,5 @@ const initializeDatabase = async () => {
   }
 };
 
-// module.exports = { initializeDatabase };
-initializeDatabase();
+module.exports = { initializeDatabase };
+// initializeDatabase();
