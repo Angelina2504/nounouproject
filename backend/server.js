@@ -58,7 +58,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 //Création de la const pour le PORT
-const PORT = process.env.APP_PORT;
+const PORT = process.env.APP_PORT || 3001;
 //Écouter sur un port et faire une action. Il est possible de mettre sous format json étant donné que c'est du back et non du frontend
 app.listen(PORT, async () => {
   console.log(`J'écoute sur le port ${PORT}`);
