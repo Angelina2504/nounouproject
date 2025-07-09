@@ -17,28 +17,28 @@ const uploadRoutes = require("./routes/uploadRoutes")
 const app = express();
 
 app.use(
-    cors({
-      origin: [
-        process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
-      ],
-      credentials: true // permet de passer les cookies
-    })
+  cors({
+    origin: [
+      process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
+    ],
+    credentials: true // permet de passer les cookies
+  })
 );
 
 app.use(express.json());
 
 // Configuration de la session
 app.use(session(
-    {
-        secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer le cookie de session
-        resave: false, // Évite de sauvegarder la session si elle n'a pas été modifiée
-        saveUninitialized: false, // Sauvegarde une session même si elle n'a pas encore été initialisée
-        cookie: {
-            httpOnly: true, // Empêche l'accès via JavaScript côté client
-            secure: false, // Doit être true en prooduction avec HTTPS
-            maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
-        }
-    })
+  {
+    secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer le cookie de session
+    resave: false, // Évite de sauvegarder la session si elle n'a pas été modifiée
+    saveUninitialized: false, // Sauvegarde une session même si elle n'a pas encore été initialisée
+    cookie: {
+      httpOnly: true, // Empêche l'accès via JavaScript côté client
+      secure: false, // Doit être true en prooduction avec HTTPS
+      maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
+    }
+  })
 );
 
 // Configuration des routes de l'api
@@ -56,7 +56,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 
 //Création de la const pour le PORT
-const PORT = process.env.APP_PORT;
+const PORT = process.env.APP_PORT || 3001;
 //Écouter sur un port et faire une action. Il est possible de mettre sous format json étant donné que c'est du back et non du frontend
 app.listen(PORT, async () => {
   console.log(`J'écoute sur le port ${PORT}`);
