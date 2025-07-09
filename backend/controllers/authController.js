@@ -29,6 +29,8 @@ const login = async (req, res) => {
             email: user.email
         };
 
+        console.log('=====> Current session:', req.session); // FIXME just to test deployment
+
         // On doit retourner l'id et l'email de l'utilisateur pour le front dans la réponse
         res.status(200).json({ success: true,
             user: { id: user.id, email: user.email}
