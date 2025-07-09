@@ -34,6 +34,8 @@ app.use(
 
 app.use(express.json());
 
+app.set('trust proxy', 1); // ← DIT À EXPRESS : "JE SUIS DERRIÈRE UN PROXY HTTPS"
+
 // Configuration de la session
 app.use(session(
   {
@@ -43,7 +45,7 @@ app.use(session(
     cookie: {
       httpOnly: true, // Empêche l'accès via JavaScript côté client
       // secure: false, // Doit être true en prooduction avec HTTPS
-      secure: false, // process.env.NODE_ENV === 'production', // ✅ true si en prod
+      secure: process.env.NODE_ENV === 'production', // ✅ true si en prod
       sameSite: 'none', // ✅ indispensable pour les cookies cross-site
       maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
     }
