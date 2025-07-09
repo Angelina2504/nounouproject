@@ -12,6 +12,3 @@
   status = 200
   force = true
 
-  [redirects.headers]
-    Access-Control-Allow-Origin = "https://nounouproject.netlify.app"
-    Access-Control-Allow-Credentials = "true"

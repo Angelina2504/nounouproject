@@ -18,18 +18,19 @@ const uploadRoutes = require("./routes/uploadRoutes")
 //Variable qui permet de stocker l'instance express
 const app = express();
 
-/*
+
 app.use(
   cors({
-    origin: [
-      process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
-    ],
+   // origin: [
+   //   process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
+   // ],
+    origin: process.env.CLIENT_URL,
     credentials: true, // permet de passer les cookies
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
-*/
+
 
 app.use(express.json());
 
