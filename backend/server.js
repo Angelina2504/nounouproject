@@ -17,28 +17,30 @@ const uploadRoutes = require("./routes/uploadRoutes")
 const app = express();
 
 app.use(
-    cors({
-      origin: [
-        process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
-      ],
-      credentials: true // permet de passer les cookies
-    })
+  cors({
+    origin: [
+      process.env.CLIENT_URL, // keep this one, after checking the value in `backend/.env`
+    ],
+    credentials: true, // permet de passer les cookies
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  })
 );
 
 app.use(express.json());
 
 // Configuration de la session
 app.use(session(
-    {
-        secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer le cookie de session
-        resave: false, // Évite de sauvegarder la session si elle n'a pas été modifiée
-        saveUninitialized: false, // Sauvegarde une session même si elle n'a pas encore été initialisée
-        cookie: {
-            httpOnly: true, // Empêche l'accès via JavaScript côté client
-            secure: false, // Doit être true en prooduction avec HTTPS
-            maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
-        }
-    })
+  {
+    secret: process.env.SESSION_SECRET_KEY, // Clé secrète pour signer le cookie de session
+    resave: false, // Évite de sauvegarder la session si elle n'a pas été modifiée
+    saveUninitialized: false, // Sauvegarde une session même si elle n'a pas encore été initialisée
+    cookie: {
+      httpOnly: true, // Empêche l'accès via JavaScript côté client
+      secure: false, // Doit être true en prooduction avec HTTPS
+      maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
+    }
+  })
 );
 
 // Configuration des routes de l'api
