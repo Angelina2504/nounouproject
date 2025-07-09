@@ -39,7 +39,9 @@ app.use(session(
     saveUninitialized: false, // Sauvegarde une session même si elle n'a pas encore été initialisée
     cookie: {
       httpOnly: true, // Empêche l'accès via JavaScript côté client
-      secure: false, // Doit être true en prooduction avec HTTPS
+      // secure: false, // Doit être true en prooduction avec HTTPS
+      secure: process.env.NODE_ENV === 'production', // ✅ true si en prod
+      sameSite: 'none', // ✅ indispensable pour les cookies cross-site
       maxAge: 3600000 // Durée de vie de la session en ms soit 1 heure
     }
   })
