@@ -18,6 +18,7 @@ const uploadRoutes = require("./routes/uploadRoutes")
 //Variable qui permet de stocker l'instance express
 const app = express();
 
+/*
 app.use(
   cors({
     origin: [
@@ -28,6 +29,7 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization']
   })
 );
+*/
 
 app.use(express.json());
 
